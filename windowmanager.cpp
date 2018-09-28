@@ -1,5 +1,5 @@
 #include "windowmanager.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),

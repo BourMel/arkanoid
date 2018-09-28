@@ -1,5 +1,5 @@
 #include "windowmanager.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <iostream>
 
 int x_vault;
