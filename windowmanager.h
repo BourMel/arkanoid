@@ -3,12 +3,10 @@
 
 #include "player.h"
 #include <SDL2/SDL.h>
-#include <iostream>
 
 class WindowManager {
 public:
   WindowManager();
-  WindowManager(int resolution);
   WindowManager(int width, int height);
 
   // initialise la fenêtre

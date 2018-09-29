@@ -1,5 +1,5 @@
 #include "eventmanager.h"
-
+#include "player.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 

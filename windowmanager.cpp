@@ -1,17 +1,11 @@
 #include "windowmanager.h"
 #include <SDL2/SDL.h>
+#include <iostream>
 
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
       srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
-      scrVaiss({128, 0, 128, 32}), m_width(600), m_height(600) {
-  init();
-}
-
-WindowManager::WindowManager(int resolution)
-    : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
-      scrVaiss({128, 0, 128, 32}), m_width(resolution), m_height(resolution) {
+      scrVaiss({128, 0, 128, 32}), m_width(800), m_height(600) {
   init();
 }
 
@@ -47,7 +41,7 @@ void WindowManager::draw(Player &player) {
   SDL_Rect dest = {0, 0, 0, 0};
 
   for (int j = 0; j < win_surf->h; j += 128) {
-    for (int i = 0; i < win_surf->w; i += 96) {
+    for (int i = 0; i < win_surf->w - 288; i += 96) {
       dest.x = i;
       dest.y = j;
       SDL_BlitSurface(plancheSprites, &srcBg, win_surf, &dest);
