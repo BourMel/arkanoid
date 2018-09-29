@@ -4,8 +4,26 @@
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
       srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
-      scrVaiss({128, 0, 128, 32}) {
+      scrVaiss({128, 0, 128, 32}), m_width(600), m_height(600) {
+  init();
+}
 
+WindowManager::WindowManager(int resolution)
+    : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
+      srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
+      scrVaiss({128, 0, 128, 32}), m_width(resolution), m_height(resolution) {
+  init();
+}
+
+WindowManager::WindowManager(int width, int height)
+    : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
+      srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
+      scrVaiss({128, 0, 128, 32}), m_width(width), m_height(height) {
+  init();
+}
+
+// initialise la fenêtre
+void WindowManager::init() {
   // vérifie si SDL s'est bien initialisé
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     std::cerr << "Echec de l'initialisation de la SDL " << SDL_GetError()
@@ -13,9 +31,9 @@ WindowManager::WindowManager()
     exit(1);
   }
 
-  pWindow =
-      SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_UNDEFINED,
-                       SDL_WINDOWPOS_UNDEFINED, 600, 600, SDL_WINDOW_SHOWN);
+  pWindow = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED,
+                             SDL_WINDOWPOS_CENTERED, m_width, m_height,
+                             SDL_WINDOW_SHOWN);
   win_surf = SDL_GetWindowSurface(pWindow);
 
   plancheSprites = SDL_LoadBMP("./sprites.bmp");

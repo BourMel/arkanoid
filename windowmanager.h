@@ -8,6 +8,11 @@
 class WindowManager {
 public:
   WindowManager();
+  WindowManager(int resolution);
+  WindowManager(int width, int height);
+
+  // initialise la fenêtre
+  void init();
 
   // dessine ce qui est nécessaire dans la surface de la fenêtre
   void draw(Player &player);
@@ -28,6 +33,8 @@ private:
   SDL_Rect srcBg;
   SDL_Rect srcBall;
   SDL_Rect scrVaiss;
+  int m_width;
+  int m_height;
 };
 
 #endif // WINDOWMANAGER_H
