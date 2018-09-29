@@ -1,6 +1,6 @@
 .PHONY: arkanoid
 arkanoid:
-	g++ *.cpp *.h -lSDL2 -o arkanoid
+	g++ *.cpp *.h -std=c++11 -lSDL2 -o arkanoid
 
 .PHONY: format
 format:
