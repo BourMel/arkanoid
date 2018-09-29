@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
 
   while (!em.get_quit()) {
     em.listen(player);
-    wm.draw();
+    wm.draw(player);
     wm.update();
   }
 

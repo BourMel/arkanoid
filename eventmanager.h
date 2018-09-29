@@ -1,13 +1,13 @@
 #ifndef EVENTMANAGER_H
 #define EVENTMANAGER_H
 
-#include <SDL2/SDL.h>
 #include "player.h"
+#include <SDL2/SDL.h>
 
 class EventManager {
 public:
   EventManager();
-  void listen(Player& player);
+  void listen(Player &player);
 
   void set_quit(bool value);
   bool get_quit();

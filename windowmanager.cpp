@@ -23,7 +23,7 @@ WindowManager::WindowManager()
 }
 
 // dessine ce qui est nécessaire dans la surface de la fenêtre
-void WindowManager::draw() {
+void WindowManager::draw(Player &player) {
 
   // remplit le fond
   SDL_Rect dest = {0, 0, 0, 0};
@@ -60,10 +60,10 @@ void WindowManager::draw() {
   //    srcBall.y = 96; // -> vert
   //  }
 
-  //  // vaisseau
-  //  dest.x = x_vault;
-  //  dest.y = win_surf->h - 32;
-  //  SDL_BlitSurface(plancheSprites, &scrVaiss, win_surf, &dest);
+  // vaisseau
+  dest.x = player.get_x();
+  dest.y = win_surf->h - 32;
+  SDL_BlitSurface(plancheSprites, &scrVaiss, win_surf, &dest);
 }
 
 // met à jour l'affichage de la surface de la fenêtre
