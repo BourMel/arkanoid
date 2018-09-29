@@ -1,9 +1,13 @@
+#include "eventmanager.h"
+#include "player.h"
 #include "windowmanager.h"
+
 #include <SDL2/SDL.h>
 #include <iostream>
 
-int x_vault;
 WindowManager wm;
+EventManager em;
+Player player;
 
 SDL_Rect ball;
 struct {
@@ -62,43 +66,14 @@ void init() {
 int main(int argc, char **argv) {
   init();
 
-  bool quit = false;
-  while (!quit) {
-    SDL_Event event;
-    while (!quit && SDL_PollEvent(&event)) {
-      switch (event.type) {
-      case SDL_QUIT:
-        quit = true;
-        break;
-      case SDL_KEYDOWN:
-        switch (event.key.keysym.sym) {
-        // touche clavier
-        case SDLK_LEFT:
-          x_vault -= 10;
-          break;
-        case SDLK_RIGHT:
-          x_vault += 10;
-          break;
-        case SDLK_ESCAPE:
-          quit = true;
-          break;
-        default:
-          break;
-        }
-        break;
-      case SDL_MOUSEMOTION:
-        x_vault += event.motion.xrel;
-        break;
-      case SDL_MOUSEBUTTONDOWN:
-        std::cout << "mouse click " << event.button.button << std::endl;
-        break;
-      default:
-        break;
-      }
-    }
+  em.set_quit(false);
+
+  while (!em.get_quit()) {
+    em.listen(player);
     wm.draw();
     wm.update();
   }
+
   SDL_Quit();
   return 0;
 }
