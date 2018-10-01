@@ -1,7 +1,7 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
-#include "player.h"
+#include "board.h"
 #include <SDL2/SDL.h>
 
 class WindowManager {
@@ -13,7 +13,7 @@ public:
   void init();
 
   // dessine ce qui est nécessaire dans la surface de la fenêtre
-  void draw(Player &player);
+  void draw(Board &board);
 
   // met à jour l'affichage de la surface de la fenêtre
   void update();

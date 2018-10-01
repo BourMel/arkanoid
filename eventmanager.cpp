@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-EventManager::EventManager() {}
+EventManager::EventManager() : m_quit(false) {}
 
 void EventManager::listen(Player &player) {
   while (!m_quit && SDL_PollEvent(&m_event)) {

@@ -1,4 +1,5 @@
 #include "windowmanager.h"
+#include "player.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -35,7 +36,8 @@ void WindowManager::init() {
 }
 
 // dessine ce qui est nécessaire dans la surface de la fenêtre
-void WindowManager::draw(Player &player) {
+void WindowManager::draw(Board &board) {
+  Player player = board.getPlayer();
 
   // remplit le fond
   SDL_Rect dest = {0, 0, 0, 0};
