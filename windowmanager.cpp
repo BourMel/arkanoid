@@ -6,7 +6,7 @@
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
       srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
-      scrVaiss({128, 0, 128, 32}), m_width(800), m_height(600) {
+      scrVaiss({128, 0, 128, 32}), m_width(600), m_height(600) {
   init();
 }
 
@@ -37,31 +37,26 @@ void WindowManager::init() {
 
 // dessine ce qui est nécessaire dans la surface de la fenêtre
 void WindowManager::draw(Board &board) {
-  Player player = board.getPlayer();
+  Player &player = board.getPlayer();
+  Ball &ball = board.getBall();
+  SDL_Rect ballRect = ball.getRect();
 
   // remplit le fond
   SDL_Rect dest = {0, 0, 0, 0};
 
   for (int j = 0; j < win_surf->h; j += 128) {
-    for (int i = 0; i < win_surf->w - 288; i += 96) {
+    for (int i = 0; i < win_surf->w; i += 96) {
       dest.x = i;
       dest.y = j;
       SDL_BlitSurface(plancheSprites, &srcBg, win_surf, &dest);
     }
   }
 
-  //  // affiche balle
-  //  SDL_BlitSurface(plancheSprites, &srcBall, win_surf, &ball);
+  // affiche balle
+  SDL_BlitSurface(plancheSprites, &srcBall, win_surf, &ballRect);
 
-  //  // deplacement
-  //  ball.x += speed.x;
-  //  ball.y += speed.y;
-
-  //  // collision bord
-  //  if ((ball.x < 1) || (ball.x > (win_surf->w - 25)))
-  //    speed.x *= -1;
-  //  if ((ball.y < 1) || (ball.y > (win_surf->h - 25)))
-  //    speed.y *= -1;
+  ball.move();
+  ball.debug();
 
   //  // touche bas -> rouge
   //  if (ball.y > (win_surf->h - 25))

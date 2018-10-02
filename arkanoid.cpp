@@ -1,3 +1,4 @@
+#include "ball.h"
 #include "board.h"
 #include "eventmanager.h"
 #include "player.h"
@@ -9,18 +10,8 @@ int main(int argc, char **argv) {
   WindowManager wm;
   EventManager em;
   Player player;
-  Board board(&player);
-
-  SDL_Rect ball;
-  struct {
-    int x;
-    int y;
-  } speed;
-
-  ball.x = wm.getWindowWidth() / 2;
-  ball.y = wm.getWindowWidth() / 2;
-  speed.x = 5;
-  speed.y = 7;
+  Ball ball(wm.getWindowWidth(), wm.getWindowHeight());
+  Board board(player, ball);
 
   while (!em.get_quit()) {
     em.listen(player);
