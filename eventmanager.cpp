@@ -16,11 +16,9 @@ void EventManager::listen(Player &player) {
       // touche clavier
       case SDLK_LEFT:
         player.set_x(player.get_x() - 10);
-        std::cout << "déplacement gauche. pos=" << player.get_x() << std::endl;
         break;
       case SDLK_RIGHT:
         player.set_x(player.get_x() + 10);
-        std::cout << "déplacement droite. pos=" << player.get_x() << std::endl;
         break;
       case SDLK_ESCAPE:
         set_quit(true);

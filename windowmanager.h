@@ -19,18 +19,17 @@ public:
   void update();
 
   // retourne la largeur de la surface de la fenêtre
-  int getWindowWidth();
+  int getWindowWidth() const;
 
   // retourne la hauteur de la surface de la fenêtre
-  int getWindowHeight();
+  int getWindowHeight() const;
 
 private:
   SDL_Window *pWindow;
   SDL_Surface *win_surf;
   SDL_Surface *plancheSprites;
   SDL_Rect srcBg;
-  SDL_Rect srcBall;
-  SDL_Rect scrVaiss;
+  SDL_Rect srcVaiss;
   int m_width;
   int m_height;
 };

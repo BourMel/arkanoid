@@ -5,15 +5,15 @@
 
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
-      scrVaiss({128, 0, 128, 32}), m_width(600), m_height(600) {
+      srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(600),
+      m_height(600) {
   init();
 }
 
 WindowManager::WindowManager(int width, int height)
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 96, 128}), srcBall({0, 64, 24, 24}),
-      scrVaiss({128, 0, 128, 32}), m_width(width), m_height(height) {
+      srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(width),
+      m_height(height) {
   init();
 }
 
@@ -40,6 +40,7 @@ void WindowManager::draw(Board &board) {
   Player &player = board.getPlayer();
   Ball &ball = board.getBall();
   SDL_Rect ballRect = ball.getRect();
+  SDL_Rect srcBall = ball.getSrc();
 
   // remplit le fond
   SDL_Rect dest = {0, 0, 0, 0};
@@ -55,24 +56,13 @@ void WindowManager::draw(Board &board) {
   // affiche balle
   SDL_BlitSurface(plancheSprites, &srcBall, win_surf, &ballRect);
 
-  ball.move();
-  ball.debug();
-
-  //  // touche bas -> rouge
-  //  if (ball.y > (win_surf->h - 25))
-  //    srcBall.y = 64;
-
-  //  // collision vaisseau
-  //  if ((ball.x > x_vault) && (ball.x < x_vault + 128) &&
-  //      (ball.y > win_surf->h - 32 - 20)) {
-  //    speed.y *= -1;
-  //    srcBall.y = 96; // -> vert
-  //  }
+  // effectue le déplacement de la balle
+  ball.move(player);
 
   // vaisseau
   dest.x = player.get_x();
   dest.y = win_surf->h - 32;
-  SDL_BlitSurface(plancheSprites, &scrVaiss, win_surf, &dest);
+  SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
 }
 
 // met à jour l'affichage de la surface de la fenêtre
@@ -82,7 +72,7 @@ void WindowManager::update() {
 }
 
 // retourne la largeur de la surface de la fenêtre
-int WindowManager::getWindowWidth() { return win_surf->w; }
+int WindowManager::getWindowWidth() const { return win_surf->w; }
 
 // retourne la hauteur de la surface de la fenêtre
-int WindowManager::getWindowHeight() { return win_surf->h; }
+int WindowManager::getWindowHeight() const { return win_surf->h; }
