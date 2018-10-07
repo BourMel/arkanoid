@@ -2,7 +2,9 @@
 #define WINDOWMANAGER_H
 
 #include "board.h"
+#include "brick.h"
 #include <SDL2/SDL.h>
+#include <vector>
 
 class WindowManager {
 public:
@@ -32,6 +34,13 @@ private:
   SDL_Rect srcVaiss;
   int m_width;
   int m_height;
+
+  int m_level;
+  int m_nbLines;
+  int m_nbColumns;
+  std::vector<Brick> m_bricks;
+
+  void readLevelFile(int level);
 };
 
 #endif // WINDOWMANAGER_H

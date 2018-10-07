@@ -1,19 +1,20 @@
 #include "windowmanager.h"
 #include "player.h"
 #include <SDL2/SDL.h>
+#include <fstream>
 #include <iostream>
 
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
       srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(600),
-      m_height(600) {
+      m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(int width, int height)
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
       srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(width),
-      m_height(height) {
+      m_height(height), m_level(0), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -33,6 +34,49 @@ void WindowManager::init() {
 
   plancheSprites = SDL_LoadBMP("./sprites.bmp");
   SDL_SetColorKey(plancheSprites, true, 0); // 0: 00/00/00 noir -> transparent
+
+  readLevelFile(1);
+}
+
+void WindowManager::readLevelFile(int level) {
+  // no need to read file if we already read it just before
+  if (level == m_level)
+    return;
+
+  m_bricks.clear(); // clear bricks
+
+  std::ifstream f;
+  f.open("./levels/" + std::to_string(level) + ".txt");
+
+  // if we can't open the file don't go further
+  if (!f.is_open())
+    return;
+
+  f >> m_nbLines;
+  f >> m_nbColumns;
+
+  int x;
+  int nbBricks(0);
+
+  while (f >> x) {
+    if (x > 0) {
+      Brick b(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+      m_bricks.push_back(b);
+    }
+    nbBricks++;
+  }
+  // for (int i = 0; i < m_nbLines; i++) {
+  //   for (int j = 0; j < m_nbColumns; j++) {
+  //     f >> x;
+  //     std::cout << x << " at :" << i << "x" << j << std::endl;
+  //     if (x > 0) {
+  //       Brick b(x, i, j);
+  //       m_bricks.push_back(b);
+  //     }
+  //   }
+  // }
+
+  m_level = level; // save level information
 }
 
 // dessine ce qui est nécessaire dans la surface de la fenêtre
@@ -63,6 +107,12 @@ void WindowManager::draw(Board &board) {
   dest.x = player.get_x();
   dest.y = win_surf->h - 32;
   SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
+
+  // display bricks
+  for (auto &b : m_bricks) {
+    SDL_Rect bRect = b.getRect();
+    SDL_BlitSurface(plancheSprites, &b.getSrc(), win_surf, &bRect);
+  }
 }
 
 // met à jour l'affichage de la surface de la fenêtre

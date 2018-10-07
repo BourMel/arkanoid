@@ -6,6 +6,7 @@
 class Drawable {
 public:
   Drawable();
+  Drawable(SDL_Rect rect, SDL_Rect src);
 
   // retourne la surface de l'objet
   const SDL_Rect &getRect() const;
