@@ -2,12 +2,16 @@
 #include "board.h"
 #include <iostream>
 
+#define BALL_SIZE 24
+
 Ball::Ball()
-    : m_ball({0, 0, 0, 0}), m_speedX(5), m_speedY(7), m_windowX(0),
-      m_windowY(0), m_src({0, 64, 24, 24}), m_is_moving(false) {}
+    : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(5), m_speedY(7),
+      m_windowX(0), m_windowY(0), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
+      m_is_moving(false) {}
 Ball::Ball(int x, int y)
-    : m_ball({x / 2, y - 55, 0}), m_speedX(5), m_speedY(7), m_windowX(x),
-      m_windowY(y), m_src({0, 64, 24, 24}), m_is_moving(false) {}
+    : m_ball({x / 2, y - 55, BALL_SIZE, BALL_SIZE}), m_speedX(5), m_speedY(7),
+      m_windowX(x), m_windowY(y), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
+      m_is_moving(false) {}
 
 SDL_Rect Ball::getRect() const { return m_ball; }
 SDL_Rect Ball::getSrc() const { return m_src; }

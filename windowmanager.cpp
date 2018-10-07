@@ -99,9 +99,16 @@ void WindowManager::draw(Board &board) {
   SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
 
   // display bricks
-  for (auto &b : m_bricks) {
-    SDL_Rect bRect = b.getRect();
-    SDL_BlitSurface(plancheSprites, &b.getSrc(), win_surf, &bRect);
+  for (int i = 0; i < m_bricks.size(); i++) {
+    SDL_Rect bRect = m_bricks.at(i).getRect();
+    SDL_BlitSurface(plancheSprites, &m_bricks.at(i).getSrc(), win_surf, &bRect);
+    if (m_bricks.at(i).checkCollision(ball)) {
+      m_bricks.erase(m_bricks.begin() + i--);
+    }
+  }
+
+  if (m_bricks.size() <= 0) {
+    std::cout << "VICTOIRE !" << std::endl;
   }
 
   // lives
