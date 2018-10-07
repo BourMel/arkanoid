@@ -11,6 +11,9 @@ void EventManager::listen(Board &board) {
   Ball &ball = board.getBall();
 
   while (!m_quit && SDL_PollEvent(&m_event)) {
+    if (!player.is_alive())
+      set_quit(true);
+
     switch (m_event.type) {
     case SDL_QUIT:
       set_quit(true);

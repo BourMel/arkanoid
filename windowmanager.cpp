@@ -63,6 +63,13 @@ void WindowManager::draw(Board &board) {
   dest.x = player.get_x();
   dest.y = win_surf->h - 32;
   SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
+
+  // lives
+  for (int i = 0; i < player.get_lives(); i++) {
+    dest.x = 30;
+    dest.y = 30 + i * 30;
+    SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
+  }
 }
 
 // met à jour l'affichage de la surface de la fenêtre

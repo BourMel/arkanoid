@@ -38,8 +38,10 @@ void Ball::move(Player &player) {
     }
 
     // touche bas -> rouge
-    if (m_ball.y > (m_windowY - 25))
+    if (m_ball.y > (m_windowY - 25)) {
       m_src.y = 64;
+      player.loose_life();
+    }
 
     // collision vaisseau
     if ((m_ball.x > player.get_x()) && (m_ball.x < player.get_x() + 128) &&
