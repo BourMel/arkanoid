@@ -7,14 +7,15 @@ class Drawable {
 public:
   Drawable();
 
+  // retourne la surface de l'objet
   const SDL_Rect &getRect() const;
+
+  // retourne la position du sprite de l'objet
   const SDL_Rect &getSrc() const;
 
-private:
-  int m_posX; // position d'affichage sur l'axe des x
-  int m_posY; // position d'affichage sur l'axe des y
-  SDL_Rect m_rect;
-  SDL_Rect m_src;
+protected:
+  SDL_Rect m_rect; // emplacement de l'élément dans la fenêtre
+  SDL_Rect m_src;  // emplacement du sprite
 };
 
 #endif // DRAWABLE_H
