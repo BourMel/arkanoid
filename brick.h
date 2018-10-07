@@ -10,7 +10,7 @@ public:
   Brick(int lives);
   Brick(int lives, int line, int col);
 
-  bool checkCollision(const Ball &ball);
+  bool checkCollision(Ball &ball);
 
 protected:
   int m_lives;

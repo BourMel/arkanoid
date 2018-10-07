@@ -15,6 +15,8 @@ public:
   SDL_Rect getRect() const;
   SDL_Rect getSrc() const;
   void move(Player &player);
+  void collisionLeftRight();
+  void collisionTopBottom();
 
 private:
   SDL_Rect m_ball;

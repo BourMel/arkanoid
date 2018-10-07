@@ -58,3 +58,7 @@ void Ball::move(Player &player) {
     m_ball.x = player.get_x();
   }
 }
+
+void Ball::collisionLeftRight() { m_speedX *= -1; }
+
+void Ball::collisionTopBottom() { m_speedY *= -1; }
