@@ -9,7 +9,7 @@ ENDIF()
 find_package(SDL2 REQUIRED)
 
 add_executable(${PROJECT_NAME} "")
-target_sources(${PROJECT_NAME} PUBLIC arkanoid.cpp windowmanager.cpp eventmanager.cpp player.cpp board.cpp ball.cpp)
+target_sources(${PROJECT_NAME} PUBLIC arkanoid.cpp windowmanager.cpp eventmanager.cpp player.cpp board.cpp ball.cpp drawable.cpp brick.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC ${SDL2_LIBRARIES})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_nullptr)
