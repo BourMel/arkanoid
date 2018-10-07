@@ -65,16 +65,6 @@ void WindowManager::readLevelFile(int level) {
     }
     nbBricks++;
   }
-  // for (int i = 0; i < m_nbLines; i++) {
-  //   for (int j = 0; j < m_nbColumns; j++) {
-  //     f >> x;
-  //     std::cout << x << " at :" << i << "x" << j << std::endl;
-  //     if (x > 0) {
-  //       Brick b(x, i, j);
-  //       m_bricks.push_back(b);
-  //     }
-  //   }
-  // }
 
   m_level = level; // save level information
 }
@@ -97,7 +87,7 @@ void WindowManager::draw(Board &board) {
     }
   }
 
-  // affiche balle
+  // display ball
   SDL_BlitSurface(plancheSprites, &srcBall, win_surf, &ballRect);
 
   // effectue le déplacement de la balle
@@ -112,6 +102,13 @@ void WindowManager::draw(Board &board) {
   for (auto &b : m_bricks) {
     SDL_Rect bRect = b.getRect();
     SDL_BlitSurface(plancheSprites, &b.getSrc(), win_surf, &bRect);
+  }
+
+  // lives
+  for (int i = 0; i < player.get_lives(); i++) {
+    dest.x = 30;
+    dest.y = 30 + i * 30;
+    SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
   }
 }
 
