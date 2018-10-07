@@ -13,16 +13,16 @@ void Player::set_x(int value) {
 int Player::get_x() const { return m_x; }
 
 /**
-  * The player looses a life
-  */
+ * The player looses a life
+ */
 void Player::loose_life() { m_lives--; }
 
 /**
-  * Returns true if the player is still alive
-  */
+ * Returns true if the player is still alive
+ */
 bool Player::is_alive() const { return m_lives >= 0; }
 
 /**
-  * Returns number of remaining lives
-  */
+ * Returns number of remaining lives
+ */
 int Player::get_lives() const { return m_lives; }
