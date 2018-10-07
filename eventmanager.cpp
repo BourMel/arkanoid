@@ -1,11 +1,15 @@
 #include "eventmanager.h"
+#include "board.h"
 #include "player.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
 EventManager::EventManager() : m_quit(false) {}
 
-void EventManager::listen(Player &player) {
+void EventManager::listen(Board &board) {
+  Player &player = board.getPlayer();
+  Ball &ball = board.getBall();
+
   while (!m_quit && SDL_PollEvent(&m_event)) {
     switch (m_event.type) {
     case SDL_QUIT:
@@ -20,6 +24,9 @@ void EventManager::listen(Player &player) {
       case SDLK_RIGHT:
         player.set_x(player.get_x() + 10);
         break;
+      case SDLK_SPACE:
+        ball.set_moving();
+        break;
       case SDLK_ESCAPE:
         set_quit(true);
         break;
@@ -31,7 +38,7 @@ void EventManager::listen(Player &player) {
       player.set_x(player.get_x() + m_event.motion.xrel);
       break;
     case SDL_MOUSEBUTTONDOWN:
-      std::cout << "mouse click " << m_event.button.button << std::endl;
+      ball.set_moving();
       break;
     default:
       break;

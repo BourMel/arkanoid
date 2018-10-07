@@ -53,7 +53,7 @@ void WindowManager::draw(Board &board) {
     }
   }
 
-  // affiche balle
+  // display ball
   SDL_BlitSurface(plancheSprites, &srcBall, win_surf, &ballRect);
 
   // effectue le déplacement de la balle

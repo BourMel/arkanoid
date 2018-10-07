@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
   Board board(player, ball);
 
   while (!em.get_quit()) {
-    em.listen(player);
+    em.listen(board);
     wm.draw(board);
     wm.update();
   }
