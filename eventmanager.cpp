@@ -30,6 +30,7 @@ void EventManager::listen(Board &board) {
       case SDLK_SPACE:
         ball.set_moving();
         break;
+      case SDLK_q:
       case SDLK_ESCAPE:
         set_quit(true);
         break;

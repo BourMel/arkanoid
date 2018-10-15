@@ -32,22 +32,32 @@ void Ball::set_moving() { m_is_moving = true; }
 void Ball::move(Player &player) {
   int playerPosition = player.get_x();
 
+  bool cylinderModeEnabled = true;
+
   if (m_is_moving) {
     // deplacement
     m_ball.x += m_speedX;
     m_ball.y += m_speedY;
 
     if (m_ball.x < 1) { // collision bord gauche
-      m_speedX *= -1;
-      if (m_ball.x < 0)
-        m_ball.x = 1;
+      if (cylinderModeEnabled) {
+        m_ball.x = m_windowX - BALL_SIZE;
+      } else {
+        m_speedX *= -1;
+        if (m_ball.x < 0)
+          m_ball.x = 0;
+      }
     } else if (m_ball.y < 1) { // collision bord haut
       m_speedY *= -1;
       if (m_ball.y < 0)
-        m_ball.y = 1;
+        m_ball.y = 0;
     } else if (m_ball.x > m_windowX - BALL_SIZE) { // collision bord droit
-      m_ball.x = -m_ball.x + (2 * (m_windowX - BALL_SIZE));
-      m_speedX *= -1;
+      if (cylinderModeEnabled) {
+        m_ball.x = 0;
+      } else {
+        m_ball.x = -m_ball.x + (2 * (m_windowX - BALL_SIZE));
+        m_speedX *= -1;
+      }
     } else if (m_ball.y > m_windowY - BALL_SIZE) { // collsion bord bas
       m_ball.y = -m_ball.y + (2 * (m_windowY - BALL_SIZE));
       m_speedY *= -1;
