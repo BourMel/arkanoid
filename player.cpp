@@ -2,7 +2,7 @@
 #include "game.h"
 
 Player::Player() : m_x((600 - 128) / 2), m_lives(2) {}
-Player::Player(Game *game) : m_x((600 - 128) / 2), m_lives(2) {}
+Player::Player(Game *game) : m_game(game), m_x((600 - 128) / 2), m_lives(2) {}
 
 void Player::set_x(int value) {
   if (value < 0)
@@ -17,7 +17,12 @@ int Player::get_x() const { return m_x; }
 /**
  * The player looses a life
  */
-void Player::loose_life() { m_lives--; }
+void Player::loose_life() {
+  m_lives--;
+  if (m_lives < 0) {
+    m_game->getEventManager()->set_quit(true);
+  }
+}
 
 /**
  * Returns true if the player is still alive

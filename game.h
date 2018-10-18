@@ -12,6 +12,7 @@ public:
   ~Game();
 
   WindowManager *getWindowManager() const;
+  EventManager *getEventManager() const;
 
 private:
   int m_level;

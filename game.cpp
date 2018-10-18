@@ -32,3 +32,4 @@ void Game::init() {
 }
 
 WindowManager *Game::getWindowManager() const { return m_wm; }
+EventManager *Game::getEventManager() const { return m_em; }

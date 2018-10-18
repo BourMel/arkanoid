@@ -17,6 +17,8 @@ public:
 private:
   int m_x;
   int m_lives;
+
+  Game *m_game;
 };
 
 #endif // PLAYER_H
