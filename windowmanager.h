@@ -6,10 +6,12 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
+class Game;
+
 class WindowManager {
 public:
   WindowManager();
-  WindowManager(int width, int height);
+  WindowManager(Game *game);
 
   // initialise la fenêtre
   void init();

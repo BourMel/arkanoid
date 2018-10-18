@@ -1,5 +1,6 @@
 #include "ball.h"
 #include "board.h"
+#include "game.h"
 #include <iostream>
 
 #define BALL_SIZE 24
@@ -10,10 +11,13 @@ Ball::Ball()
     : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(5), m_speedY(7),
       m_windowX(0), m_windowY(0), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
       m_is_moving(false) {}
-Ball::Ball(int x, int y)
-    : m_ball({x / 2, y - 55, BALL_SIZE, BALL_SIZE}), m_speedX(5), m_speedY(7),
-      m_windowX(x), m_windowY(y), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
-      m_is_moving(false) {}
+Ball::Ball(Game *game)
+    : m_speedX(5), m_speedY(7), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
+      m_is_moving(false) {
+  m_windowX = game->getWindowManager()->getWindowWidth();
+  m_windowY = game->getWindowManager()->getWindowHeight();
+  m_ball = {m_windowX / 2, m_windowY - 55, BALL_SIZE, BALL_SIZE};
+}
 
 SDL_Rect Ball::getRect() const { return m_ball; }
 SDL_Rect Ball::getSrc() const { return m_src; }

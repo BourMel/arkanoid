@@ -1,4 +1,5 @@
 #include "windowmanager.h"
+#include "game.h"
 #include "player.h"
 #include <SDL2/SDL.h>
 #include <fstream>
@@ -11,10 +12,10 @@ WindowManager::WindowManager()
   init();
 }
 
-WindowManager::WindowManager(int width, int height)
+WindowManager::WindowManager(Game *game)
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(width),
-      m_height(height), m_level(0), m_nbLines(0), m_nbColumns(0) {
+      srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(600),
+      m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 

@@ -5,6 +5,7 @@
 #include <iostream>
 
 EventManager::EventManager() : m_quit(false) {}
+EventManager::EventManager(Game *game) : m_quit(false) {}
 
 void EventManager::listen(Board &board) {
   Player &player = board.getPlayer();

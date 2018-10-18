@@ -1,9 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+class Game;
+
 class Player {
 public:
   Player();
+  Player(Game *game);
 
   void set_x(int value);
   int get_x() const;

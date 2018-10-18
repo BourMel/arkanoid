@@ -5,9 +5,13 @@
 #include "player.h"
 #include <SDL2/SDL.h>
 
+class Game;
+
 class EventManager {
 public:
   EventManager();
+  EventManager(Game *game);
+
   void listen(Board &board);
 
   void set_quit(bool value);

@@ -1,6 +1,8 @@
 #include "player.h"
+#include "game.h"
 
 Player::Player() : m_x((600 - 128) / 2), m_lives(2) {}
+Player::Player(Game *game) : m_x((600 - 128) / 2), m_lives(2) {}
 
 void Player::set_x(int value) {
   if (value < 0)

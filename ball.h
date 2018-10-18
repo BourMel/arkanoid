@@ -4,10 +4,12 @@
 #include "player.h"
 #include <SDL2/SDL.h>
 
+class Game;
+
 class Ball {
 public:
   Ball();
-  Ball(int x, int y);
+  Ball(Game *game);
 
   void set_magnet();
   void set_moving();
