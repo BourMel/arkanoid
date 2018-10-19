@@ -16,6 +16,9 @@ public:
   Player *getPlayer() const;
   Ball *getBall() const;
 
+  bool getCylinderMode() const;
+  void toggleCylinderMode();
+
 private:
   int m_level;
   int m_lives;

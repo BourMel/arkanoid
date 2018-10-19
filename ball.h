@@ -30,6 +30,8 @@ private:
   int m_speedY;
   int m_windowX;
   int m_windowY;
+
+  Game *m_game;
 };
 
 #endif // BALL_H

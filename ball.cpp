@@ -11,8 +11,8 @@ Ball::Ball()
       m_windowX(0), m_windowY(0), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
       m_is_moving(false) {}
 Ball::Ball(Game *game)
-    : m_speedX(5), m_speedY(7), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
-      m_is_moving(false) {
+    : m_game(game), m_speedX(5), m_speedY(7),
+      m_src({0, 64, BALL_SIZE, BALL_SIZE}), m_is_moving(false) {
   m_windowX = game->getWindowManager()->getWindowWidth();
   m_windowY = game->getWindowManager()->getWindowHeight();
   m_ball = {m_windowX / 2, m_windowY - 55, BALL_SIZE, BALL_SIZE};
@@ -35,7 +35,7 @@ void Ball::set_moving() { m_is_moving = true; }
 void Ball::move(Player &player) {
   int playerPosition = player.get_x();
 
-  bool cylinderModeEnabled = true;
+  bool cylinderModeEnabled = m_game->getCylinderMode();
 
   if (m_is_moving) {
     // deplacement

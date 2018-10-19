@@ -32,6 +32,9 @@ void EventManager::listen() {
       case SDLK_SPACE:
         ball->set_moving();
         break;
+      case SDLK_c: // cylinderMode
+        m_game->toggleCylinderMode();
+        break;
       case SDLK_q:
       case SDLK_ESCAPE:
         set_quit(true);

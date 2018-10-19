@@ -29,6 +29,9 @@ void Game::init() {
   SDL_Quit();
 }
 
+bool Game::getCylinderMode() const { return m_cylinderMode; }
+void Game::toggleCylinderMode() { m_cylinderMode = !m_cylinderMode; }
+
 WindowManager *Game::getWindowManager() const { return m_wm; }
 EventManager *Game::getEventManager() const { return m_em; }
 Player *Game::getPlayer() const { return m_player; }
