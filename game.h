@@ -13,6 +13,8 @@ public:
 
   WindowManager *getWindowManager() const;
   EventManager *getEventManager() const;
+  Player *getPlayer() const;
+  Ball *getBall() const;
 
 private:
   int m_level;

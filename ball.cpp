@@ -1,5 +1,4 @@
 #include "ball.h"
-#include "board.h"
 #include "game.h"
 #include <iostream>
 

@@ -13,9 +13,10 @@ WindowManager::WindowManager()
 }
 
 WindowManager::WindowManager(Game *game)
-    : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(600),
-      m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
+    : m_game(game), pWindow(nullptr), win_surf(nullptr),
+      plancheSprites(nullptr), srcBg({0, 128, 96, 128}),
+      srcVaiss({128, 0, 128, 32}), m_width(600), m_height(600), m_level(0),
+      m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -71,11 +72,11 @@ void WindowManager::readLevelFile(int level) {
 }
 
 // dessine ce qui est nécessaire dans la surface de la fenêtre
-void WindowManager::draw(Board &board) {
-  Player &player = board.getPlayer();
-  Ball &ball = board.getBall();
-  SDL_Rect ballRect = ball.getRect();
-  SDL_Rect srcBall = ball.getSrc();
+void WindowManager::draw() {
+  Player *player = m_game->getPlayer();
+  Ball *ball = m_game->getBall();
+  SDL_Rect ballRect = ball->getRect();
+  SDL_Rect srcBall = ball->getSrc();
 
   // remplit le fond
   SDL_Rect dest = {0, 0, 0, 0};
@@ -92,10 +93,10 @@ void WindowManager::draw(Board &board) {
   SDL_BlitSurface(plancheSprites, &srcBall, win_surf, &ballRect);
 
   // effectue le déplacement de la balle
-  ball.move(player);
+  ball->move(*player);
 
   // vaisseau
-  dest.x = player.get_x();
+  dest.x = player->get_x();
   dest.y = win_surf->h - 32;
   SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
 
@@ -103,7 +104,7 @@ void WindowManager::draw(Board &board) {
   for (int i = 0; i < m_bricks.size(); i++) {
     SDL_Rect bRect = m_bricks.at(i).getRect();
     SDL_BlitSurface(plancheSprites, &m_bricks.at(i).getSrc(), win_surf, &bRect);
-    if (m_bricks.at(i).checkCollision(ball)) {
+    if (m_bricks.at(i).checkCollision(*ball)) {
       m_bricks.erase(m_bricks.begin() + i--);
     }
   }
@@ -113,7 +114,7 @@ void WindowManager::draw(Board &board) {
   }
 
   // lives
-  for (int i = 0; i < player.get_lives(); i++) {
+  for (int i = 0; i < player->get_lives(); i++) {
     dest.x = 30;
     dest.y = 30 + i * 30;
     SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);

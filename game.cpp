@@ -20,11 +20,9 @@ void Game::init() {
   m_lives = 3;
   m_cylinderMode = false;
 
-  Board board(*m_player, *m_ball);
-
   while (!m_em->get_quit()) {
-    m_em->listen(board);
-    m_wm->draw(board);
+    m_em->listen();
+    m_wm->draw();
     m_wm->update();
   }
 
@@ -33,3 +31,5 @@ void Game::init() {
 
 WindowManager *Game::getWindowManager() const { return m_wm; }
 EventManager *Game::getEventManager() const { return m_em; }
+Player *Game::getPlayer() const { return m_player; }
+Ball *Game::getBall() const { return m_ball; }

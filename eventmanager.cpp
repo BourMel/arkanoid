@@ -1,18 +1,19 @@
 #include "eventmanager.h"
-#include "board.h"
+#include "ball.h"
+#include "game.h"
 #include "player.h"
 #include <SDL2/SDL.h>
 #include <iostream>
 
 EventManager::EventManager() : m_quit(false) {}
-EventManager::EventManager(Game *game) : m_quit(false) {}
+EventManager::EventManager(Game *game) : m_game(game), m_quit(false) {}
 
-void EventManager::listen(Board &board) {
-  Player &player = board.getPlayer();
-  Ball &ball = board.getBall();
+void EventManager::listen() {
+  Player *player = m_game->getPlayer();
+  Ball *ball = m_game->getBall();
 
   while (!m_quit && SDL_PollEvent(&m_event)) {
-    if (!player.is_alive())
+    if (!player->is_alive())
       set_quit(true);
 
     switch (m_event.type) {
@@ -23,13 +24,13 @@ void EventManager::listen(Board &board) {
       switch (m_event.key.keysym.sym) {
       // touche clavier
       case SDLK_LEFT:
-        player.set_x(player.get_x() - 10);
+        player->set_x(player->get_x() - 10);
         break;
       case SDLK_RIGHT:
-        player.set_x(player.get_x() + 10);
+        player->set_x(player->get_x() + 10);
         break;
       case SDLK_SPACE:
-        ball.set_moving();
+        ball->set_moving();
         break;
       case SDLK_q:
       case SDLK_ESCAPE:
@@ -40,10 +41,10 @@ void EventManager::listen(Board &board) {
       }
       break;
     case SDL_MOUSEMOTION:
-      player.set_x(player.get_x() + m_event.motion.xrel);
+      player->set_x(player->get_x() + m_event.motion.xrel);
       break;
     case SDL_MOUSEBUTTONDOWN:
-      ball.set_moving();
+      ball->set_moving();
       break;
     default:
       break;

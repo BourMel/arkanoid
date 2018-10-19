@@ -1,7 +1,6 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
-#include "board.h"
 #include "brick.h"
 #include <SDL2/SDL.h>
 #include <vector>
@@ -17,7 +16,7 @@ public:
   void init();
 
   // dessine ce qui est nécessaire dans la surface de la fenêtre
-  void draw(Board &board);
+  void draw();
 
   // met à jour l'affichage de la surface de la fenêtre
   void update();
@@ -41,6 +40,8 @@ private:
   int m_nbLines;
   int m_nbColumns;
   std::vector<Brick> m_bricks;
+
+  Game *m_game;
 
   void readLevelFile(int level);
 };

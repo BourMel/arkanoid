@@ -1,7 +1,6 @@
 #ifndef EVENTMANAGER_H
 #define EVENTMANAGER_H
 
-#include "board.h"
 #include "player.h"
 #include <SDL2/SDL.h>
 
@@ -12,7 +11,7 @@ public:
   EventManager();
   EventManager(Game *game);
 
-  void listen(Board &board);
+  void listen();
 
   void set_quit(bool value);
   bool get_quit();
@@ -20,6 +19,7 @@ public:
 private:
   SDL_Event m_event;
   bool m_quit;
+  Game *m_game;
 };
 
 #endif // EVENTMANAGER_H
