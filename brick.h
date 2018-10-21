@@ -7,7 +7,6 @@
 class Brick : public Drawable {
 public:
   Brick();
-  Brick(int lives);
   Brick(int lives, int line, int col);
 
   bool checkCollision(Ball &ball);

@@ -8,16 +8,20 @@
 Brick::Brick()
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
                {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
-      m_lives(1) {}
-Brick::Brick(int lives)
-    : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
-               {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
-      m_lives(lives) {}
+      m_lives(1) {
+  if (m_lives == 2) {
+    m_src = GraphicManager::getSprite(GraphicManager::BRICK_RED);
+  }
+}
 Brick::Brick(int lives, int line, int col)
     : Drawable(
           {col * BRICK_WIDTH, line * BRICK_HEIGHT, BRICK_WIDTH, BRICK_HEIGHT},
           {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
-      m_lives(lives) {}
+      m_lives(lives) {
+  if (m_lives == 2) {
+    m_src = GraphicManager::getSprite(GraphicManager::BRICK_RED);
+  }
+}
 
 bool Brick::checkCollision(Ball &ball) {
   SDL_Rect bRect = ball.getRect();

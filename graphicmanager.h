@@ -9,7 +9,7 @@
 class GraphicManager {
 public:
   enum SpriteType {
-    BRICK_WHITE = 0,
+    BRICK_WHITE,
     BRICK_ORANGE,
     BRICK_CYAN,
     BRICK_GREEN,
