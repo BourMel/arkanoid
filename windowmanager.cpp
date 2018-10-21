@@ -7,15 +7,15 @@
 
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 96, 128}), srcVaiss({128, 0, 128, 32}), m_width(600),
+      srcBg({0, 128, 48, 64}), srcVaiss({385, 240, 128, 32}), m_width(600),
       m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), pWindow(nullptr), win_surf(nullptr),
-      plancheSprites(nullptr), srcBg({0, 128, 96, 128}),
-      srcVaiss({128, 0, 128, 32}), m_width(600), m_height(600), m_level(0),
+      plancheSprites(nullptr), srcBg({0, 128, 48, 64}),
+      srcVaiss({385, 240, 128, 32}), m_width(600), m_height(600), m_level(0),
       m_nbLines(0), m_nbColumns(0) {
   init();
 }
@@ -81,8 +81,8 @@ void WindowManager::draw() {
   // remplit le fond
   SDL_Rect dest = {0, 0, 0, 0};
 
-  for (int j = 0; j < win_surf->h; j += 128) {
-    for (int i = 0; i < win_surf->w; i += 96) {
+  for (int j = 0; j < win_surf->h; j += srcBg.h) {
+    for (int i = 0; i < win_surf->w; i += srcBg.w) {
       dest.x = i;
       dest.y = j;
       SDL_BlitSurface(plancheSprites, &srcBg, win_surf, &dest);

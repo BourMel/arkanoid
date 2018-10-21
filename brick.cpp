@@ -4,21 +4,21 @@
 #include <cmath>
 #include <iostream>
 
-#define BRICK_HEIGHT 32
-#define BRICK_WIDTH 67
+#define BRICK_HEIGHT 16
+#define BRICK_WIDTH 32
 
 Brick::Brick()
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
-               {140, 0, BRICK_WIDTH, BRICK_HEIGHT}),
+               {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
       m_lives(1) {}
 Brick::Brick(int lives)
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
-               {140, 0, BRICK_WIDTH, BRICK_HEIGHT}),
+               {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
       m_lives(lives) {}
 Brick::Brick(int lives, int line, int col)
     : Drawable(
           {col * BRICK_WIDTH, line * BRICK_HEIGHT, BRICK_WIDTH, BRICK_HEIGHT},
-          {140, 0, BRICK_WIDTH, BRICK_HEIGHT}),
+          {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
       m_lives(lives) {}
 
 bool Brick::checkCollision(Ball &ball) {

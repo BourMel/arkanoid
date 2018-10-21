@@ -2,20 +2,21 @@
 #include "game.h"
 #include <iostream>
 
-#define BALL_SIZE 24
+#define BALL_SIZE 12
 #define PLAYER_HEIGHT 32
 #define PLAYER_WIDTH 128
 
 Ball::Ball()
     : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(5), m_speedY(7),
-      m_windowX(0), m_windowY(0), m_src({0, 64, BALL_SIZE, BALL_SIZE}),
+      m_windowX(0), m_windowY(0), m_src({50, 68, BALL_SIZE, BALL_SIZE}),
       m_is_moving(false) {}
 Ball::Ball(Game *game)
     : m_game(game), m_speedX(5), m_speedY(7),
-      m_src({0, 64, BALL_SIZE, BALL_SIZE}), m_is_moving(false) {
+      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_is_moving(false) {
   m_windowX = game->getWindowManager()->getWindowWidth();
   m_windowY = game->getWindowManager()->getWindowHeight();
-  m_ball = {m_windowX / 2, m_windowY - 55, BALL_SIZE, BALL_SIZE};
+  m_ball = {m_windowX / 2, m_windowY - PLAYER_HEIGHT - BALL_SIZE, BALL_SIZE,
+            BALL_SIZE};
 }
 
 SDL_Rect Ball::getRect() const { return m_ball; }
@@ -65,17 +66,14 @@ void Ball::move(Player &player) {
       m_ball.y = -m_ball.y + (2 * (m_windowY - BALL_SIZE));
       m_speedY *= -1;
 
-      // touche bas -> rouge
-      m_src.y = 64;
       player.loose_life();
     }
 
     // collision vaisseau
     if ((m_ball.x > playerPosition) &&
         (m_ball.x < playerPosition + PLAYER_WIDTH) &&
-        (m_ball.y > m_windowY - PLAYER_HEIGHT - 20)) {
+        (m_ball.y > m_windowY - PLAYER_HEIGHT - BALL_SIZE)) {
       m_speedY *= -1;
-      m_src.y = 96; // -> vert
     }
 
   } else { // the ball sticks on the player
