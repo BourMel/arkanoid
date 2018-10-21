@@ -1,5 +1,6 @@
 #include "windowmanager.h"
 #include "game.h"
+#include "graphicmanager.h"
 #include "player.h"
 #include <SDL2/SDL.h>
 #include <fstream>
@@ -7,16 +8,15 @@
 
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 48, 64}), srcVaiss({385, 240, 128, 32}), m_width(600),
-      m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
+      srcBg({0, 128, 48, 64}), m_width(600), m_height(600), m_level(0),
+      m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), pWindow(nullptr), win_surf(nullptr),
-      plancheSprites(nullptr), srcBg({0, 128, 48, 64}),
-      srcVaiss({385, 240, 128, 32}), m_width(600), m_height(600), m_level(0),
-      m_nbLines(0), m_nbColumns(0) {
+      plancheSprites(nullptr), srcBg({0, 128, 48, 64}), m_width(600),
+      m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -36,6 +36,8 @@ void WindowManager::init() {
 
   plancheSprites = SDL_LoadBMP("./sprites.bmp");
   SDL_SetColorKey(plancheSprites, true, 0); // 0: 00/00/00 noir -> transparent
+
+  srcVaiss = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_3);
 
   readLevelFile(1);
 }
@@ -74,6 +76,7 @@ void WindowManager::readLevelFile(int level) {
 // dessine ce qui est nécessaire dans la surface de la fenêtre
 void WindowManager::draw() {
   Player *player = m_game->getPlayer();
+  SDL_Rect pRect = player->getRect();
   Ball *ball = m_game->getBall();
   SDL_Rect ballRect = ball->getRect();
   SDL_Rect srcBall = ball->getSrc();
@@ -96,9 +99,7 @@ void WindowManager::draw() {
   ball->move(*player);
 
   // vaisseau
-  dest.x = player->get_x();
-  dest.y = win_surf->h - 32;
-  SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
+  SDL_BlitSurface(plancheSprites, &player->getSrc(), win_surf, &pRect);
 
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {

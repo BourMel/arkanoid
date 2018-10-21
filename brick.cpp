@@ -1,11 +1,9 @@
 #include "brick.h"
+#include "graphicmanager.h"
 #include <SDL2/SDL.h>
 
 #include <cmath>
 #include <iostream>
-
-#define BRICK_HEIGHT 16
-#define BRICK_WIDTH 32
 
 Brick::Brick()
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
