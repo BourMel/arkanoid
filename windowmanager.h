@@ -27,6 +27,9 @@ public:
   // retourne la hauteur de la surface de la fenêtre
   int getWindowHeight() const;
 
+  // handle points when destroying bricks
+  // void addPointsToGame();
+
 private:
   SDL_Window *pWindow;
   SDL_Surface *win_surf;

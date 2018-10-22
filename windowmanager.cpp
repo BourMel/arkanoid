@@ -65,11 +65,55 @@ void WindowManager::readLevelFile(int level) {
   while (f >> x) {
     if (x > 0) {
       Brick b;
+      int line = nbBricks / m_nbColumns;
+      int col = nbBricks % m_nbColumns;
 
-      if (x == 1) {
-        b = Brick1(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
-      } else {
-        b = Brick(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+      switch (x) {
+      case 1:
+        b = Brick1(x, line, col);
+        break;
+      case 2:
+        b = Brick2(x, line, col);
+        break;
+      case 3:
+        b = Brick3(x, line, col);
+        break;
+      case 4:
+        b = Brick4(x, line, col);
+        break;
+      case 5:
+        b = Brick5(x, line, col);
+        break;
+      case 6:
+        b = Brick6(x, line, col);
+        break;
+      case 7:
+        b = Brick7(x, line, col);
+        break;
+      case 8:
+        b = Brick8(x, line, col);
+        break;
+      case 9:
+        b = Brick9(x, line, col);
+        break;
+      case 10:
+        b = Brick10(x, line, col);
+        break;
+      case 11:
+        b = Brick11(x, line, col);
+        break;
+      case 12:
+        b = Brick12(x, line, col);
+        break;
+      case 13:
+        b = Brick13(x, line, col);
+        break;
+      case 14:
+        b = Brick14(x, line, col);
+        break;
+      default:
+        b = Brick(x, line, col);
+        break;
       }
 
       m_bricks.push_back(b);
