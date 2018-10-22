@@ -43,3 +43,13 @@ bool Brick::checkCollision(Ball &ball) {
 
   return false;
 }
+
+/**
+ * Returns the id of a brick
+ */
+int Brick::getId() const { return m_id; }
+
+/**
+  * Returns the color of a brick
+  */
+std::string Brick::getColor() const { return m_color; }

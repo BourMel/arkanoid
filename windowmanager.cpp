@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "brick_types.h"
+
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
       srcBg({0, 128, 48, 64}), srcVaiss({385, 240, 128, 32}), m_width(600),
@@ -62,7 +64,14 @@ void WindowManager::readLevelFile(int level) {
 
   while (f >> x) {
     if (x > 0) {
-      Brick b(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+      Brick b;
+
+      if (x == 1) {
+        b = new Brick1(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+      } else {
+        b = new Brick(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+      }
+
       m_bricks.push_back(b);
     }
     nbBricks++;
