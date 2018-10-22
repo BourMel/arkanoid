@@ -6,7 +6,8 @@
 
 class Brick1 : public Brick {
 public:
-  Brick1(int line, int col);
+  Brick1();
+  Brick1(int lives, int line, int col);
 
 protected:
   int m_lives = 1;

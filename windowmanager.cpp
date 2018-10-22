@@ -67,9 +67,9 @@ void WindowManager::readLevelFile(int level) {
       Brick b;
 
       if (x == 1) {
-        b = new Brick1(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+        b = Brick1(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
       } else {
-        b = new Brick(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+        b = Brick(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
       }
 
       m_bricks.push_back(b);
