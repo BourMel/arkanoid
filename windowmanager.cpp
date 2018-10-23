@@ -157,8 +157,13 @@ void WindowManager::draw() {
   for (int i = 0; i < m_bricks.size(); i++) {
     SDL_Rect bRect = m_bricks.at(i).getRect();
     SDL_BlitSurface(plancheSprites, &m_bricks.at(i).getSrc(), win_surf, &bRect);
+
     if (m_bricks.at(i).checkCollision(*ball)) {
+      m_game->addPointsToGame(m_bricks.at(i).getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
+
+      // display points
+      std::cout << "Points: " << m_game->getGamePoints() << std::endl;
     }
   }
 
