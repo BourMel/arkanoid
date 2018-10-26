@@ -8,16 +8,21 @@
 Brick::Brick()
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
                {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
-      m_lives(1) {
+      m_lives(1), m_points(50), m_id(0), m_color("white") {}
+Brick::Brick(int lives)
+    : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
+               {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
+      m_lives(lives), m_points(50), m_id(0), m_color("white") {
   if (m_lives == 2) {
     m_src = GraphicManager::getSprite(GraphicManager::BRICK_RED);
-  }
+  }      
 }
+
 Brick::Brick(int lives, int line, int col)
     : Drawable(
           {col * BRICK_WIDTH, line * BRICK_HEIGHT, BRICK_WIDTH, BRICK_HEIGHT},
           {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
-      m_lives(lives) {
+      m_lives(lives), m_points(50), m_id(0), m_color("white") {
   if (m_lives == 2) {
     m_src = GraphicManager::getSprite(GraphicManager::BRICK_RED);
   }
@@ -45,3 +50,18 @@ bool Brick::checkCollision(Ball &ball) {
 
   return false;
 }
+
+/**
+ * Returns the id of a brick
+ */
+int Brick::getId() const { return m_id; }
+
+/**
+ * Returns the number of points the brick represents
+ */
+int Brick::getPoints() const { return m_points; }
+
+/**
+  * Returns the color of a brick
+  */
+std::string Brick::getColor() const { return m_color; }

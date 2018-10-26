@@ -31,6 +31,8 @@ void Game::init() {
 
 bool Game::getCylinderMode() const { return m_cylinderMode; }
 void Game::toggleCylinderMode() { m_cylinderMode = !m_cylinderMode; }
+void Game::addPointsToGame(int points) { m_points += points; }
+int Game::getGamePoints() const { return m_points; }
 
 WindowManager *Game::getWindowManager() const { return m_wm; }
 EventManager *Game::getEventManager() const { return m_em; }

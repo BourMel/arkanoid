@@ -6,6 +6,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "brick_types.h"
+
 WindowManager::WindowManager()
     : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
       srcBg({0, 128, 48, 64}), m_width(600), m_height(600), m_level(0),
@@ -64,7 +66,58 @@ void WindowManager::readLevelFile(int level) {
 
   while (f >> x) {
     if (x > 0) {
-      Brick b(x, nbBricks / m_nbColumns, nbBricks % m_nbColumns);
+      Brick b;
+      int line = nbBricks / m_nbColumns;
+      int col = nbBricks % m_nbColumns;
+
+      switch (x) {
+      case 1:
+        b = Brick1(x, line, col);
+        break;
+      case 2:
+        b = Brick2(x, line, col);
+        break;
+      case 3:
+        b = Brick3(x, line, col);
+        break;
+      case 4:
+        b = Brick4(x, line, col);
+        break;
+      case 5:
+        b = Brick5(x, line, col);
+        break;
+      case 6:
+        b = Brick6(x, line, col);
+        break;
+      case 7:
+        b = Brick7(x, line, col);
+        break;
+      case 8:
+        b = Brick8(x, line, col);
+        break;
+      case 9:
+        b = Brick9(x, line, col);
+        break;
+      case 10:
+        b = Brick10(x, line, col);
+        break;
+      case 11:
+        b = Brick11(x, line, col);
+        break;
+      case 12:
+        b = Brick12(x, line, col);
+        break;
+      case 13:
+        b = Brick13(x, line, col);
+        break;
+      case 14:
+        b = Brick14(x, line, col);
+        break;
+      default:
+        b = Brick(x, line, col);
+        break;
+      }
+
       m_bricks.push_back(b);
     }
     nbBricks++;
@@ -105,8 +158,13 @@ void WindowManager::draw() {
   for (int i = 0; i < m_bricks.size(); i++) {
     SDL_Rect bRect = m_bricks.at(i).getRect();
     SDL_BlitSurface(plancheSprites, &m_bricks.at(i).getSrc(), win_surf, &bRect);
+
     if (m_bricks.at(i).checkCollision(*ball)) {
+      m_game->addPointsToGame(m_bricks.at(i).getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
+
+      // display points
+      std::cout << "Points: " << m_game->getGamePoints() << std::endl;
     }
   }
 

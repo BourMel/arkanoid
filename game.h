@@ -18,10 +18,13 @@ public:
 
   bool getCylinderMode() const;
   void toggleCylinderMode();
+  void addPointsToGame(int points);
+  int getGamePoints() const;
 
 private:
   int m_level;
   int m_lives;
+  int m_points = 0;
 
   // instances
   WindowManager *m_wm;
