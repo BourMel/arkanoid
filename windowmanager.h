@@ -34,6 +34,7 @@ private:
   SDL_Window *pWindow;
   SDL_Surface *win_surf;
   SDL_Surface *plancheSprites;
+  SDL_Surface *m_sprites_ascii;
   SDL_Rect srcBg;
   SDL_Rect srcVaiss;
   int m_width;

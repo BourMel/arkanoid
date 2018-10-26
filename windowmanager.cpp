@@ -37,7 +37,9 @@ void WindowManager::init() {
   win_surf = SDL_GetWindowSurface(pWindow);
 
   plancheSprites = SDL_LoadBMP("./sprites.bmp");
+  m_sprites_ascii = SDL_LoadBMP("./ascii.bmp");
   SDL_SetColorKey(plancheSprites, true, 0); // 0: 00/00/00 noir -> transparent
+  SDL_SetColorKey(m_sprites_ascii, true, 0);
 
   srcVaiss = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_3);
 
@@ -178,6 +180,10 @@ void WindowManager::draw() {
     dest.y = 30 + i * 30;
     SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
   }
+
+  GraphicManager::printText(200, 400, m_sprites_ascii, win_surf,
+                            std::to_string(m_game->getGamePoints()) +
+                                " points");
 }
 
 // met à jour l'affichage de la surface de la fenêtre
