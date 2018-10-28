@@ -1,7 +1,7 @@
 #include "game.h"
 #include <iostream>
 
-Game::Game() { init(); }
+Game::Game() : m_currentScreen(SCREEN_MENU) { init(); }
 
 Game::~Game() {
   delete m_wm;
@@ -22,7 +22,21 @@ void Game::init() {
 
   while (!m_em->get_quit()) {
     m_em->listen();
-    m_wm->draw();
+    switch (m_currentScreen) {
+    case SCREEN_LEVEL:
+      m_wm->drawLevel();
+      break;
+    case SCREEN_WIN:
+      m_wm->drawWin();
+      break;
+    case SCREEN_LOSE:
+      m_wm->drawLose();
+      break;
+    case SCREEN_MENU:
+    default:
+      m_wm->drawMenu();
+      break;
+    }
     m_wm->update();
   }
 
@@ -38,3 +52,5 @@ WindowManager *Game::getWindowManager() const { return m_wm; }
 EventManager *Game::getEventManager() const { return m_em; }
 Player *Game::getPlayer() const { return m_player; }
 Ball *Game::getBall() const { return m_ball; }
+
+void Game::setCurrentScreen(screen s) { m_currentScreen = s; }

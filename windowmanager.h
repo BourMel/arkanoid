@@ -16,7 +16,10 @@ public:
   void init();
 
   // dessine ce qui est nécessaire dans la surface de la fenêtre
-  void draw();
+  void drawMenu();
+  void drawWin();
+  void drawLose();
+  void drawLevel();
 
   // met à jour l'affichage de la surface de la fenêtre
   void update();

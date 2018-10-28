@@ -14,9 +14,6 @@ void EventManager::listen() {
   Ball *ball = m_game->getBall();
 
   while (!m_quit && SDL_PollEvent(&m_event)) {
-    if (!player->is_alive())
-      set_quit(true);
-
     switch (m_event.type) {
     case SDL_QUIT:
       set_quit(true);
@@ -59,6 +56,9 @@ void EventManager::listen() {
         break;
       case SDLK_c: // cylinderMode
         m_game->toggleCylinderMode();
+        break;
+      case SDLK_RETURN:
+        m_game->setCurrentScreen(Game::SCREEN_LEVEL);
         break;
       case SDLK_q:
       case SDLK_ESCAPE:

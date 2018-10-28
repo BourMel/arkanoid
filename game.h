@@ -11,6 +11,13 @@ public:
   Game();
   ~Game();
 
+  enum screen {
+    SCREEN_MENU,
+    SCREEN_WIN,
+    SCREEN_LOSE,
+    SCREEN_LEVEL,
+  };
+
   WindowManager *getWindowManager() const;
   EventManager *getEventManager() const;
   Player *getPlayer() const;
@@ -20,8 +27,11 @@ public:
   void toggleCylinderMode();
   void addPointsToGame(int points);
   int getGamePoints() const;
+  void setCurrentScreen(screen s);
 
 private:
+  screen m_currentScreen;
+
   int m_level;
   int m_lives;
   int m_points = 0;

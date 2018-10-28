@@ -29,14 +29,14 @@ int Player::get_x() const { return m_rect.x; }
  */
 void Player::loose_life() {
   if (--m_lives <= 0) {
-    m_game->getEventManager()->set_quit(true);
+    m_game->setCurrentScreen(Game::SCREEN_LOSE);
   }
 }
 
 /**
  * Returns true if the player is still alive
  */
-bool Player::is_alive() const { return m_lives > 0; }
+// bool Player::is_alive() const { return m_lives > 0; }
 
 /**
  * Returns number of remaining lives

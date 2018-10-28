@@ -128,8 +128,20 @@ void WindowManager::readLevelFile(int level) {
   m_level = level; // save level information
 }
 
+void WindowManager::drawMenu() {
+  GraphicManager::printText(200, 200, m_sprites_ascii, win_surf, "Menu");
+}
+
+void WindowManager::drawWin() {
+  GraphicManager::printText(200, 200, m_sprites_ascii, win_surf, "Win");
+}
+
+void WindowManager::drawLose() {
+  GraphicManager::printText(200, 200, m_sprites_ascii, win_surf, "Lose");
+}
+
 // dessine ce qui est nécessaire dans la surface de la fenêtre
-void WindowManager::draw() {
+void WindowManager::drawLevel() {
   Player *player = m_game->getPlayer();
   SDL_Rect pRect = player->getRect();
   Ball *ball = m_game->getBall();
@@ -168,7 +180,7 @@ void WindowManager::draw() {
   }
 
   if (m_bricks.size() <= 0) {
-    std::cout << "VICTOIRE !" << std::endl;
+    m_game->setCurrentScreen(Game::SCREEN_WIN);
   }
 
   // lives
