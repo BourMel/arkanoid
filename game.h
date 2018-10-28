@@ -18,6 +18,8 @@ public:
     SCREEN_LEVEL,
   };
 
+  void run();
+
   WindowManager *getWindowManager() const;
   EventManager *getEventManager() const;
   Player *getPlayer() const;
@@ -29,6 +31,8 @@ public:
   int getGamePoints() const;
   void setCurrentScreen(screen s);
   screen getCurrentScreen() const;
+  int getLevel() const;
+  void nextLevel();
 
 private:
   screen m_currentScreen;
@@ -45,8 +49,6 @@ private:
 
   // options
   bool m_cylinderMode;
-
-  void init();
 };
 
 #endif // GAME_H

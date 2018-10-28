@@ -1,11 +1,12 @@
 #include "game.h"
 #include <iostream>
 
+#define NB_LIVES 3
+#define NB_LEVELS 5
+
 Game::Game()
-    : m_currentScreen(SCREEN_MENU), m_level(0), m_lives(3), m_points(0),
-      m_cylinderMode(false) {
-  init();
-}
+    : m_currentScreen(SCREEN_MENU), m_level(1), m_lives(NB_LIVES), m_points(0),
+      m_cylinderMode(false) {}
 
 Game::~Game() {
   delete m_wm;
@@ -14,7 +15,7 @@ Game::~Game() {
   delete m_ball;
 }
 
-void Game::init() {
+void Game::run() {
   m_wm = new WindowManager(this);
   m_em = new EventManager(this);
   m_player = new Player(this);
@@ -55,3 +56,17 @@ Ball *Game::getBall() const { return m_ball; }
 
 void Game::setCurrentScreen(screen s) { m_currentScreen = s; }
 Game::screen Game::getCurrentScreen() const { return m_currentScreen; }
+
+int Game::getLevel() const { return m_level; }
+
+void Game::nextLevel() {
+  m_ball->setMoving(false);
+  if (m_level == NB_LEVELS) { // if it was the last level, the player won!
+    m_currentScreen = SCREEN_WIN;
+    m_lives = NB_LIVES;
+    m_points = 0;
+    m_level = 1;
+  } else {
+    m_wm->readLevelFile(++m_level); // read next level file
+  }
+}

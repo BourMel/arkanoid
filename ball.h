@@ -11,11 +11,11 @@ public:
   Ball();
   Ball(Game *game);
 
-  void setMoving();
+  void setMoving(bool moving);
 
   SDL_Rect getRect() const;
   SDL_Rect getSrc() const;
-  void move(Player &player);
+  void move(Player *player);
   void collisionLeftRight();
   void collisionTopBottom();
 

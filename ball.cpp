@@ -22,16 +22,16 @@ SDL_Rect Ball::getRect() const { return m_ball; }
 SDL_Rect Ball::getSrc() const { return m_src; }
 
 /**
- * When function is called, the ball starts to move
+ * If true, the ball will be moving on the screen
  */
-void Ball::setMoving() { m_isMoving = true; }
+void Ball::setMoving(bool moving) { m_isMoving = moving; }
 
 /**
  * Animate the move of the ball for the next frame
  */
-void Ball::move(Player &player) {
-  int playerPosition = player.getX();
-  int playerWidth = player.getRect().w;
+void Ball::move(Player *player) {
+  int playerPosition = player->getX();
+  int playerWidth = player->getRect().w;
 
   bool cylinderModeEnabled = m_game->getCylinderMode();
 
@@ -63,9 +63,8 @@ void Ball::move(Player &player) {
       m_ball.y = -m_ball.y + (2 * (m_windowY - BALL_SIZE));
       m_speedY *= -1;
 
-      player.looseLife();
+      player->looseLife();
       m_isMoving = false;
-      m_ball.y = m_windowY - PLAYER_HEIGHT - BALL_SIZE;
     }
 
     // player collision
@@ -84,6 +83,7 @@ void Ball::move(Player &player) {
 
   } else { // the ball sticks on the player
     m_ball.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
+    m_ball.y = m_windowY - PLAYER_HEIGHT - BALL_SIZE;
   }
 }
 

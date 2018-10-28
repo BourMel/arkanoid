@@ -125,7 +125,7 @@ void EventManager::listenLevel() {
       player->setX(player->getX() + 10);
       break;
     case SDLK_SPACE:
-      ball->setMoving();
+      ball->setMoving(true);
       break;
     case SDLK_1:
       player->setSprite(GraphicManager::PLAYER_1);
@@ -166,10 +166,10 @@ void EventManager::listenLevel() {
     }
     break;
   case SDL_MOUSEMOTION:
-    player->setX(player->getX() + m_event.motion.xrel);
+    player->setX(m_event.motion.x - (player->getRect().w / 2));
     break;
   case SDL_MOUSEBUTTONDOWN:
-    ball->setMoving();
+    ball->setMoving(true);
     break;
   default:
     break;

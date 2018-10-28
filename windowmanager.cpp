@@ -10,15 +10,15 @@
 
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
-      m_srcBg({0, 128, 48, 64}), m_width(600), m_height(600), m_level(0),
-      m_nbLines(0), m_nbColumns(0) {
+      m_srcBg({0, 128, 48, 64}), m_width(600), m_height(600), m_nbLines(0),
+      m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
       m_sprites(nullptr), m_srcBg({0, 128, 48, 64}), m_width(600),
-      m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
+      m_height(600), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -120,8 +120,6 @@ void WindowManager::readLevelFile(int level) {
     }
     nbBricks++;
   }
-
-  m_level = level; // save level information
 }
 
 void WindowManager::drawMenu() {
@@ -158,7 +156,7 @@ void WindowManager::drawLevel() {
   SDL_BlitSurface(m_sprites, &srcBall, m_windowSurface, &ballRect);
 
   // move the ball
-  ball->move(*player);
+  ball->move(player);
 
   // player
   SDL_BlitSurface(m_sprites, &player->getSrc(), m_windowSurface, &pRect);
@@ -176,7 +174,7 @@ void WindowManager::drawLevel() {
   }
 
   if (m_bricks.size() <= 0) {
-    m_game->setCurrentScreen(Game::SCREEN_WIN);
+    m_game->nextLevel();
   }
 
   // lives
