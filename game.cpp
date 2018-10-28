@@ -54,3 +54,4 @@ Player *Game::getPlayer() const { return m_player; }
 Ball *Game::getBall() const { return m_ball; }
 
 void Game::setCurrentScreen(screen s) { m_currentScreen = s; }
+Game::screen Game::getCurrentScreen() const { return m_currentScreen; }

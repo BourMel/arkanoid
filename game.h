@@ -28,6 +28,7 @@ public:
   void addPointsToGame(int points);
   int getGamePoints() const;
   void setCurrentScreen(screen s);
+  screen getCurrentScreen() const;
 
 private:
   screen m_currentScreen;

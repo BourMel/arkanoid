@@ -20,6 +20,11 @@ private:
   SDL_Event m_event;
   bool m_quit;
   Game *m_game;
+
+  void listenMenu();
+  void listenWin();
+  void listenLose();
+  void listenLevel();
 };
 
 #endif // EVENTMANAGER_H

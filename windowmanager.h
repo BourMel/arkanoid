@@ -30,6 +30,8 @@ public:
   // get window height
   int getWindowHeight() const;
 
+  void readLevelFile(int level);
+
 private:
   SDL_Window *m_window;
   SDL_Surface *m_windowSurface;
@@ -46,8 +48,6 @@ private:
   std::vector<Brick> m_bricks;
 
   Game *m_game;
-
-  void readLevelFile(int level);
 };
 
 #endif // WINDOWMANAGER_H
