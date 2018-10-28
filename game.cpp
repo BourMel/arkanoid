@@ -1,7 +1,11 @@
 #include "game.h"
 #include <iostream>
 
-Game::Game() : m_currentScreen(SCREEN_MENU) { init(); }
+Game::Game()
+    : m_currentScreen(SCREEN_MENU), m_level(0), m_lives(3), m_points(0),
+      m_cylinderMode(false) {
+  init();
+}
 
 Game::~Game() {
   delete m_wm;
@@ -16,11 +20,7 @@ void Game::init() {
   m_player = new Player(this);
   m_ball = new Ball(this);
 
-  m_level = 1;
-  m_lives = 3;
-  m_cylinderMode = false;
-
-  while (!m_em->get_quit()) {
+  while (!m_em->getQuit()) {
     m_em->listen();
     switch (m_currentScreen) {
     case SCREEN_LEVEL:

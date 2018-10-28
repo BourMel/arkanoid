@@ -11,11 +11,11 @@ public:
   Player();
   Player(Game *game);
 
-  void set_x(int value);
-  int get_x() const;
-  void loose_life();
-  // bool is_alive() const;
-  int get_lives() const;
+  void setX(int value);
+  int getX() const;
+  void looseLife();
+  // bool isAlive() const;
+  int getLives() const;
   void setSprite(GraphicManager::SpriteType type);
 
 private:

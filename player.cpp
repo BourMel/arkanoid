@@ -14,7 +14,7 @@ void Player::init() {
   m_rect.h = m_src.h;
 }
 
-void Player::set_x(int value) {
+void Player::setX(int value) {
   if (value < 0)
     value = 0;
   else if (value > m_windowWidth - m_src.w)
@@ -22,12 +22,12 @@ void Player::set_x(int value) {
   m_rect.x = value;
 }
 
-int Player::get_x() const { return m_rect.x; }
+int Player::getX() const { return m_rect.x; }
 
 /**
  * The player looses a life
  */
-void Player::loose_life() {
+void Player::looseLife() {
   if (--m_lives <= 0) {
     m_game->setCurrentScreen(Game::SCREEN_LOSE);
   }
@@ -36,13 +36,16 @@ void Player::loose_life() {
 /**
  * Returns true if the player is still alive
  */
-// bool Player::is_alive() const { return m_lives > 0; }
+// bool Player::isAlive() const { return m_lives > 0; }
 
 /**
  * Returns number of remaining lives
  */
-int Player::get_lives() const { return m_lives; }
+int Player::getLives() const { return m_lives; }
 
+/**
+ * Change the sprite used to represent the player
+ */
 void Player::setSprite(GraphicManager::SpriteType type) {
   m_src = GraphicManager::getSprite(type);
   if (m_rect.x + m_rect.w > m_windowWidth) {

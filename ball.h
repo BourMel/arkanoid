@@ -11,7 +11,7 @@ public:
   Ball();
   Ball(Game *game);
 
-  void set_moving();
+  void setMoving();
 
   SDL_Rect getRect() const;
   SDL_Rect getSrc() const;
@@ -23,7 +23,7 @@ private:
   SDL_Rect m_ball;
   SDL_Rect m_src;
 
-  bool m_is_moving;
+  bool m_isMoving;
 
   int m_speedX;
   int m_speedY;

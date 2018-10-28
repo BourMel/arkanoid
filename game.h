@@ -34,7 +34,7 @@ private:
 
   int m_level;
   int m_lives;
-  int m_points = 0;
+  int m_points;
 
   // instances
   WindowManager *m_wm;

@@ -25,6 +25,9 @@ public:
     BRICK_DARKRED,
     BRICK_BLUEGREEN,
 
+    BRICK_GREY,
+    BRICK_GOLD,
+
     // Player
     PLAYER_1,
     PLAYER_2,

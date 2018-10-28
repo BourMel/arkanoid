@@ -13,8 +13,8 @@ public:
 
   void listen();
 
-  void set_quit(bool value);
-  bool get_quit();
+  void setQuit(bool value);
+  bool getQuit();
 
 private:
   SDL_Event m_event;

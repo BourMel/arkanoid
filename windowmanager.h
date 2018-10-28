@@ -12,34 +12,31 @@ public:
   WindowManager();
   WindowManager(Game *game);
 
-  // initialise la fenêtre
+  // init window
   void init();
 
-  // dessine ce qui est nécessaire dans la surface de la fenêtre
+  // draw what needed in the window
   void drawMenu();
   void drawWin();
   void drawLose();
   void drawLevel();
 
-  // met à jour l'affichage de la surface de la fenêtre
+  // update window surface
   void update();
 
-  // retourne la largeur de la surface de la fenêtre
+  // get window width
   int getWindowWidth() const;
 
-  // retourne la hauteur de la surface de la fenêtre
+  // get window height
   int getWindowHeight() const;
 
-  // handle points when destroying bricks
-  // void addPointsToGame();
-
 private:
-  SDL_Window *pWindow;
-  SDL_Surface *win_surf;
-  SDL_Surface *plancheSprites;
-  SDL_Surface *m_sprites_ascii;
-  SDL_Rect srcBg;
-  SDL_Rect srcVaiss;
+  SDL_Window *m_window;
+  SDL_Surface *m_windowSurface;
+  SDL_Surface *m_sprites;
+  SDL_Surface *m_spritesAscii;
+  SDL_Rect m_srcBg;
+  SDL_Rect m_srcLive;
   int m_width;
   int m_height;
 

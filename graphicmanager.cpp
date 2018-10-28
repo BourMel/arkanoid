@@ -1,7 +1,13 @@
 #include "graphicmanager.h"
 
+/**
+ * Default constructor
+ */
 GraphicManager::GraphicManager() {}
 
+/**
+ * Get the SDL_Rect for a specific sprite
+ */
 SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   SDL_Rect rect = {0, 0, 0, 0};
 
@@ -19,6 +25,8 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   case BRICK_YELLOW:
   case BRICK_DARKRED:
   case BRICK_BLUEGREEN:
+  case BRICK_GREY:
+  case BRICK_GOLD:
     rect.w = BRICK_WIDTH;
     rect.h = BRICK_HEIGHT;
     break;
@@ -142,6 +150,12 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   case BRICK_BLUEGREEN:
     rect.x = 5 * BRICK_WIDTH;
     rect.y = BRICK_HEIGHT;
+    break;
+  case BRICK_GREY:
+    rect.y = 2 * BRICK_HEIGHT;
+    break;
+  case BRICK_GOLD:
+    rect.y = 3 * BRICK_HEIGHT;
     break;
   case PLAYER_1:
     rect.x = 385;
@@ -448,6 +462,9 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   return rect;
 }
 
+/**
+ * Get the type of a sprite needed for a char in a text zone
+ */
 GraphicManager::SpriteType GraphicManager::getSpriteTypeFromChar(const char c) {
   switch (c) {
   case 'A':
@@ -579,6 +596,9 @@ GraphicManager::SpriteType GraphicManager::getSpriteTypeFromChar(const char c) {
   }
 }
 
+/**
+ * Create a text zone on the screen at (`x`, `y`) and print the text `str`
+ */
 void GraphicManager::printText(int x, int y, SDL_Surface *src, SDL_Surface *dst,
                                std::string str) {
   SDL_Rect rect = {x, y, ASCII_SIZE, ASCII_SIZE};

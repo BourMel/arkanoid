@@ -16,19 +16,18 @@ void EventManager::listen() {
   while (!m_quit && SDL_PollEvent(&m_event)) {
     switch (m_event.type) {
     case SDL_QUIT:
-      set_quit(true);
+      setQuit(true);
       break;
     case SDL_KEYDOWN:
       switch (m_event.key.keysym.sym) {
-      // touche clavier
       case SDLK_LEFT:
-        player->set_x(player->get_x() - 10);
+        player->setX(player->getX() - 10);
         break;
       case SDLK_RIGHT:
-        player->set_x(player->get_x() + 10);
+        player->setX(player->getX() + 10);
         break;
       case SDLK_SPACE:
-        ball->set_moving();
+        ball->setMoving();
         break;
       case SDLK_1:
         player->setSprite(GraphicManager::PLAYER_1);
@@ -62,17 +61,17 @@ void EventManager::listen() {
         break;
       case SDLK_q:
       case SDLK_ESCAPE:
-        set_quit(true);
+        setQuit(true);
         break;
       default:
         break;
       }
       break;
     case SDL_MOUSEMOTION:
-      player->set_x(player->get_x() + m_event.motion.xrel);
+      player->setX(player->getX() + m_event.motion.xrel);
       break;
     case SDL_MOUSEBUTTONDOWN:
-      ball->set_moving();
+      ball->setMoving();
       break;
     default:
       break;
@@ -80,6 +79,6 @@ void EventManager::listen() {
   }
 }
 
-void EventManager::set_quit(bool value) { m_quit = value; }
+void EventManager::setQuit(bool value) { m_quit = value; }
 
-bool EventManager::get_quit() { return m_quit; }
+bool EventManager::getQuit() { return m_quit; }

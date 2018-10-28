@@ -9,48 +9,44 @@
 #include "brick_types.h"
 
 WindowManager::WindowManager()
-    : pWindow(nullptr), win_surf(nullptr), plancheSprites(nullptr),
-      srcBg({0, 128, 48, 64}), m_width(600), m_height(600), m_level(0),
+    : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
+      m_srcBg({0, 128, 48, 64}), m_width(600), m_height(600), m_level(0),
       m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
-    : m_game(game), pWindow(nullptr), win_surf(nullptr),
-      plancheSprites(nullptr), srcBg({0, 128, 48, 64}), m_width(600),
+    : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
+      m_sprites(nullptr), m_srcBg({0, 128, 48, 64}), m_width(600),
       m_height(600), m_level(0), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
-// initialise la fenêtre
+// init the window
 void WindowManager::init() {
-  // vérifie si SDL s'est bien initialisé
+  // check if SDL is successfuly loaded
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    std::cerr << "Echec de l'initialisation de la SDL " << SDL_GetError()
+    std::cerr << "Error during SDL initialization: " << SDL_GetError()
               << std::endl;
     exit(1);
   }
 
-  pWindow = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED,
-                             SDL_WINDOWPOS_CENTERED, m_width, m_height,
-                             SDL_WINDOW_SHOWN);
-  win_surf = SDL_GetWindowSurface(pWindow);
+  m_window = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED,
+                              SDL_WINDOWPOS_CENTERED, m_width, m_height,
+                              SDL_WINDOW_SHOWN);
+  m_windowSurface = SDL_GetWindowSurface(m_window);
 
-  plancheSprites = SDL_LoadBMP("./sprites.bmp");
-  m_sprites_ascii = SDL_LoadBMP("./ascii.bmp");
-  SDL_SetColorKey(plancheSprites, true, 0); // 0: 00/00/00 noir -> transparent
-  SDL_SetColorKey(m_sprites_ascii, true, 0);
+  m_sprites = SDL_LoadBMP("./sprites.bmp");
+  m_spritesAscii = SDL_LoadBMP("./ascii.bmp");
+  SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
+  SDL_SetColorKey(m_spritesAscii, true, 0);
 
-  srcVaiss = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_3);
+  m_srcLive = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_3);
 
   readLevelFile(1);
 }
 
 void WindowManager::readLevelFile(int level) {
-  // no need to read file if we already read it just before
-  if (level == m_level)
-    return;
-
   m_bricks.clear(); // clear bricks
 
   std::ifstream f;
@@ -74,46 +70,46 @@ void WindowManager::readLevelFile(int level) {
 
       switch (x) {
       case 1:
-        b = Brick1(x, line, col);
+        b = Brick1(line, col);
         break;
       case 2:
-        b = Brick2(x, line, col);
+        b = Brick2(line, col);
         break;
       case 3:
-        b = Brick3(x, line, col);
+        b = Brick3(line, col);
         break;
       case 4:
-        b = Brick4(x, line, col);
+        b = Brick4(line, col);
         break;
       case 5:
-        b = Brick5(x, line, col);
+        b = Brick5(line, col);
         break;
       case 6:
-        b = Brick6(x, line, col);
+        b = Brick6(line, col);
         break;
       case 7:
-        b = Brick7(x, line, col);
+        b = Brick7(line, col);
         break;
       case 8:
-        b = Brick8(x, line, col);
+        b = Brick8(line, col);
         break;
       case 9:
-        b = Brick9(x, line, col);
+        b = Brick9(line, col);
         break;
       case 10:
-        b = Brick10(x, line, col);
+        b = Brick10(line, col);
         break;
       case 11:
-        b = Brick11(x, line, col);
+        b = Brick11(line, col);
         break;
       case 12:
-        b = Brick12(x, line, col);
+        b = Brick12(line, col);
         break;
       case 13:
-        b = Brick13(x, line, col);
+        b = Brick13(line, col);
         break;
       case 14:
-        b = Brick14(x, line, col);
+        b = Brick14(line, col);
         break;
       default:
         b = Brick(x, line, col);
@@ -129,18 +125,17 @@ void WindowManager::readLevelFile(int level) {
 }
 
 void WindowManager::drawMenu() {
-  GraphicManager::printText(200, 200, m_sprites_ascii, win_surf, "Menu");
+  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface, "Menu");
 }
 
 void WindowManager::drawWin() {
-  GraphicManager::printText(200, 200, m_sprites_ascii, win_surf, "Win");
+  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface, "Win");
 }
 
 void WindowManager::drawLose() {
-  GraphicManager::printText(200, 200, m_sprites_ascii, win_surf, "Lose");
+  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface, "Lose");
 }
 
-// dessine ce qui est nécessaire dans la surface de la fenêtre
 void WindowManager::drawLevel() {
   Player *player = m_game->getPlayer();
   SDL_Rect pRect = player->getRect();
@@ -148,30 +143,31 @@ void WindowManager::drawLevel() {
   SDL_Rect ballRect = ball->getRect();
   SDL_Rect srcBall = ball->getSrc();
 
-  // remplit le fond
   SDL_Rect dest = {0, 0, 0, 0};
 
-  for (int j = 0; j < win_surf->h; j += srcBg.h) {
-    for (int i = 0; i < win_surf->w; i += srcBg.w) {
+  // background
+  for (int j = 0; j < m_windowSurface->h; j += m_srcBg.h) {
+    for (int i = 0; i < m_windowSurface->w; i += m_srcBg.w) {
       dest.x = i;
       dest.y = j;
-      SDL_BlitSurface(plancheSprites, &srcBg, win_surf, &dest);
+      SDL_BlitSurface(m_sprites, &m_srcBg, m_windowSurface, &dest);
     }
   }
 
   // display ball
-  SDL_BlitSurface(plancheSprites, &srcBall, win_surf, &ballRect);
+  SDL_BlitSurface(m_sprites, &srcBall, m_windowSurface, &ballRect);
 
-  // effectue le déplacement de la balle
+  // move the ball
   ball->move(*player);
 
-  // vaisseau
-  SDL_BlitSurface(plancheSprites, &player->getSrc(), win_surf, &pRect);
+  // player
+  SDL_BlitSurface(m_sprites, &player->getSrc(), m_windowSurface, &pRect);
 
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
     SDL_Rect bRect = m_bricks.at(i).getRect();
-    SDL_BlitSurface(plancheSprites, &m_bricks.at(i).getSrc(), win_surf, &bRect);
+    SDL_BlitSurface(m_sprites, &m_bricks.at(i).getSrc(), m_windowSurface,
+                    &bRect);
 
     if (m_bricks.at(i).checkCollision(*ball)) {
       m_game->addPointsToGame(m_bricks.at(i).getPoints());
@@ -184,25 +180,25 @@ void WindowManager::drawLevel() {
   }
 
   // lives
-  for (int i = 0; i < player->get_lives(); i++) {
+  for (int i = 0; i < player->getLives(); i++) {
     dest.x = 30;
     dest.y = 30 + i * 30;
-    SDL_BlitSurface(plancheSprites, &srcVaiss, win_surf, &dest);
+    SDL_BlitSurface(m_sprites, &m_srcLive, m_windowSurface, &dest);
   }
 
-  GraphicManager::printText(200, 400, m_sprites_ascii, win_surf,
+  GraphicManager::printText(200, 400, m_spritesAscii, m_windowSurface,
                             std::to_string(m_game->getGamePoints()) +
                                 " points");
 }
 
-// met à jour l'affichage de la surface de la fenêtre
+// update window surface
 void WindowManager::update() {
-  SDL_UpdateWindowSurface(pWindow);
+  SDL_UpdateWindowSurface(m_window);
   SDL_Delay(20); // 50 fps
 }
 
-// retourne la largeur de la surface de la fenêtre
-int WindowManager::getWindowWidth() const { return win_surf->w; }
+// get window width
+int WindowManager::getWindowWidth() const { return m_windowSurface->w; }
 
-// retourne la hauteur de la surface de la fenêtre
-int WindowManager::getWindowHeight() const { return win_surf->h; }
+// get window height
+int WindowManager::getWindowHeight() const { return m_windowSurface->h; }
