@@ -11,7 +11,6 @@ public:
   Ball();
   Ball(Game *game);
 
-  void set_magnet();
   void set_moving();
 
   SDL_Rect getRect() const;

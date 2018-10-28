@@ -22,12 +22,6 @@ SDL_Rect Ball::getRect() const { return m_ball; }
 SDL_Rect Ball::getSrc() const { return m_src; }
 
 /**
- * When function is called, the ball stays on the player
- * Stop the action of the "move" function
- */
-void Ball::set_magnet() { m_is_moving = true; }
-
-/**
  * When function is called, the ball starts to move
  */
 void Ball::set_moving() { m_is_moving = true; }
@@ -67,6 +61,8 @@ void Ball::move(Player &player) {
       m_speedY *= -1;
 
       player.loose_life();
+      m_is_moving = false;
+      m_ball.y = m_windowY - PLAYER_HEIGHT - BALL_SIZE;
     }
 
     // collision vaisseau
