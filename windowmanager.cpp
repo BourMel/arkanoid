@@ -164,9 +164,6 @@ void WindowManager::draw() {
     if (m_bricks.at(i).checkCollision(*ball)) {
       m_game->addPointsToGame(m_bricks.at(i).getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
-
-      // display points
-      std::cout << "Points: " << m_game->getGamePoints() << std::endl;
     }
   }
 

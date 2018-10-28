@@ -73,6 +73,13 @@ void Ball::move(Player &player) {
     if ((m_ball.x > playerPosition) &&
         (m_ball.x < playerPosition + playerWidth) &&
         (m_ball.y > m_windowY - PLAYER_HEIGHT - BALL_SIZE)) {
+
+      // allows the player to choose the direction of the ball
+      float positionOnPlayer =
+          (float)((float)(m_ball.x - playerPosition) / (float)playerWidth);
+      // speed between -10 et 10 (range of 20), using the ball position
+      m_speedX = positionOnPlayer * 20 - 10;
+
       m_speedY *= -1;
     }
 
