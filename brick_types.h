@@ -104,7 +104,11 @@ public:
 class Brick13 : public Brick {
 public:
   Brick13();
+  Brick13(Game *game, int line, int col);
   Brick13(int line, int col);
+
+private:
+  Game *m_game;
 };
 
 /** BRICK 14 **/

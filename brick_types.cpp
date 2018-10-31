@@ -1,8 +1,9 @@
 #include "brick_types.h"
 #include "brick.h"
+#include "game.h"
 #include "graphicmanager.h"
-#include <SDL2/SDL.h>
 
+#include <SDL2/SDL.h>
 #include <cmath>
 #include <iostream>
 
@@ -131,13 +132,25 @@ Brick12::Brick12(int line, int col) : Brick(1, line, col) {
 }
 
 /** BRICK 13 **/
-
 Brick13::Brick13() : Brick() {}
 
-Brick13::Brick13(int line, int col) : Brick(2, line, col) {
-  m_lives = 2; // to increase with number of rounds
+Brick13::Brick13(Game *game, int line, int col)
+    : Brick(1, line, col), m_game(game) {
+
+  int level = m_game->getLevel();
+
+  if ((level > 0) && (level <= 8)) {
+    m_lives = 2;
+  } else if ((level > 8) && (level <= 16)) {
+    m_lives = 3;
+  } else if ((level > 16) && (level <= 24)) {
+    m_lives = 4;
+  } else if ((level > 24) && (level <= 32)) {
+    m_lives = 5;
+  }
+
   m_id = 13;
-  m_points = 150; // to increase with number of rounds
+  m_points = 100 * level;
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_GREY);
 }
 
@@ -146,7 +159,7 @@ Brick13::Brick13(int line, int col) : Brick(2, line, col) {
 Brick14::Brick14() : Brick() {}
 
 Brick14::Brick14(int line, int col) : Brick(10, line, col) {
-  m_lives = 10; // infinite
+  m_lives = 100; // infinite
   m_id = 14;
   m_points = 0; // not meant to be destroyed
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_GOLD);

@@ -107,7 +107,7 @@ void WindowManager::readLevelFile(int level) {
         b = Brick12(line, col);
         break;
       case 13:
-        b = Brick13(line, col);
+        b = Brick13(m_game, line, col);
         break;
       case 14:
         b = Brick14(line, col);
