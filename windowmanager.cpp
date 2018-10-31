@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <fstream>
 #include <iostream>
+#include <string>
 
 #include "brick_types.h"
 
@@ -140,6 +141,7 @@ void WindowManager::drawLevel() {
   Ball *ball = m_game->getBall();
   SDL_Rect ballRect = ball->getRect();
   SDL_Rect srcBall = ball->getSrc();
+  std::string level = std::to_string(m_game->getLevel());
 
   SDL_Rect dest = {0, 0, 0, 0};
 
@@ -184,7 +186,11 @@ void WindowManager::drawLevel() {
     SDL_BlitSurface(m_sprites, &m_srcLive, m_windowSurface, &dest);
   }
 
-  GraphicManager::printText(200, 400, m_spritesAscii, m_windowSurface,
+  // display informations on game (points, level)
+  GraphicManager::printText(m_width - 100, 20, m_spritesAscii, m_windowSurface,
+                            level);
+
+  GraphicManager::printText(m_width - 250, 70, m_spritesAscii, m_windowSurface,
                             std::to_string(m_game->getGamePoints()) +
                                 " points");
 }
