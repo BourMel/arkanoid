@@ -159,7 +159,7 @@ Brick13::Brick13(Game *game, int line, int col)
 Brick14::Brick14() : Brick() {}
 
 Brick14::Brick14(int line, int col) : Brick(10, line, col) {
-  m_lives = 100; // infinite
+  m_lives = 100; // infinite @TODO (level can't finish if a brick still exists)
   m_id = 14;
   m_points = 0; // not meant to be destroyed
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_GOLD);
