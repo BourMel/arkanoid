@@ -124,15 +124,60 @@ void WindowManager::readLevelFile(int level) {
 }
 
 void WindowManager::drawMenu() {
-  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface, "Menu");
+  // fill the screen with black
+  SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
+
+  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface, "Arkanoid");
+
+  GraphicManager::printText(
+    m_width/2 - 190,
+    400,
+    m_spritesAscii,
+    m_windowSurface,
+    "Press ENTER to begin"
+  );
 }
 
 void WindowManager::drawWin() {
-  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface, "Win");
+  // fill the screen with black
+  SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
+
+  GraphicManager::printText(
+    m_width/2 - 150,
+    200,
+    m_spritesAscii,
+    m_windowSurface,
+    "Congratulations"
+  );
+
+  GraphicManager::printText(
+    m_width/2 - 230,
+    400,
+    m_spritesAscii,
+    m_windowSurface,
+    "Return to menu with ENTER"
+  );
 }
 
 void WindowManager::drawLose() {
-  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface, "Lose");
+  // fill the screen with black
+  SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
+
+  GraphicManager::printText(
+    m_width/2 - 90,
+    200,
+    m_spritesAscii,
+    m_windowSurface,
+    "Game Over"
+  );
+  
+  GraphicManager::printText(
+    m_width/2 - 230,
+    400,
+    m_spritesAscii,
+    m_windowSurface,
+    "Return to menu with ENTER"
+  );
 }
 
 void WindowManager::drawLevel() {
