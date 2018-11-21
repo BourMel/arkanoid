@@ -3,7 +3,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-int main(int argc, char **argv) {
+int main() {
   Game game;
   game.run();
   return 0;

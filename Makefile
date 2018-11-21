@@ -1,6 +1,11 @@
-.PHONY: arkanoid
-arkanoid:
-	g++ *.cpp *.h -std=c++11 -lSDL2 -o arkanoid
+CC       := g++
+CPPFLAGS := -std=c++11 -O3
+LDFLAGS  := -std=c++11 -O3
+LDLIBS   := -lSDL2
+SRC      := $(wildcard *.cpp)
+OBJ      := $(SRC:.cpp=.o)
+
+arkanoid: $(OBJ)
 
 .PHONY: format
 format:
@@ -12,4 +17,4 @@ run:
 
 .PHONY: clean
 clean:
-	rm arkanoid
+	$(RM) arkanoid *.o
