@@ -157,6 +157,9 @@ void EventManager::listenLevel() {
     case SDLK_RETURN:
       m_game->setCurrentScreen(Game::SCREEN_LEVEL);
       break;
+    case SDLK_n:
+      m_game->nextLevel();
+      break;
     case SDLK_q:
     case SDLK_ESCAPE:
       setQuit(true);

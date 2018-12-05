@@ -173,8 +173,10 @@ void WindowManager::drawLevel() {
 
   SDL_Rect dest = {0, 0, 0, 0};
 
+  SDL_FillRect(m_windowSurface, NULL, 0x000000);
+
   // background
-  for (int j = 0; j < m_windowSurface->h; j += m_srcBg.h) {
+  for (int j = 100; j < m_windowSurface->h; j += m_srcBg.h) {
     for (int i = 0; i < m_windowSurface->w; i += m_srcBg.w) {
       dest.x = i;
       dest.y = j;

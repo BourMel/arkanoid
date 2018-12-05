@@ -44,24 +44,24 @@ void Ball::move(Player *player) {
       if (cylinderModeEnabled) {
         m_ball.x = m_windowX - BALL_SIZE;
       } else {
-        m_speedX *= -1;
+        bounceX();
         if (m_ball.x < 0)
           m_ball.x = 0;
       }
-    } else if (m_ball.y < 1) { // top collision
-      m_speedY *= -1;
-      if (m_ball.y < 0)
-        m_ball.y = 0;
+    } else if (m_ball.y < 101) { // top collision
+      bounceY();
+      if (m_ball.y < 100)
+        m_ball.y = 100;
     } else if (m_ball.x > m_windowX - BALL_SIZE) { // right collision
       if (cylinderModeEnabled) {
         m_ball.x = 0;
       } else {
         m_ball.x = -m_ball.x + (2 * (m_windowX - BALL_SIZE));
-        m_speedX *= -1;
+        bounceX();
       }
     } else if (m_ball.y > m_windowY - BALL_SIZE) { // bottom collision
       m_ball.y = -m_ball.y + (2 * (m_windowY - BALL_SIZE));
-      m_speedY *= -1;
+      bounceY();
 
       player->looseLife();
       m_isMoving = false;
