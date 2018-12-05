@@ -29,6 +29,7 @@ public:
     BRICK_GOLD,
 
     // Player
+    PLAYER_LIFE,
     PLAYER_1,
     PLAYER_2,
     PLAYER_3,

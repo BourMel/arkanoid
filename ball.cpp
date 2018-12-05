@@ -3,7 +3,7 @@
 #include <iostream>
 
 #define BALL_SIZE 12
-#define PLAYER_HEIGHT 32
+#define PLAYER_HEIGHT 50
 
 Ball::Ball()
     : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(5), m_speedY(7),

@@ -5,16 +5,17 @@
 Player::Player() { init(); }
 Player::Player(Game *game) : m_game(game) { init(); }
 
+/**
+ * Initialize the player for the first time
+ */
 void Player::init() {
   m_windowWidth = m_game->getWindowManager()->getWindowWidth();
-  m_lives = 3;
-  m_src = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_1);
-  m_rect.x = (m_windowWidth - m_src.w) / 2;
-  m_rect.y = m_game->getWindowManager()->getWindowHeight() - 32;
-  m_rect.w = m_src.w;
-  m_rect.h = m_src.h;
+  reset();
 }
 
+/**
+ * Set player position on the x-axis
+ */
 void Player::setX(int value) {
   if (value < 0)
     value = 0;
@@ -23,6 +24,9 @@ void Player::setX(int value) {
   m_rect.x = value;
 }
 
+/**
+ * Get the player position on the x-axis
+ */
 int Player::getX() const { return m_rect.x; }
 
 /**
@@ -56,11 +60,14 @@ void Player::setSprite(GraphicManager::SpriteType type) {
   m_rect.h = m_src.h;
 }
 
+/**
+ * Reset player informations
+ */
 void Player::reset() {
   m_lives = 3;
   m_src = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_1);
   m_rect.x = (m_windowWidth - m_src.w) / 2;
-  m_rect.y = m_game->getWindowManager()->getWindowHeight() - 32;
+  m_rect.y = m_game->getWindowManager()->getWindowHeight() - 50;
   m_rect.w = m_src.w;
   m_rect.h = m_src.h;
 }

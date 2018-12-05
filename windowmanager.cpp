@@ -42,7 +42,8 @@ void WindowManager::init() {
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
   SDL_SetColorKey(m_spritesAscii, true, 0);
 
-  m_srcLive = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_3);
+  m_srcLive =
+      GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_LIFE);
 
   readLevelFile(1);
 }
@@ -206,10 +207,10 @@ void WindowManager::drawLevel() {
     m_game->nextLevel();
   }
 
-  // lives
-  for (int i = 0; i < player->getLives(); i++) {
-    dest.x = 30;
-    dest.y = 30 + i * 30;
+  // display lives
+  for (int i = 1; i < player->getLives(); i++) {
+    dest.x = 30 + (i - 1) * 30;
+    dest.y = m_windowSurface->h - 20;
     SDL_BlitSurface(m_sprites, &m_srcLive, m_windowSurface, &dest);
   }
 
