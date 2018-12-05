@@ -90,9 +90,19 @@ void Ball::move(Player *player) {
 /**
  * Collision with the ball on the left or right side
  */
-void Ball::collisionLeftRight() { m_speedX *= -1; }
+void Ball::bounceX() { m_speedX *= -1; }
 
 /**
  * Collision with the ball on the top or bottom side
  */
-void Ball::collisionTopBottom() { m_speedY *= -1; }
+void Ball::bounceY() { m_speedY *= -1; }
+
+/**
+ * Return current ball speed for the x-axis
+ */
+int Ball::getSpeedX() const { return m_speedX; }
+
+/**
+ * Return current ball speed for the y-axis
+ */
+int Ball::getSpeedY() const { return m_speedY; }
