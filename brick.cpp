@@ -63,7 +63,7 @@ bool Brick::checkCollision(Ball &ball) {
     // all other cases
     else if (absDeltaX < limitY)
       ball.bounceY();              // collision top or bottom
-    else if (absDeltaX = limitY) { // side + top collisions
+    else if (absDeltaX = limitY) { // x and y collisions
       ball.bounceX();
       ball.bounceY();
     }

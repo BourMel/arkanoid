@@ -17,6 +17,7 @@ public:
   // bool isAlive() const;
   int getLives() const;
   void setSprite(GraphicManager::SpriteType type);
+  void reset();
 
 private:
   int m_lives;

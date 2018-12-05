@@ -57,6 +57,12 @@ void WindowManager::readLevelFile(int level) {
   if (!f.is_open())
     return;
 
+  if (level == 1) {
+    if (m_game->getPlayer() != nullptr) {
+      m_game->reset();
+    }
+  }
+
   f >> m_nbLines;
   f >> m_nbColumns;
 

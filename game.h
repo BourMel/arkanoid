@@ -33,12 +33,12 @@ public:
   screen getCurrentScreen() const;
   int getLevel() const;
   void nextLevel();
+  void reset();
 
 private:
   screen m_currentScreen;
 
   int m_level;
-  int m_lives;
   int m_points;
 
   // instances

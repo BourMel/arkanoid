@@ -2,12 +2,13 @@
 #include "game.h"
 #include <SDL2/SDL.h>
 
-Player::Player() : m_lives(3) { init(); }
-Player::Player(Game *game) : m_game(game), m_lives(3) { init(); }
+Player::Player() { init(); }
+Player::Player(Game *game) : m_game(game) { init(); }
 
 void Player::init() {
   m_windowWidth = m_game->getWindowManager()->getWindowWidth();
-  m_src = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_8);
+  m_lives = 3;
+  m_src = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_1);
   m_rect.x = (m_windowWidth - m_src.w) / 2;
   m_rect.y = m_game->getWindowManager()->getWindowHeight() - 32;
   m_rect.w = m_src.w;
@@ -51,6 +52,15 @@ void Player::setSprite(GraphicManager::SpriteType type) {
   if (m_rect.x + m_rect.w > m_windowWidth) {
     m_rect.x = m_windowWidth - m_src.w;
   }
+  m_rect.w = m_src.w;
+  m_rect.h = m_src.h;
+}
+
+void Player::reset() {
+  m_lives = 3;
+  m_src = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_1);
+  m_rect.x = (m_windowWidth - m_src.w) / 2;
+  m_rect.y = m_game->getWindowManager()->getWindowHeight() - 32;
   m_rect.w = m_src.w;
   m_rect.h = m_src.h;
 }
