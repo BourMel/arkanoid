@@ -11,7 +11,9 @@ GraphicManager::GraphicManager() {}
 SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   SDL_Rect rect = {0, 0, 0, 0};
 
-  // operation for all bricks
+  /** SET WIDTH AND HEIGHT **/
+
+  // operation for all bricks & bonus
   switch (type) {
   case BRICK_WHITE:
   case BRICK_ORANGE:
@@ -27,6 +29,13 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   case BRICK_BLUEGREEN:
   case BRICK_GREY:
   case BRICK_GOLD:
+  case BONUS_S:
+  case BONUS_C:
+  case BONUS_L:
+  case BONUS_E:
+  case BONUS_D:
+  case BONUS_B:
+  case BONUS_P:
     rect.w = BRICK_WIDTH;
     rect.h = BRICK_HEIGHT;
     break;
@@ -108,6 +117,8 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
     break;
   }
 
+  /** SET COORDONNATES **/
+
   switch (type) {
   case BRICK_WHITE:
     // nothing to do anymore : x and y = 0 (defaults), and w and h are already
@@ -156,6 +167,33 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
     break;
   case BRICK_GOLD:
     rect.y = 3 * BRICK_HEIGHT;
+    break;
+  case BONUS_S:
+    rect.x = 8 * BRICK_WIDTH;
+    break;
+  case BONUS_C:
+    rect.x = 8 * BRICK_WIDTH;
+    rect.y = BRICK_HEIGHT;
+    break;
+  case BONUS_L:
+    rect.x = 8 * BRICK_WIDTH;
+    rect.y = 2 * BRICK_HEIGHT;
+    break;
+  case BONUS_E:
+    rect.x = 8 * BRICK_WIDTH;
+    rect.y = 3 * BRICK_HEIGHT;
+    break;
+  case BONUS_D:
+    rect.x = 8 * BRICK_WIDTH;
+    rect.y = 4 * BRICK_HEIGHT;
+    break;
+  case BONUS_B:
+    rect.x = 8 * BRICK_WIDTH;
+    rect.y = 5 * BRICK_HEIGHT;
+    break;
+  case BONUS_P:
+    rect.x = 8 * BRICK_WIDTH;
+    rect.y = 6 * BRICK_HEIGHT;
     break;
   case PLAYER_LIFE:
     rect.x = 448;

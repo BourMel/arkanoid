@@ -106,6 +106,15 @@ public:
     CHAR_7,
     CHAR_8,
     CHAR_9,
+
+    // BONUS
+    BONUS_S,
+    BONUS_C,
+    BONUS_L,
+    BONUS_E,
+    BONUS_D,
+    BONUS_B,
+    BONUS_P
   };
   GraphicManager();
 
