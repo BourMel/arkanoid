@@ -11,15 +11,15 @@
 
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
-      m_srcBg({0, 128, 48, 64}), m_width(600), m_height(600), m_nbLines(0),
-      m_nbColumns(0) {
+      m_srcBg({0, 128, 48, 64}), m_width(600), m_height(600),
+      m_height_start(50), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
       m_sprites(nullptr), m_srcBg({0, 128, 48, 64}), m_width(600),
-      m_height(600), m_nbLines(0), m_nbColumns(0) {
+      m_height_start(50), m_height(600), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -173,10 +173,10 @@ void WindowManager::drawLevel() {
 
   SDL_Rect dest = {0, 0, 0, 0};
 
-  SDL_FillRect(m_windowSurface, NULL, 0x000000);
+  SDL_FillRect(m_windowSurface, NULL, 0x302C2C);
 
   // background
-  for (int j = 100; j < m_windowSurface->h; j += m_srcBg.h) {
+  for (int j = m_height_start; j < m_windowSurface->h; j += m_srcBg.h) {
     for (int i = 0; i < m_windowSurface->w; i += m_srcBg.w) {
       dest.x = i;
       dest.y = j;
@@ -217,10 +217,10 @@ void WindowManager::drawLevel() {
   }
 
   // display informations on game (points, level)
-  GraphicManager::printText(m_width - 100, 20, m_spritesAscii, m_windowSurface,
+  GraphicManager::printText(m_width - 100, 10, m_spritesAscii, m_windowSurface,
                             level);
 
-  GraphicManager::printText(m_width - 250, 70, m_spritesAscii, m_windowSurface,
+  GraphicManager::printText(40, 10, m_spritesAscii, m_windowSurface,
                             std::to_string(m_game->getGamePoints()) +
                                 " points");
 }
@@ -236,3 +236,6 @@ int WindowManager::getWindowWidth() const { return m_windowSurface->w; }
 
 // get window height
 int WindowManager::getWindowHeight() const { return m_windowSurface->h; }
+
+// get window height start
+int WindowManager::getWindowHeightStart() const { return m_height_start; }

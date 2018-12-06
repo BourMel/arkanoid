@@ -27,8 +27,9 @@ public:
   // get window width
   int getWindowWidth() const;
 
-  // get window height
+  // get window height & start value
   int getWindowHeight() const;
+  int getWindowHeightStart() const;
 
   void readLevelFile(int level);
 
@@ -41,6 +42,7 @@ private:
   SDL_Rect m_srcLive;
   int m_width;
   int m_height;
+  int m_height_start;
 
   int m_nbLines;
   int m_nbColumns;

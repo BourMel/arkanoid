@@ -32,6 +32,7 @@ void Ball::setMoving(bool moving) { m_isMoving = moving; }
 void Ball::move(Player *player) {
   int playerPosition = player->getX();
   int playerWidth = player->getRect().w;
+  int topY = m_game->getWindowManager()->getWindowHeightStart();
 
   bool cylinderModeEnabled = m_game->getCylinderMode();
 
@@ -48,10 +49,10 @@ void Ball::move(Player *player) {
         if (m_ball.x < 0)
           m_ball.x = 0;
       }
-    } else if (m_ball.y < 101) { // top collision
+    } else if (m_ball.y < topY + 1) { // top collision
       bounceY();
-      if (m_ball.y < 100)
-        m_ball.y = 100;
+      if (m_ball.y < topY)
+        m_ball.y = topY;
     } else if (m_ball.x > m_windowX - BALL_SIZE) { // right collision
       if (cylinderModeEnabled) {
         m_ball.x = 0;
