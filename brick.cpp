@@ -1,9 +1,10 @@
-#include "brick.h"
-#include "graphicmanager.h"
 #include <SDL2/SDL.h>
-
 #include <cmath>
 #include <iostream>
+
+#include "bonus.h"
+#include "brick.h"
+#include "graphicmanager.h"
 
 Brick::Brick()
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
@@ -86,3 +87,13 @@ int Brick::getId() const { return m_id; }
  * Returns the number of points the brick represents
  */
 int Brick::getPoints() const { return m_points; }
+
+/**
+ * Random : if the brick contains a bonus, returns its
+ */
+Bonus spawnBonus() {
+  Bonus *bonus = new BonusS();
+
+  return *bonus;
+
+};

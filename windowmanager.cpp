@@ -1,13 +1,15 @@
-#include "windowmanager.h"
-#include "game.h"
-#include "graphicmanager.h"
-#include "player.h"
 #include <SDL2/SDL.h>
 #include <fstream>
 #include <iostream>
 #include <string>
 
 #include "brick_types.h"
+#include "brick.h"
+#include "game.h"
+#include "graphicmanager.h"
+#include "player.h"
+#include "windowmanager.h"
+#include "bonus.h"
 
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
@@ -199,7 +201,11 @@ void WindowManager::drawLevel() {
     SDL_BlitSurface(m_sprites, &m_bricks.at(i).getSrc(), m_windowSurface,
                     &bRect);
 
+    // handle the brick-ball collision
     if (m_bricks.at(i).checkCollision(*ball)) {
+      Bonus bonus = m_bricks.at(i).spawnBonus();
+      std::cout << "bonus?" << std::endl;
+
       m_game->addPointsToGame(m_bricks.at(i).getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }
