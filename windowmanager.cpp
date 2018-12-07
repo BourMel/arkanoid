@@ -203,12 +203,23 @@ void WindowManager::drawLevel() {
 
     // handle the brick-ball collision
     if (m_bricks.at(i).checkCollision(*ball)) {
+      // adds a bonus to the level
       Bonus bonus = m_bricks.at(i).spawnBonus();
-      std::cout << "bonus?" << std::endl;
+      // @TODO test if bonus exists
+      m_bonus.push_back(bonus);
 
       m_game->addPointsToGame(m_bricks.at(i).getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }
+  }
+
+  // display bonus
+  for (int i = 0; i < m_bonus.size(); i++) {
+    Bonus current = m_bonus.at(i);
+    SDL_Rect current_rect = current.getRect();
+
+    SDL_BlitSurface(m_sprites, &current.getSrc(), m_windowSurface,
+                    &current_rect);
   }
 
   if (m_bricks.size() <= 0) {

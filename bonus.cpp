@@ -5,11 +5,10 @@
 #include "bonus.h"
 #include "graphicmanager.h"
 
-Bonus::Bonus()
-    : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
-               {0, 0, BRICK_WIDTH, BRICK_HEIGHT}) {}
+Bonus::Bonus() : Drawable() {}
 
 /** BONUS TYPES **/
-BonusS::BonusS() : Bonus() {
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
+BonusS::BonusS(SDL_Rect position) : Bonus() {
+  Drawable::m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
+  Drawable::m_rect = position;
 }

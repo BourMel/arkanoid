@@ -1,6 +1,7 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
+#include "bonus.h"
 #include "brick.h"
 #include <SDL2/SDL.h>
 #include <vector>
@@ -47,6 +48,7 @@ private:
   int m_nbLines;
   int m_nbColumns;
   std::vector<Brick> m_bricks;
+  std::vector<Bonus> m_bonus;
 
   Game *m_game;
 };

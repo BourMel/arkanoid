@@ -27,7 +27,7 @@ protected:
 
 class BonusS : public Bonus {
 public:
-  BonusS();
+  BonusS(SDL_Rect position);
 };
 
 #endif // BONUS_TYPES_H

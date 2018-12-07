@@ -75,5 +75,6 @@ void Game::nextLevel() {
 void Game::reset() {
   m_points = 0;
   m_level = 1;
+  //@TODO : empty bonus vector
   m_player->reset();
 }
