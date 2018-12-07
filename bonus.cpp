@@ -1,9 +1,9 @@
-#include <cmath>
 #include <SDL2/SDL.h>
+#include <cmath>
 #include <iostream>
 
-#include "graphicmanager.h"
 #include "bonus.h"
+#include "graphicmanager.h"
 
 Bonus::Bonus()
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},

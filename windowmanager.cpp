@@ -3,13 +3,13 @@
 #include <iostream>
 #include <string>
 
-#include "brick_types.h"
+#include "bonus.h"
 #include "brick.h"
+#include "brick_types.h"
 #include "game.h"
 #include "graphicmanager.h"
 #include "player.h"
 #include "windowmanager.h"
-#include "bonus.h"
 
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),

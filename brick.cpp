@@ -91,9 +91,8 @@ int Brick::getPoints() const { return m_points; }
 /**
  * Random : if the brick contains a bonus, returns its
  */
-Bonus spawnBonus() {
+Bonus Brick::spawnBonus() {
   Bonus *bonus = new BonusS();
 
   return *bonus;
-
 };
