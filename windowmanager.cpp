@@ -271,6 +271,20 @@ void WindowManager::drawLevel() {
 
     SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface,
                     &current_rect);
+
+    // check bonus-player collision
+    if (SDL_HasIntersection(&current->getRect(),
+                            &m_game->getPlayer()->getRect())) {
+      std::cout << "bonus catched" << std::endl;
+      delete current;
+      m_bonus.erase(m_bonus.begin() + i--);
+    }
+
+    // remove bonus if it goes outside the window
+    if (current->getRect().y >= m_windowSurface->h) {
+      delete current;
+      m_bonus.erase(m_bonus.begin() + i--);
+    }
   }
 
   if (m_bricks.size() <= 0) {
