@@ -65,7 +65,8 @@ void Game::nextLevel() {
     m_currentScreen = SCREEN_WIN;
     reset();
   } else {
-    m_wm->readLevelFile(++m_level); // read next level file
+    // read next level file
+    m_wm->readLevelFile(++m_level);
   }
 }
 
@@ -75,6 +76,5 @@ void Game::nextLevel() {
 void Game::reset() {
   m_points = 0;
   m_level = 1;
-  //@TODO : empty bonus vector
   m_player->reset();
 }

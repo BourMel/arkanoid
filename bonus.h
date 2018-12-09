@@ -9,28 +9,17 @@ class Bonus : public Drawable {
 public:
   Bonus();
 
-protected:
-  SDL_Rect m_src; // sprite
-  int m_x;
-  int m_y;
+  void fall();
 };
 
-#endif // BONUS_H
-
 /** BONUS TYPES **/
-
-#ifndef BONUS_TYPES_H
-#define BONUS_TYPES_H
-
-#include "ball.h"
-#include "drawable.h"
 
 class BonusS : public Bonus {
 public:
   BonusS(SDL_Rect position);
 };
 
-#endif // BONUS_TYPES_H
+#endif // BONUS_H
 
 // BONUS_S,
 // BONUS_C,

@@ -7,6 +7,9 @@
 
 Bonus::Bonus() : Drawable() {}
 
+// @TODO
+void Bonus::fall() {}
+
 /** BONUS TYPES **/
 BonusS::BonusS(SDL_Rect position) : Bonus() {
   Drawable::m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);

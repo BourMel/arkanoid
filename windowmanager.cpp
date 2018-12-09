@@ -52,6 +52,7 @@ void WindowManager::init() {
 
 void WindowManager::readLevelFile(int level) {
   m_bricks.clear(); // clear bricks
+  m_bonus.clear();
 
   std::ifstream f;
   f.open("./levels/" + std::to_string(level) + ".txt");
@@ -213,13 +214,17 @@ void WindowManager::drawLevel() {
     }
   }
 
-  // display bonus
+  // display bonus & make them fall
   for (int i = 0; i < m_bonus.size(); i++) {
     Bonus current = m_bonus.at(i);
     SDL_Rect current_rect = current.getRect();
 
+    current_rect.x--;
+
     SDL_BlitSurface(m_sprites, &current.getSrc(), m_windowSurface,
                     &current_rect);
+
+    current.fall();
   }
 
   if (m_bricks.size() <= 0) {
