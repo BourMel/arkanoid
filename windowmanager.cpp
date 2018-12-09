@@ -275,7 +275,7 @@ void WindowManager::drawLevel() {
     // check bonus-player collision
     if (SDL_HasIntersection(&current->getRect(),
                             &m_game->getPlayer()->getRect())) {
-      std::cout << "bonus catched" << std::endl;
+      m_game->addPointsToGame(1000);
       delete current;
       m_bonus.erase(m_bonus.begin() + i--);
     }
