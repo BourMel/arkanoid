@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 
-#include "player.h"
 #include "game.h"
+#include "player.h"
 
 Player::Player() { init(); }
 Player::Player(Game *game) : m_game(game) { init(); }

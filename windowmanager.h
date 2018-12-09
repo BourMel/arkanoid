@@ -49,7 +49,7 @@ private:
   int m_nbLines;
   int m_nbColumns;
   std::vector<Brick> m_bricks;
-  std::vector<Bonus> m_bonus;
+  std::vector<Bonus *> m_bonus;
 
   Game *m_game;
 };

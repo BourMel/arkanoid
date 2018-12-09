@@ -87,11 +87,3 @@ int Brick::getId() const { return m_id; }
  * Returns the number of points the brick gives to the player if broken
  */
 int Brick::getPoints() const { return m_points; }
-
-/**
- * If the brick contains a bonus (random), returns its
- */
-Bonus Brick::spawnBonus() {
-  Bonus *bonus = new BonusS(m_rect);
-  return *bonus;
-};

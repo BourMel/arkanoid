@@ -4,20 +4,25 @@
 #include <string>
 
 #include "ball.h"
+#include "brick.h"
 #include "drawable.h"
 
 class Bonus : public Drawable {
 public:
   Bonus();
 
-  void fall();
+  virtual void drawCallback();
+
+protected:
+  int m_countAnim;
 };
 
 /** BONUS TYPES **/
 
 class BonusS : public Bonus {
 public:
-  BonusS(SDL_Rect position);
+  BonusS(SDL_Rect pos);
+  void drawCallback();
 };
 
 #endif // BONUS_H

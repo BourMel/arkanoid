@@ -3,19 +3,35 @@
 #include <iostream>
 
 #include "bonus.h"
+#include "brick.h"
 #include "graphicmanager.h"
 
-Bonus::Bonus() : Drawable() {}
+#define ANIM_FPS 5
 
-// @TODO
+Bonus::Bonus() : Drawable(), m_countAnim(0) {}
+
 /**
- * Make the bonus fall until it comes out of the screen or hits the player
+ * Callback each time the object is drawn
  */
-void Bonus::fall() {}
+void Bonus::drawCallback() {
+  if (++m_countAnim % ANIM_FPS == 0) {
+    m_countAnim = 0;
+
+    m_src.x += m_src.w;
+    if (m_src.x >= 16 * BRICK_WIDTH) {
+      m_src.x = 8 * BRICK_WIDTH;
+    }
+  }
+  m_rect.y += 4;
+}
 
 /** BONUS TYPES **/
-
-BonusS::BonusS(SDL_Rect position) : Bonus() {
-  Drawable::m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
-  Drawable::m_rect = position;
+BonusS::BonusS(SDL_Rect pos) : Bonus() {
+  m_rect = pos;
+  m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
 }
+
+/**
+ * Callback each time the object is drawn
+ */
+void BonusS::drawCallback() { Bonus::drawCallback(); }

@@ -215,33 +215,33 @@ void WindowManager::drawLevel() {
 
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
-    SDL_Rect bRect = m_bricks.at(i).getRect();
-    SDL_BlitSurface(m_sprites, &m_bricks.at(i).getSrc(), m_windowSurface,
-                    &bRect);
+    Brick currentbrick = m_bricks.at(i);
+    SDL_Rect bRect = currentbrick.getRect();
+    SDL_BlitSurface(m_sprites, &currentbrick.getSrc(), m_windowSurface, &bRect);
 
     // handle the brick-ball collision
-    if (m_bricks.at(i).checkCollision(*ball)) {
+    if (currentbrick.checkCollision(*ball)) {
       // adds a bonus to the level
-      Bonus bonus = m_bricks.at(i).spawnBonus();
+      // Bonus bonus = currentbrick.spawnBonus();
+      Bonus *bonus = new BonusS(bRect);
       // @TODO test if bonus exists
       m_bonus.push_back(bonus);
 
-      m_game->addPointsToGame(m_bricks.at(i).getPoints());
+      m_game->addPointsToGame(currentbrick.getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }
   }
 
   // display bonus & make them fall
   for (int i = 0; i < m_bonus.size(); i++) {
-    Bonus current = m_bonus.at(i);
-    SDL_Rect current_rect = current.getRect();
+    Bonus *current = m_bonus.at(i);
+    SDL_Rect current_rect = current->getRect();
+    current->drawCallback();
 
-    current_rect.x--;
-
-    SDL_BlitSurface(m_sprites, &current.getSrc(), m_windowSurface,
+    SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface,
                     &current_rect);
 
-    current.fall();
+    current->fall();
   }
 
   if (m_bricks.size() <= 0) {

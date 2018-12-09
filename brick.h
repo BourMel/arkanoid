@@ -12,7 +12,6 @@ public:
   Brick(int lives, int line, int col);
 
   bool checkCollision(Ball &ball);
-  Bonus spawnBonus();
   int getId() const;
   int getPoints() const;
 

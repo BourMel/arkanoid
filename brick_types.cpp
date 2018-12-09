@@ -2,8 +2,8 @@
 #include <cmath>
 #include <iostream>
 
-#include "brick_types.h"
 #include "brick.h"
+#include "brick_types.h"
 #include "game.h"
 #include "graphicmanager.h"
 
