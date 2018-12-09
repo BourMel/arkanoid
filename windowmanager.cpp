@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -221,12 +222,42 @@ void WindowManager::drawLevel() {
 
     // handle the brick-ball collision
     if (currentbrick.checkCollision(*ball)) {
-      // adds a bonus to the level
-      // Bonus bonus = currentbrick.spawnBonus();
-      Bonus *bonus = new BonusS(bRect);
-      // @TODO test if bonus exists
-      m_bonus.push_back(bonus);
 
+      // adds a bonus to the level
+      if (rand() % 3 == 0) {
+        Bonus *bonus;
+
+        // spawn a random bonus type
+        switch (rand() % 7) {
+        case 0:
+          bonus = new BonusS(bRect);
+          break;
+        case 1:
+          bonus = new BonusC(bRect);
+          break;
+        case 2:
+          bonus = new BonusL(bRect);
+          break;
+        case 3:
+          bonus = new BonusE(bRect);
+          break;
+        case 4:
+          bonus = new BonusD(bRect);
+          break;
+        case 5:
+          bonus = new BonusB(bRect);
+          break;
+        case 6:
+          bonus = new BonusP(bRect);
+          break;
+        default:
+          goto nobonus;
+        }
+
+        m_bonus.push_back(bonus);
+      }
+
+    nobonus:
       m_game->addPointsToGame(currentbrick.getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }
@@ -240,8 +271,6 @@ void WindowManager::drawLevel() {
 
     SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface,
                     &current_rect);
-
-    current->fall();
   }
 
   if (m_bricks.size() <= 0) {

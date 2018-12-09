@@ -35,3 +35,63 @@ BonusS::BonusS(SDL_Rect pos) : Bonus() {
  * Callback each time the object is drawn
  */
 void BonusS::drawCallback() { Bonus::drawCallback(); }
+
+BonusC::BonusC(SDL_Rect pos) : Bonus() {
+  m_rect = pos;
+  m_src = GraphicManager::getSprite(GraphicManager::BONUS_C);
+}
+
+/**
+ * Callback each time the object is drawn
+ */
+void BonusC::drawCallback() { Bonus::drawCallback(); }
+
+BonusL::BonusL(SDL_Rect pos) : Bonus() {
+  m_rect = pos;
+  m_src = GraphicManager::getSprite(GraphicManager::BONUS_L);
+}
+
+/**
+ * Callback each time the object is drawn
+ */
+void BonusL::drawCallback() { Bonus::drawCallback(); }
+
+BonusE::BonusE(SDL_Rect pos) : Bonus() {
+  m_rect = pos;
+  m_src = GraphicManager::getSprite(GraphicManager::BONUS_E);
+}
+
+/**
+ * Callback each time the object is drawn
+ */
+void BonusE::drawCallback() { Bonus::drawCallback(); }
+
+BonusD::BonusD(SDL_Rect pos) : Bonus() {
+  m_rect = pos;
+  m_src = GraphicManager::getSprite(GraphicManager::BONUS_D);
+}
+
+/**
+ * Callback each time the object is drawn
+ */
+void BonusD::drawCallback() { Bonus::drawCallback(); }
+
+BonusB::BonusB(SDL_Rect pos) : Bonus() {
+  m_rect = pos;
+  m_src = GraphicManager::getSprite(GraphicManager::BONUS_B);
+}
+
+/**
+ * Callback each time the object is drawn
+ */
+void BonusB::drawCallback() { Bonus::drawCallback(); }
+
+BonusP::BonusP(SDL_Rect pos) : Bonus() {
+  m_rect = pos;
+  m_src = GraphicManager::getSprite(GraphicManager::BONUS_P);
+}
+
+/**
+ * Callback each time the object is drawn
+ */
+void BonusP::drawCallback() { Bonus::drawCallback(); }

@@ -25,12 +25,40 @@ public:
   void drawCallback();
 };
 
-#endif // BONUS_H
+class BonusC : public Bonus {
+public:
+  BonusC(SDL_Rect pos);
+  void drawCallback();
+};
 
-// BONUS_S,
-// BONUS_C,
-// BONUS_L,
-// BONUS_E,
-// BONUS_D,
-// BONUS_B,
-// BONUS_P
+class BonusL : public Bonus {
+public:
+  BonusL(SDL_Rect pos);
+  void drawCallback();
+};
+
+class BonusE : public Bonus {
+public:
+  BonusE(SDL_Rect pos);
+  void drawCallback();
+};
+
+class BonusD : public Bonus {
+public:
+  BonusD(SDL_Rect pos);
+  void drawCallback();
+};
+
+class BonusB : public Bonus {
+public:
+  BonusB(SDL_Rect pos);
+  void drawCallback();
+};
+
+class BonusP : public Bonus {
+public:
+  BonusP(SDL_Rect pos);
+  void drawCallback();
+};
+
+#endif // BONUS_H

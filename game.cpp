@@ -52,14 +52,17 @@ void Game::run() {
  * Get the value of cylinder mode
  */
 bool Game::getCylinderMode() const { return m_cylinderMode; }
+
 /**
  * Toggle cylinder mode
  */
 void Game::toggleCylinderMode() { m_cylinderMode = !m_cylinderMode; }
+
 /**
  * Add a given value to points
  */
 void Game::addPointsToGame(int points) { m_points += points; }
+
 /**
  * Get current points in game
  */
@@ -69,14 +72,17 @@ int Game::getGamePoints() const { return m_points; }
  * Get instance of window manager
  */
 WindowManager *Game::getWindowManager() const { return m_wm; }
+
 /**
  * Get instance of event manager
  */
 EventManager *Game::getEventManager() const { return m_em; }
+
 /**
  * Get instance of player
  */
 Player *Game::getPlayer() const { return m_player; }
+
 /**
  * Get instance of ball
  */
@@ -86,6 +92,7 @@ Ball *Game::getBall() const { return m_ball; }
  * Change current screen
  */
 void Game::setCurrentScreen(screen s) { m_currentScreen = s; }
+
 /**
  * Get current screeen
  */
