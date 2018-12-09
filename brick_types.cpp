@@ -1,14 +1,14 @@
+#include <SDL2/SDL.h>
+#include <cmath>
+#include <iostream>
+
 #include "brick_types.h"
 #include "brick.h"
 #include "game.h"
 #include "graphicmanager.h"
 
-#include <SDL2/SDL.h>
-#include <cmath>
-#include <iostream>
-
 /**
- * This file defines all children of "Brick"
+ * This file defines all types of "Brick"
  */
 
 /** BRICK 1 **/

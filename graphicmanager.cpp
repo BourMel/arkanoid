@@ -121,8 +121,8 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
 
   switch (type) {
   case BRICK_WHITE:
-    // nothing to do anymore : x and y = 0 (defaults), and w and h are already
-    // set
+    // nothing to do anymore : x and y = 0 (defaults),
+    // and w and h are already set
     break;
   case BRICK_ORANGE:
     rect.x = BRICK_WIDTH;

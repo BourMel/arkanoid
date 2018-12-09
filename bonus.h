@@ -1,9 +1,10 @@
 #ifndef BONUS_H
 #define BONUS_H
 
+#include <string>
+
 #include "ball.h"
 #include "drawable.h"
-#include <string>
 
 class Bonus : public Drawable {
 public:

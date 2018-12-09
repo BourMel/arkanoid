@@ -1,6 +1,7 @@
+#include <SDL2/SDL.h>
+
 #include "player.h"
 #include "game.h"
-#include <SDL2/SDL.h>
 
 Player::Player() { init(); }
 Player::Player(Game *game) : m_game(game) { init(); }
@@ -37,11 +38,6 @@ void Player::looseLife() {
     m_game->setCurrentScreen(Game::SCREEN_LOSE);
   }
 }
-
-/**
- * Returns true if the player is still alive
- */
-// bool Player::isAlive() const { return m_lives > 0; }
 
 /**
  * Returns number of remaining lives

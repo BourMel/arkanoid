@@ -14,7 +14,6 @@ public:
   void setX(int value);
   int getX() const;
   void looseLife();
-  // bool isAlive() const;
   int getLives() const;
   void setSprite(GraphicManager::SpriteType type);
   void reset();

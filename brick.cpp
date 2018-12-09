@@ -79,17 +79,17 @@ bool Brick::checkCollision(Ball &ball) {
 }
 
 /**
- * Returns the id of a brick
+ * Returns the id of a brick (its type)
  */
 int Brick::getId() const { return m_id; }
 
 /**
- * Returns the number of points the brick represents
+ * Returns the number of points the brick gives to the player if broken
  */
 int Brick::getPoints() const { return m_points; }
 
 /**
- * Random : if the brick contains a bonus, returns its
+ * If the brick contains a bonus (random), returns its
  */
 Bonus Brick::spawnBonus() {
   Bonus *bonus = new BonusS(m_rect);

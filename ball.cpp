@@ -1,6 +1,7 @@
+#include <iostream>
+
 #include "ball.h"
 #include "game.h"
-#include <iostream>
 
 #define BALL_SIZE 12
 #define PLAYER_HEIGHT 50
@@ -9,6 +10,7 @@ Ball::Ball()
     : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(5), m_speedY(7),
       m_windowX(0), m_windowY(0), m_src({50, 68, BALL_SIZE, BALL_SIZE}),
       m_isMoving(false) {}
+
 Ball::Ball(Game *game)
     : m_game(game), m_speedX(5), m_speedY(7),
       m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false) {
@@ -18,11 +20,18 @@ Ball::Ball(Game *game)
             BALL_SIZE};
 }
 
+/**
+ * Returns the ball object
+ */
 SDL_Rect Ball::getRect() const { return m_ball; }
+
+/**
+ * Returns the sprite position
+ */
 SDL_Rect Ball::getSrc() const { return m_src; }
 
 /**
- * If true, the ball will be moving on the screen
+ * If moving = true, the ball will be moving on the screen
  */
 void Ball::setMoving(bool moving) { m_isMoving = moving; }
 
@@ -49,10 +58,12 @@ void Ball::move(Player *player) {
         if (m_ball.x < 0)
           m_ball.x = 0;
       }
+
     } else if (m_ball.y < topY + 1) { // top collision
       bounceY();
       if (m_ball.y < topY)
         m_ball.y = topY;
+
     } else if (m_ball.x > m_windowX - BALL_SIZE) { // right collision
       if (cylinderModeEnabled) {
         m_ball.x = 0;
@@ -60,6 +71,7 @@ void Ball::move(Player *player) {
         m_ball.x = -m_ball.x + (2 * (m_windowX - BALL_SIZE));
         bounceX();
       }
+
     } else if (m_ball.y > m_windowY - BALL_SIZE) { // bottom collision
       m_ball.y = -m_ball.y + (2 * (m_windowY - BALL_SIZE));
       bounceY();
@@ -73,6 +85,7 @@ void Ball::move(Player *player) {
         (m_ball.x < playerPosition + playerWidth) &&
         (m_ball.y > m_windowY - PLAYER_HEIGHT - BALL_SIZE)) {
 
+      // the next direction of the ball depends on where it hits the player :
       // allows the player to choose the direction of the ball
       double positionOnPlayer =
           (double)((double)(m_ball.x - playerPosition) / (double)playerWidth);
@@ -82,7 +95,7 @@ void Ball::move(Player *player) {
       m_speedY *= -1;
     }
 
-  } else { // the ball sticks on the player
+  } else { // ball not moving : it sticks on the player
     m_ball.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
     m_ball.y = m_windowY - PLAYER_HEIGHT - BALL_SIZE;
   }

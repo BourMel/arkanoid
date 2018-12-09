@@ -1,10 +1,11 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
-#include "bonus.h"
-#include "brick.h"
 #include <SDL2/SDL.h>
 #include <vector>
+
+#include "bonus.h"
+#include "brick.h"
 
 class Game;
 

@@ -25,7 +25,9 @@ WindowManager::WindowManager(Game *game)
   init();
 }
 
-// init the window
+/**
+ * Init SDL window
+ */
 void WindowManager::init() {
   // check if SDL is successfuly loaded
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -50,6 +52,9 @@ void WindowManager::init() {
   readLevelFile(1);
 }
 
+/**
+ * Read file representing a level and use it to build it
+ */
 void WindowManager::readLevelFile(int level) {
   m_bricks.clear(); // clear bricks
   m_bonus.clear();
@@ -133,6 +138,9 @@ void WindowManager::readLevelFile(int level) {
   }
 }
 
+/**
+ * Draw screen menu
+ */
 void WindowManager::drawMenu() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
@@ -144,6 +152,9 @@ void WindowManager::drawMenu() {
                             m_windowSurface, "Press ENTER to begin");
 }
 
+/**
+ * Draw "congratulations" screen
+ */
 void WindowManager::drawWin() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
@@ -155,6 +166,9 @@ void WindowManager::drawWin() {
                             m_windowSurface, "Return to menu with ENTER");
 }
 
+/**
+ * Draw "game over" screen
+ */
 void WindowManager::drawLose() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
@@ -166,6 +180,9 @@ void WindowManager::drawLose() {
                             m_windowSurface, "Return to menu with ENTER");
 }
 
+/**
+ * Draw level (actual game)
+ */
 void WindowManager::drawLevel() {
   Player *player = m_game->getPlayer();
   SDL_Rect pRect = player->getRect();
