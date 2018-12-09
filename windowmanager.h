@@ -51,6 +51,10 @@ private:
   std::vector<Brick> m_bricks;
   std::vector<Bonus *> m_bonus;
 
+  Uint64 m_prev;
+  Uint64 m_now;
+  double m_deltaTime;
+
   Game *m_game;
 };
 

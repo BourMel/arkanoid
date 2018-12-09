@@ -42,6 +42,8 @@ void WindowManager::init() {
                               SDL_WINDOW_SHOWN);
   m_windowSurface = SDL_GetWindowSurface(m_window);
 
+  m_now = SDL_GetPerformanceCounter();
+
   m_sprites = SDL_LoadBMP("./sprites.bmp");
   m_spritesAscii = SDL_LoadBMP("./ascii.bmp");
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
@@ -310,7 +312,18 @@ void WindowManager::drawLevel() {
 // update window surface
 void WindowManager::update() {
   SDL_UpdateWindowSurface(m_window);
-  SDL_Delay(20); // 50 fps
+
+  m_prev = m_now;
+  m_now = SDL_GetPerformanceCounter();
+  m_deltaTime =
+      (double)((m_now - m_prev) * 1000 / (double)SDL_GetPerformanceFrequency());
+
+  if (m_deltaTime < 20) {
+    SDL_Delay(20 - m_deltaTime);
+    m_now = SDL_GetPerformanceCounter();
+    m_deltaTime = (double)((m_now - m_prev) * 1000 /
+                           (double)SDL_GetPerformanceFrequency());
+  }
 }
 
 // get window width
