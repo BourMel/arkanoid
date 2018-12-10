@@ -40,6 +40,15 @@ void Player::looseLife() {
 }
 
 /**
+ * The player win a life (max: 8)
+ */
+void Player::winLife() {
+  if (m_lives >= 8)
+    return;
+  m_lives++;
+}
+
+/**
  * Returns number of remaining lives
  */
 int Player::getLives() const { return m_lives; }

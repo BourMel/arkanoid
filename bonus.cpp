@@ -4,6 +4,7 @@
 
 #include "bonus.h"
 #include "brick.h"
+#include "game.h"
 #include "graphicmanager.h"
 
 #define ANIM_FPS 5
@@ -68,4 +69,4 @@ BonusP::BonusP(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_P);
 }
-void BonusP::action() { std::cout << "action for bonus P" << std::endl; }
+void BonusP::action() { m_game->getPlayer()->winLife(); }
