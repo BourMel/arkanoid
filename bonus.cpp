@@ -4,6 +4,7 @@
 
 #include "bonus.h"
 #include "brick.h"
+#include "game.h"
 #include "graphicmanager.h"
 
 #define ANIM_FPS 5
@@ -32,7 +33,12 @@ BonusS::BonusS(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
 }
-void BonusS::action() { std::cout << "action for bonus S" << std::endl; }
+/**
+ * Slow the ball
+ */
+void BonusS::action() {
+  m_game->getBall()->slow();
+}
 
 BonusC::BonusC(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;

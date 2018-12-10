@@ -20,6 +20,7 @@ public:
   void bounceY();
   int getSpeedX() const;
   int getSpeedY() const;
+  void slow();
 
 private:
   SDL_Rect m_ball;
