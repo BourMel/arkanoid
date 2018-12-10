@@ -232,25 +232,25 @@ void WindowManager::drawLevel() {
         // spawn a random bonus type
         switch (rand() % 7) {
         case 0:
-          bonus = new BonusS(bRect);
+          bonus = new BonusS(m_game, bRect);
           break;
         case 1:
-          bonus = new BonusC(bRect);
+          bonus = new BonusC(m_game, bRect);
           break;
         case 2:
-          bonus = new BonusL(bRect);
+          bonus = new BonusL(m_game, bRect);
           break;
         case 3:
-          bonus = new BonusE(bRect);
+          bonus = new BonusE(m_game, bRect);
           break;
         case 4:
-          bonus = new BonusD(bRect);
+          bonus = new BonusD(m_game, bRect);
           break;
         case 5:
-          bonus = new BonusB(bRect);
+          bonus = new BonusB(m_game, bRect);
           break;
         case 6:
-          bonus = new BonusP(bRect);
+          bonus = new BonusP(m_game, bRect);
           break;
         default:
           goto nobonus;
@@ -277,6 +277,7 @@ void WindowManager::drawLevel() {
     // check bonus-player collision
     if (SDL_HasIntersection(&current->getRect(),
                             &m_game->getPlayer()->getRect())) {
+      current->action();
       m_game->addPointsToGame(1000);
       delete current;
       m_bonus.erase(m_bonus.begin() + i--);

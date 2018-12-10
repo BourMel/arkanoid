@@ -7,58 +7,63 @@
 #include "brick.h"
 #include "drawable.h"
 
+class Game;
+
 class Bonus : public Drawable {
 public:
   Bonus();
+  Bonus(Game *game);
 
   virtual void drawCallback();
+  virtual void action();
 
 protected:
   int m_countAnim;
+  Game *m_game;
 };
 
 /** BONUS TYPES **/
 
 class BonusS : public Bonus {
 public:
-  BonusS(SDL_Rect pos);
-  void drawCallback();
+  BonusS(Game *game, SDL_Rect pos);
+  void action();
 };
 
 class BonusC : public Bonus {
 public:
-  BonusC(SDL_Rect pos);
-  void drawCallback();
+  BonusC(Game *game, SDL_Rect pos);
+  void action();
 };
 
 class BonusL : public Bonus {
 public:
-  BonusL(SDL_Rect pos);
-  void drawCallback();
+  BonusL(Game *game, SDL_Rect pos);
+  void action();
 };
 
 class BonusE : public Bonus {
 public:
-  BonusE(SDL_Rect pos);
-  void drawCallback();
+  BonusE(Game *game, SDL_Rect pos);
+  void action();
 };
 
 class BonusD : public Bonus {
 public:
-  BonusD(SDL_Rect pos);
-  void drawCallback();
+  BonusD(Game *game, SDL_Rect pos);
+  void action();
 };
 
 class BonusB : public Bonus {
 public:
-  BonusB(SDL_Rect pos);
-  void drawCallback();
+  BonusB(Game *game, SDL_Rect pos);
+  void action();
 };
 
 class BonusP : public Bonus {
 public:
-  BonusP(SDL_Rect pos);
-  void drawCallback();
+  BonusP(Game *game, SDL_Rect pos);
+  void action();
 };
 
 #endif // BONUS_H

@@ -8,7 +8,9 @@
 
 #define ANIM_FPS 5
 
-Bonus::Bonus() : Drawable(), m_countAnim(0) {}
+Bonus::Bonus() : Drawable(), m_countAnim(0), m_game(nullptr) {}
+Bonus::Bonus(Game *game) : Drawable(), m_countAnim(0), m_game(game) {}
+void Bonus::action() {}
 
 /**
  * Callback each time the object is drawn
@@ -26,72 +28,44 @@ void Bonus::drawCallback() {
 }
 
 /** BONUS TYPES **/
-BonusS::BonusS(SDL_Rect pos) : Bonus() {
+BonusS::BonusS(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
 }
+void BonusS::action() { std::cout << "action for bonus S" << std::endl; }
 
-/**
- * Callback each time the object is drawn
- */
-void BonusS::drawCallback() { Bonus::drawCallback(); }
-
-BonusC::BonusC(SDL_Rect pos) : Bonus() {
+BonusC::BonusC(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_C);
 }
+void BonusC::action() { std::cout << "action for bonus C" << std::endl; }
 
-/**
- * Callback each time the object is drawn
- */
-void BonusC::drawCallback() { Bonus::drawCallback(); }
-
-BonusL::BonusL(SDL_Rect pos) : Bonus() {
+BonusL::BonusL(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_L);
 }
+void BonusL::action() { std::cout << "action for bonus L" << std::endl; }
 
-/**
- * Callback each time the object is drawn
- */
-void BonusL::drawCallback() { Bonus::drawCallback(); }
-
-BonusE::BonusE(SDL_Rect pos) : Bonus() {
+BonusE::BonusE(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_E);
 }
+void BonusE::action() { std::cout << "action for bonus E" << std::endl; }
 
-/**
- * Callback each time the object is drawn
- */
-void BonusE::drawCallback() { Bonus::drawCallback(); }
-
-BonusD::BonusD(SDL_Rect pos) : Bonus() {
+BonusD::BonusD(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_D);
 }
+void BonusD::action() { std::cout << "action for bonus D" << std::endl; }
 
-/**
- * Callback each time the object is drawn
- */
-void BonusD::drawCallback() { Bonus::drawCallback(); }
-
-BonusB::BonusB(SDL_Rect pos) : Bonus() {
+BonusB::BonusB(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_B);
 }
+void BonusB::action() { std::cout << "action for bonus B" << std::endl; }
 
-/**
- * Callback each time the object is drawn
- */
-void BonusB::drawCallback() { Bonus::drawCallback(); }
-
-BonusP::BonusP(SDL_Rect pos) : Bonus() {
+BonusP::BonusP(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_P);
 }
-
-/**
- * Callback each time the object is drawn
- */
-void BonusP::drawCallback() { Bonus::drawCallback(); }
+void BonusP::action() { std::cout << "action for bonus P" << std::endl; }
