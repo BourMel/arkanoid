@@ -56,7 +56,7 @@ BonusE::BonusE(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_E);
 }
-void BonusE::action() { std::cout << "action for bonus E" << std::endl; }
+void BonusE::action() { m_game->getPlayer()->grow(); }
 
 BonusD::BonusD(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
@@ -74,4 +74,4 @@ BonusP::BonusP(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_P);
 }
-void BonusP::action() { std::cout << "action for bonus P" << std::endl; }
+void BonusP::action() { m_game->getPlayer()->winLife(); }

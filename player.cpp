@@ -3,8 +3,8 @@
 #include "game.h"
 #include "player.h"
 
-Player::Player() { init(); }
-Player::Player(Game *game) : m_game(game) { init(); }
+Player::Player() : m_game(nullptr), m_size(1) { init(); }
+Player::Player(Game *game) : m_game(game), m_size(1) { init(); }
 
 /**
  * Initialize the player for the first time
@@ -37,6 +37,50 @@ void Player::looseLife() {
   if (--m_lives <= 0) {
     m_game->setCurrentScreen(Game::SCREEN_LOSE);
   }
+}
+
+/**
+ * The player win a life (max: 8)
+ */
+void Player::winLife() {
+  if (m_lives >= 8)
+    return;
+  m_lives++;
+}
+
+/**
+ * Grow player's size
+ */
+void Player::grow() {
+  if (m_size >= 8)
+    return;
+  switch (m_size) {
+  case 1:
+    setSprite(GraphicManager::PLAYER_2);
+    break;
+  case 2:
+    setSprite(GraphicManager::PLAYER_3);
+    break;
+  case 3:
+    setSprite(GraphicManager::PLAYER_4);
+    break;
+  case 4:
+    setSprite(GraphicManager::PLAYER_5);
+    break;
+  case 5:
+    setSprite(GraphicManager::PLAYER_6);
+    break;
+  case 6:
+    setSprite(GraphicManager::PLAYER_7);
+    break;
+  case 7:
+    setSprite(GraphicManager::PLAYER_8);
+    break;
+  default:
+    // do nothing
+    break;
+  }
+  m_size++;
 }
 
 /**

@@ -14,11 +14,14 @@ public:
   void setX(int value);
   int getX() const;
   void looseLife();
+  void winLife();
+  void grow();
   int getLives() const;
   void setSprite(GraphicManager::SpriteType type);
   void reset();
 
 private:
+  int m_size; // player size
   int m_lives;
   int m_windowWidth;
 
