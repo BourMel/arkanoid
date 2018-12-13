@@ -108,6 +108,7 @@ int Game::getLevel() const { return m_level; }
  */
 void Game::nextLevel() {
   m_ball->setMoving(false);
+  resetBonus();
   if (m_level == NB_LEVELS) { // if it was the last level, the player won!
     m_currentScreen = SCREEN_WIN;
     reset();
@@ -124,4 +125,13 @@ void Game::reset() {
   m_points = 0;
   m_level = 1;
   m_player->reset();
+}
+
+/**
+ * Remove all bonus actions
+ */
+void Game::resetBonus() {
+  // @TODO : reset ALL bonus
+  m_ball->resetSpeed();
+
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 
 #include "ball.h"
 #include "game.h"
@@ -11,11 +12,11 @@
 Ball::Ball()
     : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(DEFAULT_X_SPEED), m_speedY(DEFAULT_Y_SPEED),
       m_windowX(0), m_windowY(0), m_src({50, 68, BALL_SIZE, BALL_SIZE}),
-      m_isMoving(false) {}
+      m_isMoving(false), m_slowed(false) {}
 
 Ball::Ball(Game *game)
     : m_game(game), m_speedX(DEFAULT_X_SPEED), m_speedY(DEFAULT_Y_SPEED),
-      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false) {
+      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false), m_slowed(false) {
   m_windowX = game->getWindowManager()->getWindowWidth();
   m_windowY = game->getWindowManager()->getWindowHeight();
   m_ball = {m_windowX / 2, m_windowY - PLAYER_HEIGHT - BALL_SIZE, BALL_SIZE,
@@ -49,8 +50,16 @@ void Ball::move(Player *player) {
 
   if (m_isMoving) {
     // move the ball
-    m_ball.x += m_speedX;
-    m_ball.y += m_speedY;
+
+    // bonus "slow" is active
+    if(m_slowed) {
+      m_ball.x += m_speedX*0.5;
+      m_ball.y += m_speedY*0.5;
+
+    } else {
+      m_ball.x += m_speedX;
+      m_ball.y += m_speedY;
+    }
 
     if (m_ball.x < 1) { // left collision
       if (cylinderModeEnabled) {
@@ -125,19 +134,9 @@ int Ball::getSpeedY() const { return m_speedY; }
 /**
  * Slow the ball to 1/3 its speed
  */
-void Ball::slow() {
-  // keep negative value if needed, else only slow
-  if(m_speedX < 0) {
-    m_speedX = - DEFAULT_X_SPEED*0.7;
-  } else {
-    m_speedX = DEFAULT_X_SPEED*0.7;
-  }
+void Ball::slow() { m_slowed = true; }
 
-  // same in Y
-  if(m_speedY < 0) {
-    m_speedY = - DEFAULT_Y_SPEED*0.7;
-  } else {
-    m_speedY = DEFAULT_Y_SPEED*0.7;
-  }
-
-}
+/**
+ * Reset speed to its default values
+ */
+void Ball::resetSpeed() { m_slowed = false; }

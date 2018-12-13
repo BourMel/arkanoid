@@ -34,6 +34,7 @@ public:
   int getLevel() const;
   void nextLevel();
   void reset();
+  void resetBonus();
 
 private:
   screen m_currentScreen;
