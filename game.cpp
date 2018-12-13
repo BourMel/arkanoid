@@ -108,7 +108,7 @@ int Game::getLevel() const { return m_level; }
  */
 void Game::nextLevel() {
   m_ball->setMoving(false);
-  resetBonus();
+  resetAllBonus();
   if (m_level == NB_LEVELS) { // if it was the last level, the player won!
     m_currentScreen = SCREEN_WIN;
     reset();
@@ -128,10 +128,17 @@ void Game::reset() {
 }
 
 /**
- * Remove all bonus actions
+ * Remove all bonus actions EXCEPT cumulative ones (E has multiple states)
  */
 void Game::resetBonus() {
-  // @TODO : reset ALL bonus
+  // @TODO : reset ALL bonus = only 1 ball + remove lasers + remove magnet
   m_ball->resetSpeed();
+}
 
+/**
+ * Remove all bonus actions
+ */
+void Game::resetAllBonus() {
+  resetBonus();
+  m_player->setSprite(GraphicManager::PLAYER_1);
 }

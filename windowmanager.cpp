@@ -256,6 +256,7 @@ void WindowManager::drawLevel() {
           goto nobonus;
         }
 
+        m_game->resetBonus();
         m_bonus.push_back(bonus);
       }
 

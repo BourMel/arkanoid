@@ -35,6 +35,7 @@ public:
   void nextLevel();
   void reset();
   void resetBonus();
+  void resetAllBonus();
 
 private:
   screen m_currentScreen;

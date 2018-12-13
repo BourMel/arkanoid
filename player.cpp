@@ -34,6 +34,8 @@ int Player::getX() const { return m_rect.x; }
  * The player looses a life
  */
 void Player::looseLife() {
+  m_game->resetAllBonus();
+
   if (--m_lives <= 0) {
     m_game->setCurrentScreen(Game::SCREEN_LOSE);
   }

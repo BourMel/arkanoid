@@ -131,8 +131,9 @@ int Ball::getSpeedX() const { return m_speedX; }
  * Return current ball speed for the y-axis
  */
 int Ball::getSpeedY() const { return m_speedY; }
+
 /**
- * Slow the ball to 1/3 its speed
+ * Slow the ball
  */
 void Ball::slow() { m_slowed = true; }
 
