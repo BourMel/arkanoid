@@ -39,9 +39,7 @@ BonusS::BonusS(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
 }
-void BonusS::action() {
-  m_game->getBall()->slow();
-}
+void BonusS::action() { m_game->getBall()->slow(); }
 
 /**
  * @TODO
@@ -86,7 +84,10 @@ BonusB::BonusB(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_B);
 }
-void BonusB::action() { std::cout << "action for bonus B" << std::endl; }
+void BonusB::action() {
+  m_game->addPointsToGame(10000);
+  m_game->nextLevel();
+}
 
 /**
  * Add a life to player
