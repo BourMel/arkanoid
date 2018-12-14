@@ -5,6 +5,7 @@
 #include "game.h"
 #include "graphicmanager.h"
 #include "player.h"
+#include "laser.h"
 
 EventManager::EventManager() : m_quit(false) {}
 EventManager::EventManager(Game *game) : m_game(game), m_quit(false) {}
@@ -149,6 +150,13 @@ void EventManager::listenLevel() {
     case SDLK_SPACE:
       ball->setMoving(true);
       player->setCatchBall(false);
+
+      // laser
+
+      if(Laser::getState) {
+        m_game->getWindowManager()->addLasers();
+      }
+
       break;
 
     // cylinderMode

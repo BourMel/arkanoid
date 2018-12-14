@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "game.h"
+#include "laser.h"
 
 #define NB_LEVELS 5
 
@@ -134,6 +135,7 @@ void Game::resetBonus() {
   // @TODO : reset ALL bonus = only 1 ball + remove lasers + remove magnet
   m_player->setCatchBall(false);
   m_ball->resetSpeed();
+  Laser::setState(false);
 }
 
 /**

@@ -6,6 +6,7 @@
 #include "brick.h"
 #include "game.h"
 #include "graphicmanager.h"
+#include "laser.h"
 
 #define ANIM_FPS 5
 
@@ -78,13 +79,16 @@ BonusC::BonusC(Game *game, SDL_Rect pos) : Bonus(game) {
 void BonusC::action() { m_game->getPlayer()->setCatchBall(true); }
 
 /**
- * @TODO
+ * Creates 2 lasers that the player can use
  */
 BonusL::BonusL(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_L);
 }
-void BonusL::action() { std::cout << "action for bonus L" << std::endl; }
+void BonusL::action() {
+  //@TODO : always true ?
+  Laser::setState(true);
+}
 
 /**
  * Expends the player

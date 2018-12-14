@@ -310,6 +310,15 @@ void WindowManager::drawLevel() {
     }
   }
 
+  // display lasers
+  for (int i = 0; i < m_lasers.size(); i++) {
+    Laser current = m_lasers.at(i);
+    SDL_Rect lRect = current.getRect();
+    SDL_BlitSurface(m_sprites, &current.getSrc(), m_windowSurface, &lRect);
+
+    current.drawCallback();
+  }
+
   if (m_bricks.size() <= 0) {
     m_game->nextLevel();
   }
@@ -355,3 +364,13 @@ int WindowManager::getWindowHeight() const { return m_windowSurface->h; }
 
 // get window height start
 int WindowManager::getWindowHeightStart() const { return m_height_start; }
+
+void WindowManager::addLasers() {
+  Player *player = m_game->getPlayer();
+  SDL_Rect position = player->getRect();
+
+  Laser l1 = Laser(position);
+  Laser l2 = Laser({position.x + position.w, position.y, position.w, position.h});
+  m_lasers.push_back(l1);
+  m_lasers.push_back(l2);
+}

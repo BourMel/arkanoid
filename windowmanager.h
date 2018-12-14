@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "bonus.h"
+#include "laser.h"
 #include "brick.h"
 
 class Game;
@@ -35,6 +36,8 @@ public:
 
   void readLevelFile(int level);
 
+  void addLasers();
+
 private:
   SDL_Window *m_window;
   SDL_Surface *m_windowSurface;
@@ -50,6 +53,7 @@ private:
   int m_nbColumns;
   std::vector<Brick> m_bricks;
   std::vector<Bonus *> m_bonus;
+  std::vector<Laser> m_lasers;
 
   Uint64 m_prev;
   Uint64 m_now;
