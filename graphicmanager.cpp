@@ -1,4 +1,5 @@
 #include "graphicmanager.h"
+#include <stdlib.h>
 
 /**
  * Default constructor
@@ -11,7 +12,9 @@ GraphicManager::GraphicManager() {}
 SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   SDL_Rect rect = {0, 0, 0, 0};
 
+  /**************************/
   /** SET WIDTH AND HEIGHT **/
+  /**************************/
 
   // operation for all bricks & bonus
   switch (type) {
@@ -38,6 +41,10 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   case BONUS_P:
     rect.w = BRICK_WIDTH;
     rect.h = BRICK_HEIGHT;
+    break;
+  case LASER:
+    rect.w = 10;
+    rect.h = 36;
     break;
   default:
     // do nothing
@@ -117,12 +124,14 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
     break;
   }
 
+  /**********************/
   /** SET COORDONNATES **/
+  /**********************/
 
   switch (type) {
   case BRICK_WHITE:
-    // nothing to do anymore : x and y = 0 (defaults), and w and h are already
-    // set
+    // nothing to do anymore : x and y = 0 (defaults),
+    // and w and h are already set
     break;
   case BRICK_ORANGE:
     rect.x = BRICK_WIDTH;
@@ -194,6 +203,15 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
   case BONUS_P:
     rect.x = 8 * BRICK_WIDTH;
     rect.y = 6 * BRICK_HEIGHT;
+    break;
+  case LASER:
+    if (rand() % 2 + 1 == 1) {
+      rect.x = 2;
+    } else {
+      rect.x = 19;
+    }
+
+    rect.y = 5 * BRICK_HEIGHT;
     break;
   case PLAYER_LIFE:
     rect.x = 448;

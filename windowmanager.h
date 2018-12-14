@@ -1,9 +1,12 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
-#include "brick.h"
 #include <SDL2/SDL.h>
 #include <vector>
+
+#include "bonus.h"
+#include "brick.h"
+#include "laser.h"
 
 class Game;
 
@@ -33,6 +36,8 @@ public:
 
   void readLevelFile(int level);
 
+  void addLasers();
+
 private:
   SDL_Window *m_window;
   SDL_Surface *m_windowSurface;
@@ -47,6 +52,13 @@ private:
   int m_nbLines;
   int m_nbColumns;
   std::vector<Brick> m_bricks;
+  std::vector<Brick> m_undestructibleBricks;
+  std::vector<Bonus *> m_bonus;
+  std::vector<Laser *> m_lasers;
+
+  Uint64 m_prev;
+  Uint64 m_now;
+  double m_deltaTime;
 
   Game *m_game;
 };

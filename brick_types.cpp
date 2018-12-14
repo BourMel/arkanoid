@@ -1,14 +1,14 @@
-#include "brick_types.h"
-#include "brick.h"
-#include "game.h"
-#include "graphicmanager.h"
-
 #include <SDL2/SDL.h>
 #include <cmath>
 #include <iostream>
 
+#include "brick.h"
+#include "brick_types.h"
+#include "game.h"
+#include "graphicmanager.h"
+
 /**
- * This file defines all children of "Brick"
+ * This file defines all types of "Brick"
  */
 
 /** BRICK 1 **/
@@ -158,8 +158,7 @@ Brick13::Brick13(Game *game, int line, int col)
 
 Brick14::Brick14() : Brick() {}
 
-Brick14::Brick14(int line, int col) : Brick(10, line, col) {
-  m_lives = 100; // infinite @TODO (level can't finish if a brick still exists)
+Brick14::Brick14(int line, int col) : Brick(-1, line, col) {
   m_id = 14;
   m_points = 0; // not meant to be destroyed
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_GOLD);

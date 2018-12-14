@@ -2,6 +2,7 @@
 #define BRICK_H
 
 #include "ball.h"
+#include "bonus.h"
 #include "drawable.h"
 #include <string>
 

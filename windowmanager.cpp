@@ -1,13 +1,17 @@
-#include "windowmanager.h"
+#include <SDL2/SDL.h>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <random>
+#include <string>
+
+#include "bonus.h"
+#include "brick.h"
+#include "brick_types.h"
 #include "game.h"
 #include "graphicmanager.h"
 #include "player.h"
-#include <SDL2/SDL.h>
-#include <fstream>
-#include <iostream>
-#include <string>
-
-#include "brick_types.h"
+#include "windowmanager.h"
 
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
@@ -23,7 +27,9 @@ WindowManager::WindowManager(Game *game)
   init();
 }
 
-// init the window
+/**
+ * Init SDL window
+ */
 void WindowManager::init() {
   // check if SDL is successfuly loaded
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -37,6 +43,8 @@ void WindowManager::init() {
                               SDL_WINDOW_SHOWN);
   m_windowSurface = SDL_GetWindowSurface(m_window);
 
+  m_now = SDL_GetPerformanceCounter();
+
   m_sprites = SDL_LoadBMP("./sprites.bmp");
   m_spritesAscii = SDL_LoadBMP("./ascii.bmp");
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
@@ -48,8 +56,15 @@ void WindowManager::init() {
   readLevelFile(1);
 }
 
+/**
+ * Read file representing a level and use it to build it
+ */
 void WindowManager::readLevelFile(int level) {
-  m_bricks.clear(); // clear bricks
+
+  // clear all content
+  m_bricks.clear();
+  m_undestructibleBricks.clear();
+  m_bonus.clear();
 
   std::ifstream f;
   f.open("./levels/" + std::to_string(level) + ".txt");
@@ -79,57 +94,72 @@ void WindowManager::readLevelFile(int level) {
       switch (x) {
       case 1:
         b = Brick1(line, col);
+        m_bricks.push_back(b);
         break;
       case 2:
         b = Brick2(line, col);
+        m_bricks.push_back(b);
         break;
       case 3:
         b = Brick3(line, col);
+        m_bricks.push_back(b);
         break;
       case 4:
         b = Brick4(line, col);
+        m_bricks.push_back(b);
         break;
       case 5:
         b = Brick5(line, col);
+        m_bricks.push_back(b);
         break;
       case 6:
         b = Brick6(line, col);
+        m_bricks.push_back(b);
         break;
       case 7:
         b = Brick7(line, col);
+        m_bricks.push_back(b);
         break;
       case 8:
         b = Brick8(line, col);
+        m_bricks.push_back(b);
         break;
       case 9:
         b = Brick9(line, col);
+        m_bricks.push_back(b);
         break;
       case 10:
         b = Brick10(line, col);
+        m_bricks.push_back(b);
         break;
       case 11:
         b = Brick11(line, col);
+        m_bricks.push_back(b);
         break;
       case 12:
         b = Brick12(line, col);
+        m_bricks.push_back(b);
         break;
       case 13:
         b = Brick13(m_game, line, col);
+        m_bricks.push_back(b);
         break;
       case 14:
         b = Brick14(line, col);
+        m_undestructibleBricks.push_back(b);
         break;
       default:
-        b = Brick(x, line, col);
+        // do nothing
         break;
       }
-
-      m_bricks.push_back(b);
     }
     nbBricks++;
   }
 }
 
+/**
+ * Draw screen menu
+ */
 void WindowManager::drawMenu() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
@@ -141,6 +171,9 @@ void WindowManager::drawMenu() {
                             m_windowSurface, "Press ENTER to begin");
 }
 
+/**
+ * Draw "congratulations" screen
+ */
 void WindowManager::drawWin() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
@@ -152,6 +185,9 @@ void WindowManager::drawWin() {
                             m_windowSurface, "Return to menu with ENTER");
 }
 
+/**
+ * Draw "game over" screen
+ */
 void WindowManager::drawLose() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
@@ -163,6 +199,9 @@ void WindowManager::drawLose() {
                             m_windowSurface, "Return to menu with ENTER");
 }
 
+/**
+ * Draw level (actual game)
+ */
 void WindowManager::drawLevel() {
   Player *player = m_game->getPlayer();
   SDL_Rect pRect = player->getRect();
@@ -193,15 +232,145 @@ void WindowManager::drawLevel() {
   // player
   SDL_BlitSurface(m_sprites, &player->getSrc(), m_windowSurface, &pRect);
 
+  // a better random engine
+  std::random_device rd;
+  std::mt19937 e{rd()};
+  std::uniform_int_distribution<int> dist3{0, 3};
+  std::uniform_int_distribution<int> dist7{0, 7};
+
+  for (int i = 0; i < m_undestructibleBricks.size(); i++) {
+    Brick currentbrick = m_undestructibleBricks.at(i);
+    SDL_Rect bRect = currentbrick.getRect();
+    SDL_BlitSurface(m_sprites, &currentbrick.getSrc(), m_windowSurface, &bRect);
+
+    // handle the brick-ball collision
+    currentbrick.checkCollision(*ball);
+  }
+
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
-    SDL_Rect bRect = m_bricks.at(i).getRect();
-    SDL_BlitSurface(m_sprites, &m_bricks.at(i).getSrc(), m_windowSurface,
-                    &bRect);
+    Brick currentbrick = m_bricks.at(i);
+    SDL_Rect bRect = currentbrick.getRect();
+    SDL_BlitSurface(m_sprites, &currentbrick.getSrc(), m_windowSurface, &bRect);
 
-    if (m_bricks.at(i).checkCollision(*ball)) {
-      m_game->addPointsToGame(m_bricks.at(i).getPoints());
+    // handle the brick-ball collision
+    if (currentbrick.checkCollision(*ball)) {
+
+      // adds a bonus to the level
+      if (!dist3(e)) {
+        Bonus *bonus;
+
+        // spawn a random bonus type
+        switch (dist7(e)) {
+        case 0:
+          bonus = new BonusS(m_game, bRect);
+          m_bonus.push_back(bonus);
+          break;
+        case 1:
+          bonus = new BonusC(m_game, bRect);
+          m_bonus.push_back(bonus);
+          break;
+        case 2:
+          bonus = new BonusL(m_game, bRect);
+          m_bonus.push_back(bonus);
+          break;
+        case 3:
+          bonus = new BonusE(m_game, bRect);
+          m_bonus.push_back(bonus);
+          break;
+        case 4:
+          bonus = new BonusD(m_game, bRect);
+          m_bonus.push_back(bonus);
+          break;
+        case 5:
+          bonus = new BonusB(m_game, bRect);
+          m_bonus.push_back(bonus);
+          break;
+        case 6:
+          bonus = new BonusP(m_game, bRect);
+          m_bonus.push_back(bonus);
+          break;
+        default:
+          // do nothing
+          break;
+        }
+      }
+
+      m_game->addPointsToGame(currentbrick.getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
+    }
+
+    // check collision with lasers
+    for (int j = 0; j < m_lasers.size(); j++) {
+      Laser *currentLaser = m_lasers.at(j);
+
+      // check laser-brick collision
+      if (SDL_HasIntersection(&currentLaser->getRect(),
+                              &currentbrick.getRect())) {
+
+        // delete both if they collide
+        delete currentLaser;
+
+        if (m_lasers.size()) {
+          m_lasers.erase(m_lasers.begin() + j--);
+        }
+        if (m_bricks.size()) {
+          m_bricks.erase(m_bricks.begin() + i--);
+        }
+      }
+    }
+  }
+
+  // bonus timer
+  if (Bonus::isTimeUp()) {
+    // stop non cumulative bonus
+    m_game->resetBonus();
+  }
+
+  // display bonus & make them fall
+  for (int i = 0; i < m_bonus.size(); i++) {
+    Bonus *current = m_bonus.at(i);
+    SDL_Rect current_rect = current->getRect();
+    current->drawCallback();
+
+    SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface,
+                    &current_rect);
+
+    // check bonus-player collision
+    if (SDL_HasIntersection(&current->getRect(),
+                            &m_game->getPlayer()->getRect())) {
+      m_game->resetBonus();
+      current->action();
+      m_game->addPointsToGame(1000);
+      delete current;
+
+      if (m_bonus.size()) {
+        m_bonus.erase(m_bonus.begin() + i--);
+      }
+
+      // start timer
+      Bonus::active_bonus = true;
+      Bonus::initTimer();
+    }
+
+    // remove bonus if it goes outside the window
+    if (current->getRect().y >= m_windowSurface->h) {
+      delete current;
+      m_bonus.erase(m_bonus.begin() + i--);
+    }
+  }
+
+  // display lasers
+  for (int i = 0; i < m_lasers.size(); i++) {
+    Laser *current = m_lasers.at(i);
+    SDL_Rect lRect = current->getRect();
+    SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface, &lRect);
+    current->drawCallback();
+
+    // remove laser if it goes outside the window
+    if (current->getRect().y <= 0) {
+      delete current;
+      m_lasers.erase(m_lasers.begin() + i--);
     }
   }
 
@@ -228,7 +397,18 @@ void WindowManager::drawLevel() {
 // update window surface
 void WindowManager::update() {
   SDL_UpdateWindowSurface(m_window);
-  SDL_Delay(20); // 50 fps
+
+  m_prev = m_now;
+  m_now = SDL_GetPerformanceCounter();
+  m_deltaTime =
+      (double)((m_now - m_prev) * 1000 / (double)SDL_GetPerformanceFrequency());
+
+  if (m_deltaTime < 20) {
+    SDL_Delay(20 - m_deltaTime);
+    m_now = SDL_GetPerformanceCounter();
+    m_deltaTime = (double)((m_now - m_prev) * 1000 /
+                           (double)SDL_GetPerformanceFrequency());
+  }
 }
 
 // get window width
@@ -239,3 +419,18 @@ int WindowManager::getWindowHeight() const { return m_windowSurface->h; }
 
 // get window height start
 int WindowManager::getWindowHeightStart() const { return m_height_start; }
+
+void WindowManager::addLasers() {
+  Player *player = m_game->getPlayer();
+  SDL_Rect position = player->getRect();
+
+  // check there is no lasers left in the game
+  if (m_lasers.size() > 0)
+    return;
+
+  Laser *l1 = new Laser(position);
+  Laser *l2 =
+      new Laser({position.x + position.w, position.y, position.w, position.h});
+  m_lasers.push_back(l1);
+  m_lasers.push_back(l2);
+}

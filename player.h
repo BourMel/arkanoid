@@ -14,14 +14,19 @@ public:
   void setX(int value);
   int getX() const;
   void looseLife();
-  // bool isAlive() const;
+  void winLife();
+  void grow();
   int getLives() const;
   void setSprite(GraphicManager::SpriteType type);
+  void setCatchBall(bool b);
+  bool getCatchBall() const;
   void reset();
 
 private:
+  int m_size; // player size
   int m_lives;
   int m_windowWidth;
+  bool m_catchBall;
 
   Game *m_game;
 

@@ -14,6 +14,9 @@ public:
   // get sprite position
   const SDL_Rect &getSrc() const;
 
+  // callback when object is draw
+  virtual void drawCallback();
+
 protected:
   SDL_Rect m_rect; // object position
   SDL_Rect m_src;  // sprite position
