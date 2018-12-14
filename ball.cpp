@@ -47,6 +47,8 @@ void Ball::move(Player *player) {
   int playerPosition = player->getX();
   int playerWidth = player->getRect().w;
   int topY = m_game->getWindowManager()->getWindowHeightStart();
+  int oldPosX = m_ball.x;
+  int oldPosY = m_ball.y;
 
   bool cylinderModeEnabled = m_game->getCylinderMode();
 
@@ -94,18 +96,20 @@ void Ball::move(Player *player) {
     }
 
     // player collision
-    if ((m_ball.x > playerPosition) &&
-        (m_ball.x < playerPosition + playerWidth) &&
-        (m_ball.y > m_windowY - PLAYER_HEIGHT - BALL_SIZE)) {
+    if (SDL_HasIntersection(&m_ball, &player->getRect())) {
+      if (player->getCatchBall()) {
+        m_ball.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
+        m_ball.y = player->getRect().y - player->getRect().h;
+      } else {
+        // the next direction of the ball depends on where it hits the player :
+        // allows the player to choose the direction of the ball
+        double positionOnPlayer =
+            (double)((double)(m_ball.x - playerPosition) / (double)playerWidth);
+        // speed between -10 et 10 (range of 20), using the ball position
+        m_speedX = positionOnPlayer * 20 - 10;
 
-      // the next direction of the ball depends on where it hits the player :
-      // allows the player to choose the direction of the ball
-      double positionOnPlayer =
-          (double)((double)(m_ball.x - playerPosition) / (double)playerWidth);
-      // speed between -10 et 10 (range of 20), using the ball position
-      m_speedX = positionOnPlayer * 20 - 10;
-
-      m_speedY *= -1;
+        m_speedY *= -1;
+      }
     }
 
   } else { // ball not moving : it sticks on the player

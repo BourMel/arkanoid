@@ -262,7 +262,6 @@ void WindowManager::drawLevel() {
           goto nobonus;
         }
 
-        m_game->resetBonus();
         m_bonus.push_back(bonus);
       }
 
@@ -284,6 +283,7 @@ void WindowManager::drawLevel() {
     // check bonus-player collision
     if (SDL_HasIntersection(&current->getRect(),
                             &m_game->getPlayer()->getRect())) {
+      m_game->resetBonus();
       current->action();
       m_game->addPointsToGame(1000);
       delete current;

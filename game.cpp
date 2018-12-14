@@ -132,6 +132,7 @@ void Game::reset() {
  */
 void Game::resetBonus() {
   // @TODO : reset ALL bonus = only 1 ball + remove lasers + remove magnet
+  m_player->setCatchBall(false);
   m_ball->resetSpeed();
 }
 
