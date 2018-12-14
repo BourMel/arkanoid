@@ -205,13 +205,13 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
     rect.y = 6 * BRICK_HEIGHT;
     break;
   case LASER:
-    if(rand()%2+1 == 1) {
+    if (rand() % 2 + 1 == 1) {
       rect.x = 2;
     } else {
       rect.x = 19;
     }
 
-    rect.y = 5*BRICK_HEIGHT;
+    rect.y = 5 * BRICK_HEIGHT;
     break;
   case PLAYER_LIFE:
     rect.x = 448;

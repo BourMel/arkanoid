@@ -9,7 +9,8 @@
 bool Laser::m_state = false;
 
 Laser::Laser(SDL_Rect position)
-    : Drawable({position.x, position.y, 10, 36}, {0, 0, 0, 0}), m_game(nullptr) {
+    : Drawable({position.x, position.y, 10, 36}, {0, 0, 0, 0}),
+      m_game(nullptr) {
   m_src = GraphicManager::getSprite(GraphicManager::LASER);
 }
 Laser::Laser(SDL_Rect position, Game *game)
@@ -20,10 +21,7 @@ Laser::Laser(SDL_Rect position, Game *game)
 /**
  * Callback each time the object is drawn
  */
-void Laser::drawCallback() {
-  // @TODO : no action
-  m_rect.y -= 4;
-}
+void Laser::drawCallback() { m_rect.y -= 4; }
 
 /**
  * Choose if lasers are active or not

@@ -271,8 +271,8 @@ void WindowManager::drawLevel() {
     }
 
     // check collision with lasers
-    for(int j=0; j<m_lasers.size(); j++){
-      Laser* currentLaser = m_lasers.at(j);
+    for (int j = 0; j < m_lasers.size(); j++) {
+      Laser *currentLaser = m_lasers.at(j);
 
       // check laser-brick collision
       if (SDL_HasIntersection(&currentLaser->getRect(),
@@ -288,7 +288,6 @@ void WindowManager::drawLevel() {
           m_bricks.erase(m_bricks.begin() + i--);
         }
       }
-
     }
   }
 
@@ -396,7 +395,8 @@ void WindowManager::addLasers() {
   SDL_Rect position = player->getRect();
 
   // check there is no lasers left in the game
-  if(m_lasers.size() > 0) return;
+  if (m_lasers.size() > 0)
+    return;
 
   Laser *l1 = new Laser(position);
   Laser *l2 =

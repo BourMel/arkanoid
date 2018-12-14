@@ -152,11 +152,9 @@ void EventManager::listenLevel() {
       player->setCatchBall(false);
 
       // laser
-
-      if (Laser::getState) {
+      if (Laser::getState()) {
         m_game->getWindowManager()->addLasers();
       }
-
       break;
 
     // cylinderMode

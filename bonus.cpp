@@ -84,10 +84,7 @@ BonusL::BonusL(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_L);
 }
-void BonusL::action() {
-  //@TODO : always true ?
-  Laser::setState(true);
-}
+void BonusL::action() { Laser::setState(true); }
 
 /**
  * Expends the player
