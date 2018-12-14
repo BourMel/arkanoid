@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <string>
 
 #include "bonus.h"
@@ -216,6 +217,11 @@ void WindowManager::drawLevel() {
   // player
   SDL_BlitSurface(m_sprites, &player->getSrc(), m_windowSurface, &pRect);
 
+  std::random_device rd;
+  std::mt19937 e{rd()};
+  std::uniform_int_distribution<int> dist3{0, 3};
+  std::uniform_int_distribution<int> dist7{0, 7};
+
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
     Brick currentbrick = m_bricks.at(i);
@@ -226,11 +232,11 @@ void WindowManager::drawLevel() {
     if (currentbrick.checkCollision(*ball)) {
 
       // adds a bonus to the level
-      if (rand() % 3 == 0) {
+      if (!dist3(e)) {
         Bonus *bonus;
 
         // spawn a random bonus type
-        switch (rand() % 7) {
+        switch (dist7(e)) {
         case 0:
           bonus = new BonusS(m_game, bRect);
           break;
@@ -288,7 +294,10 @@ void WindowManager::drawLevel() {
       current->action();
       m_game->addPointsToGame(1000);
       delete current;
-      m_bonus.erase(m_bonus.begin() + i--);
+
+      if (m_bonus.size()) {
+        m_bonus.erase(m_bonus.begin() + i--);
+      }
 
       // start timer
       Bonus::active_bonus = true;
