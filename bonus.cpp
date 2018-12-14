@@ -69,13 +69,13 @@ BonusS::BonusS(Game *game, SDL_Rect pos) : Bonus(game) {
 void BonusS::action() { m_game->getBall()->slow(); }
 
 /**
- * @TODO
+ * Catch the ball
  */
 BonusC::BonusC(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_C);
 }
-void BonusC::action() { std::cout << "action for bonus C" << std::endl; }
+void BonusC::action() { m_game->getPlayer()->setCatchBall(true); }
 
 /**
  * @TODO
@@ -105,7 +105,7 @@ BonusD::BonusD(Game *game, SDL_Rect pos) : Bonus(game) {
 void BonusD::action() { std::cout << "action for bonus D" << std::endl; }
 
 /**
- * @TODO
+ * Next round
  */
 BonusB::BonusB(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;

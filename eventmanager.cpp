@@ -148,6 +148,7 @@ void EventManager::listenLevel() {
     // remove magnet mode
     case SDLK_SPACE:
       ball->setMoving(true);
+      player->setCatchBall(false);
       break;
 
     // cylinderMode
@@ -176,6 +177,7 @@ void EventManager::listenLevel() {
     break;
   case SDL_MOUSEBUTTONDOWN:
     ball->setMoving(true);
+    player->setCatchBall(false);
     break;
   default:
     break;

@@ -3,8 +3,8 @@
 #include "game.h"
 #include "player.h"
 
-Player::Player() : m_game(nullptr), m_size(1) { init(); }
-Player::Player(Game *game) : m_game(game), m_size(1) { init(); }
+Player::Player() : m_game(nullptr), m_size(1), m_catchBall(false) { init(); }
+Player::Player(Game *game) : m_game(game), m_size(1), m_catchBall(false) { init(); }
 
 /**
  * Initialize the player for the first time
@@ -103,6 +103,20 @@ void Player::setSprite(GraphicManager::SpriteType type) {
 }
 
 /**
+ * Define if the player will catch the ball or not
+ */
+void Player::setCatchBall(bool b) {
+  m_catchBall = b;
+}
+
+/**
+ * Get if user has to cath the ball or not
+ */
+bool Player::getCatchBall() const {
+  return m_catchBall;
+}
+
+/**
  * Reset player informations
  */
 void Player::reset() {
@@ -112,4 +126,5 @@ void Player::reset() {
   m_rect.y = m_game->getWindowManager()->getWindowHeight() - 50;
   m_rect.w = m_src.w;
   m_rect.h = m_src.h;
+  setCatchBall(false);
 }
