@@ -256,6 +256,7 @@ void WindowManager::drawLevel() {
           goto nobonus;
         }
 
+        // remove precedent bonus
         m_game->resetBonus();
         m_bonus.push_back(bonus);
       }
@@ -264,6 +265,12 @@ void WindowManager::drawLevel() {
       m_game->addPointsToGame(currentbrick.getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }
+  }
+
+  // bonus timer
+  if(Bonus::isTimeUp()) {
+    // stop non cumulative bonus
+    m_game->resetBonus();
   }
 
   // display bonus & make them fall
@@ -282,6 +289,10 @@ void WindowManager::drawLevel() {
       m_game->addPointsToGame(1000);
       delete current;
       m_bonus.erase(m_bonus.begin() + i--);
+
+      // start timer
+      Bonus::active_bonus = true;
+      Bonus::initTimer();
     }
 
     // remove bonus if it goes outside the window

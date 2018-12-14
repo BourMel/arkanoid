@@ -16,6 +16,11 @@ public:
 
   virtual void drawCallback();
   virtual void action();
+  static void initTimer();
+  static bool isTimeUp();
+
+  static int bonus_timer;
+  static bool active_bonus;
 
 protected:
   int m_countAnim;

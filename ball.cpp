@@ -1,5 +1,5 @@
-#include <iostream>
 #include <cstdlib>
+#include <iostream>
 
 #include "ball.h"
 #include "game.h"
@@ -10,13 +10,15 @@
 #define DEFAULT_Y_SPEED 6
 
 Ball::Ball()
-    : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(DEFAULT_X_SPEED), m_speedY(DEFAULT_Y_SPEED),
-      m_windowX(0), m_windowY(0), m_src({50, 68, BALL_SIZE, BALL_SIZE}),
-      m_isMoving(false), m_slowed(false) {}
+    : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(DEFAULT_X_SPEED),
+      m_speedY(DEFAULT_Y_SPEED), m_windowX(0), m_windowY(0),
+      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false),
+      m_slowed(false) {}
 
 Ball::Ball(Game *game)
     : m_game(game), m_speedX(DEFAULT_X_SPEED), m_speedY(DEFAULT_Y_SPEED),
-      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false), m_slowed(false) {
+      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false),
+      m_slowed(false) {
   m_windowX = game->getWindowManager()->getWindowWidth();
   m_windowY = game->getWindowManager()->getWindowHeight();
   m_ball = {m_windowX / 2, m_windowY - PLAYER_HEIGHT - BALL_SIZE, BALL_SIZE,
@@ -52,9 +54,9 @@ void Ball::move(Player *player) {
     // move the ball
 
     // bonus "slow" is active
-    if(m_slowed) {
-      m_ball.x += m_speedX*0.5;
-      m_ball.y += m_speedY*0.5;
+    if (m_slowed) {
+      m_ball.x += m_speedX * 0.5;
+      m_ball.y += m_speedY * 0.5;
 
     } else {
       m_ball.x += m_speedX;
