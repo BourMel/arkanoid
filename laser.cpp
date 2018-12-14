@@ -9,12 +9,12 @@
 bool Laser::m_state = false;
 
 Laser::Laser(SDL_Rect position)
-    : Drawable(position, {0, 0, 0, 0}), m_game(nullptr) {
-  m_src = GraphicManager::getSprite(GraphicManager::BRICK_WHITE);
+    : Drawable({position.x, position.y, 10, 36}, {0, 0, 0, 0}), m_game(nullptr) {
+  m_src = GraphicManager::getSprite(GraphicManager::LASER);
 }
 Laser::Laser(SDL_Rect position, Game *game)
-    : Drawable(position, {0, 0, 0, 0}), m_game(game) {
-  m_src = GraphicManager::getSprite(GraphicManager::BRICK_WHITE);
+    : Drawable({position.x, position.y, 10, 36}, {0, 0, 0, 0}), m_game(game) {
+  m_src = GraphicManager::getSprite(GraphicManager::LASER);
 }
 
 /**

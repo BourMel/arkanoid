@@ -269,6 +269,27 @@ void WindowManager::drawLevel() {
       m_game->addPointsToGame(currentbrick.getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }
+
+    // check collision with lasers
+    for(int j=0; j<m_lasers.size(); j++){
+      Laser* currentLaser = m_lasers.at(j);
+
+      // check laser-brick collision
+      if (SDL_HasIntersection(&currentLaser->getRect(),
+                              &currentbrick.getRect())) {
+
+        // delete both if they collide
+        delete currentLaser;
+
+        if (m_lasers.size()) {
+          m_lasers.erase(m_lasers.begin() + j--);
+        }
+        if (m_bricks.size()) {
+          m_bricks.erase(m_bricks.begin() + i--);
+        }
+      }
+
+    }
   }
 
   // bonus timer
@@ -316,6 +337,12 @@ void WindowManager::drawLevel() {
     SDL_Rect lRect = current->getRect();
     SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface, &lRect);
     current->drawCallback();
+
+    // remove laser if it goes outside the window
+    if (current->getRect().y <= 0) {
+      delete current;
+      m_lasers.erase(m_lasers.begin() + i--);
+    }
   }
 
   if (m_bricks.size() <= 0) {
@@ -367,6 +394,9 @@ int WindowManager::getWindowHeightStart() const { return m_height_start; }
 void WindowManager::addLasers() {
   Player *player = m_game->getPlayer();
   SDL_Rect position = player->getRect();
+
+  // check there is no lasers left in the game
+  if(m_lasers.size() > 0) return;
 
   Laser *l1 = new Laser(position);
   Laser *l2 =

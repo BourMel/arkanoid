@@ -114,7 +114,9 @@ public:
     BONUS_E,
     BONUS_D,
     BONUS_B,
-    BONUS_P
+    BONUS_P,
+
+    LASER
   };
   GraphicManager();
 
