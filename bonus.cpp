@@ -9,6 +9,9 @@
 
 #define ANIM_FPS 5
 
+int Bonus::bonus_timer = 0;
+bool Bonus::active_bonus = false;
+
 Bonus::Bonus() : Drawable(), m_countAnim(0), m_game(nullptr) {}
 Bonus::Bonus(Game *game) : Drawable(), m_countAnim(0), m_game(game) {}
 void Bonus::action() {}
@@ -27,6 +30,30 @@ void Bonus::drawCallback() {
   }
   m_rect.y += 4;
 }
+
+/**
+ * Initialization of timer variable
+ */
+void Bonus::initTimer() { bonus_timer = 0; }
+
+/**
+ * Increments timer and, if over, returns true
+ */
+bool Bonus::isTimeUp() {
+  if(active_bonus) {
+    // bonus last 200 frames
+    if (bonus_timer < 200) {
+      bonus_timer++;
+    } else {
+      active_bonus = false;
+      initTimer();
+      return true;
+    }
+  }
+
+  return false;
+}
+
 
 /*****************/
 /** BONUS TYPES **/

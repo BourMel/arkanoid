@@ -271,6 +271,12 @@ void WindowManager::drawLevel() {
     }
   }
 
+  // bonus timer
+  if(Bonus::isTimeUp()) {
+    // stop non cumulative bonus
+    m_game->resetBonus();
+  }
+
   // display bonus & make them fall
   for (int i = 0; i < m_bonus.size(); i++) {
     Bonus *current = m_bonus.at(i);
@@ -287,9 +293,14 @@ void WindowManager::drawLevel() {
       current->action();
       m_game->addPointsToGame(1000);
       delete current;
+
       if (m_bonus.size()) {
         m_bonus.erase(m_bonus.begin() + i--);
       }
+
+      // start timer
+      Bonus::active_bonus = true;
+      Bonus::initTimer();
     }
 
     // remove bonus if it goes outside the window
