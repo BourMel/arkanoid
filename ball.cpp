@@ -147,3 +147,13 @@ void Ball::slow() { m_slowed = true; }
  * Reset speed to its default values
  */
 void Ball::resetSpeed() { m_slowed = false; }
+
+/**
+ * Set x coord for the ball
+ */
+void Ball::setX(int x) { m_ball.x = x; }
+
+/**
+ * Set y coord for the ball
+ */
+void Ball::setY(int y) { m_ball.y = y; }

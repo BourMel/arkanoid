@@ -57,20 +57,38 @@ bool Brick::checkCollision(Ball &ball) {
     double absDeltaX = std::abs(deltaX);
     double limitY = ratio * std::abs(deltaY);
 
-    // check left and right collisions
-    if (deltaX > limitY || deltaX < -limitY)
+    // left collision
+    if (deltaX < -limitY) {
+      ball.setX(m_rect.x - ballRect.w);
       ball.bounceX();
+    }
 
-    // all other cases
-    else if (absDeltaX < limitY)
-      ball.bounceY();              // collision top or bottom
-    else if (absDeltaX = limitY) { // x and y collisions
+    // right collision
+    else if (deltaX > limitY) {
+      ball.setX(m_rect.x + m_rect.w);
+      ball.bounceX();
+    }
+
+    // top collision
+    else if (deltaY < 0 && absDeltaX < limitY) {
+      ball.setY(m_rect.y - ballRect.h);
+      ball.bounceY();
+    }
+
+    // bottom collision
+    else if (deltaY >= 0 && absDeltaX < limitY) {
+      ball.setY(m_rect.y + m_rect.h);
+      ball.bounceY();
+    }
+
+    // x and y collisions
+    else if (absDeltaX = limitY) {
       ball.bounceX();
       ball.bounceY();
     }
 
     // the brick need to be destructed
-    if (--m_lives < 1)
+    if (m_lives != -1 && --m_lives < 1)
       return true;
   }
 

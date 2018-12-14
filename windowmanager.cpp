@@ -60,7 +60,10 @@ void WindowManager::init() {
  * Read file representing a level and use it to build it
  */
 void WindowManager::readLevelFile(int level) {
-  m_bricks.clear(); // clear bricks
+
+  // clear all content
+  m_bricks.clear();
+  m_undestructibleBricks.clear();
   m_bonus.clear();
 
   std::ifstream f;
@@ -91,52 +94,64 @@ void WindowManager::readLevelFile(int level) {
       switch (x) {
       case 1:
         b = Brick1(line, col);
+        m_bricks.push_back(b);
         break;
       case 2:
         b = Brick2(line, col);
+        m_bricks.push_back(b);
         break;
       case 3:
         b = Brick3(line, col);
+        m_bricks.push_back(b);
         break;
       case 4:
         b = Brick4(line, col);
+        m_bricks.push_back(b);
         break;
       case 5:
         b = Brick5(line, col);
+        m_bricks.push_back(b);
         break;
       case 6:
         b = Brick6(line, col);
+        m_bricks.push_back(b);
         break;
       case 7:
         b = Brick7(line, col);
+        m_bricks.push_back(b);
         break;
       case 8:
         b = Brick8(line, col);
+        m_bricks.push_back(b);
         break;
       case 9:
         b = Brick9(line, col);
+        m_bricks.push_back(b);
         break;
       case 10:
         b = Brick10(line, col);
+        m_bricks.push_back(b);
         break;
       case 11:
         b = Brick11(line, col);
+        m_bricks.push_back(b);
         break;
       case 12:
         b = Brick12(line, col);
+        m_bricks.push_back(b);
         break;
       case 13:
         b = Brick13(m_game, line, col);
+        m_bricks.push_back(b);
         break;
       case 14:
         b = Brick14(line, col);
+        m_undestructibleBricks.push_back(b);
         break;
       default:
-        b = Brick(x, line, col);
+        // do nothing
         break;
       }
-
-      m_bricks.push_back(b);
     }
     nbBricks++;
   }
@@ -217,10 +232,20 @@ void WindowManager::drawLevel() {
   // player
   SDL_BlitSurface(m_sprites, &player->getSrc(), m_windowSurface, &pRect);
 
+  // a better random engine
   std::random_device rd;
   std::mt19937 e{rd()};
   std::uniform_int_distribution<int> dist3{0, 3};
   std::uniform_int_distribution<int> dist7{0, 7};
+
+  for (int i = 0; i < m_undestructibleBricks.size(); i++) {
+    Brick currentbrick = m_undestructibleBricks.at(i);
+    SDL_Rect bRect = currentbrick.getRect();
+    SDL_BlitSurface(m_sprites, &currentbrick.getSrc(), m_windowSurface, &bRect);
+
+    // handle the brick-ball collision
+    currentbrick.checkCollision(*ball);
+  }
 
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
@@ -239,33 +264,38 @@ void WindowManager::drawLevel() {
         switch (dist7(e)) {
         case 0:
           bonus = new BonusS(m_game, bRect);
+          m_bonus.push_back(bonus);
           break;
         case 1:
           bonus = new BonusC(m_game, bRect);
+          m_bonus.push_back(bonus);
           break;
         case 2:
           bonus = new BonusL(m_game, bRect);
+          m_bonus.push_back(bonus);
           break;
         case 3:
           bonus = new BonusE(m_game, bRect);
+          m_bonus.push_back(bonus);
           break;
         case 4:
           bonus = new BonusD(m_game, bRect);
+          m_bonus.push_back(bonus);
           break;
         case 5:
           bonus = new BonusB(m_game, bRect);
+          m_bonus.push_back(bonus);
           break;
         case 6:
           bonus = new BonusP(m_game, bRect);
+          m_bonus.push_back(bonus);
           break;
         default:
-          goto nobonus;
+          // do nothing
+          break;
         }
-
-        m_bonus.push_back(bonus);
       }
 
-    nobonus:
       m_game->addPointsToGame(currentbrick.getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }

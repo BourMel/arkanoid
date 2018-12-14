@@ -22,6 +22,8 @@ public:
   int getSpeedY() const;
   void slow();
   void resetSpeed();
+  void setX(int x);
+  void setY(int y);
 
 private:
   SDL_Rect m_ball;
