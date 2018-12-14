@@ -4,8 +4,8 @@
 #include "eventmanager.h"
 #include "game.h"
 #include "graphicmanager.h"
-#include "player.h"
 #include "laser.h"
+#include "player.h"
 
 EventManager::EventManager() : m_quit(false) {}
 EventManager::EventManager(Game *game) : m_game(game), m_quit(false) {}
@@ -153,7 +153,7 @@ void EventManager::listenLevel() {
 
       // laser
 
-      if(Laser::getState) {
+      if (Laser::getState) {
         m_game->getWindowManager()->addLasers();
       }
 

@@ -41,7 +41,7 @@ void Bonus::initTimer() { bonus_timer = 0; }
  * Increments timer and, if over, returns true
  */
 bool Bonus::isTimeUp() {
-  if(active_bonus) {
+  if (active_bonus) {
     // bonus last 200 frames
     if (bonus_timer < 200) {
       bonus_timer++;
@@ -54,7 +54,6 @@ bool Bonus::isTimeUp() {
 
   return false;
 }
-
 
 /*****************/
 /** BONUS TYPES **/

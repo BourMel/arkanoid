@@ -2,16 +2,18 @@
 #include <cmath>
 #include <iostream>
 
-#include "laser.h"
 #include "game.h"
 #include "graphicmanager.h"
+#include "laser.h"
 
 bool Laser::m_state = false;
 
-Laser::Laser(SDL_Rect position) : Drawable(position, {0, 0, 0, 0}), m_game(nullptr) {
+Laser::Laser(SDL_Rect position)
+    : Drawable(position, {0, 0, 0, 0}), m_game(nullptr) {
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_WHITE);
 }
-Laser::Laser(SDL_Rect position, Game* game) : Drawable(position, {0, 0, 0, 0}), m_game(game) {
+Laser::Laser(SDL_Rect position, Game *game)
+    : Drawable(position, {0, 0, 0, 0}), m_game(game) {
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_WHITE);
 }
 
@@ -26,8 +28,7 @@ void Laser::drawCallback() {
 /**
  * Choose if lasers are active or not
  */
-void Laser::setState(bool state) {
-  m_state = state; }
+void Laser::setState(bool state) { m_state = state; }
 
 /**
  * Know if lasers are active or not

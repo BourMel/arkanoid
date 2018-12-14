@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "bonus.h"
-#include "laser.h"
 #include "brick.h"
+#include "laser.h"
 
 class Game;
 
@@ -53,7 +53,7 @@ private:
   int m_nbColumns;
   std::vector<Brick> m_bricks;
   std::vector<Bonus *> m_bonus;
-  std::vector<Laser> m_lasers;
+  std::vector<Laser *> m_lasers;
 
   Uint64 m_prev;
   Uint64 m_now;
