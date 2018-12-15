@@ -87,66 +87,53 @@ void WindowManager::readLevelFile(int level) {
 
   while (f >> x) {
     if (x > 0) {
-      Brick *b;
       int line = nbBricks / m_nbColumns;
       int col = nbBricks % m_nbColumns;
 
       switch (x) {
       case 1:
-        b = new Brick1(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick1(line, col)));
         break;
       case 2:
-        b = new Brick2(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick2(line, col)));
         break;
       case 3:
-        b = new Brick3(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick3(line, col)));
         break;
       case 4:
-        b = new Brick4(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick4(line, col)));
         break;
       case 5:
-        b = new Brick5(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick5(line, col)));
         break;
       case 6:
-        b = new Brick6(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick6(line, col)));
         break;
       case 7:
-        b = new Brick7(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick7(line, col)));
         break;
       case 8:
-        b = new Brick8(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick8(line, col)));
         break;
       case 9:
-        b = new Brick9(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick9(line, col)));
         break;
       case 10:
-        b = new Brick10(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick10(line, col)));
         break;
       case 11:
-        b = new Brick11(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick11(line, col)));
         break;
       case 12:
-        b = new Brick12(line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(std::shared_ptr<Brick>(new Brick12(line, col)));
         break;
       case 13:
-        b = new Brick13(m_game, line, col);
-        m_bricks.push_back(b);
+        m_bricks.push_back(
+            std::shared_ptr<Brick>(new Brick13(m_game, line, col)));
         break;
       case 14:
-        b = new Brick14(line, col);
-        m_undestructibleBricks.push_back(b);
+        m_undestructibleBricks.push_back(
+            std::shared_ptr<Brick>(new Brick14(line, col)));
         break;
       default:
         // do nothing
@@ -235,13 +222,12 @@ void WindowManager::drawLevel() {
   // a better random engine
   std::random_device rd;
   std::mt19937 e{rd()};
-  // std::uniform_int_distribution<int> dist3{0, 3};
-  // std::uniform_int_distribution<int> dist7{0, 7};
-  std::uniform_int_distribution<int> dist3{0, 0};
-  std::uniform_int_distribution<int> dist7{2, 2};
+  std::uniform_int_distribution<int> dist3{0, 3};
+  std::uniform_int_distribution<int> dist7{0, 7};
 
+  // display undestructable bricks
   for (int i = 0; i < m_undestructibleBricks.size(); i++) {
-    Brick *currentBrick = m_undestructibleBricks.at(i);
+    std::shared_ptr<Brick> currentBrick = m_undestructibleBricks.at(i);
     SDL_Rect bRect = currentBrick->getRect();
     SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
                     &bRect);
@@ -253,7 +239,7 @@ void WindowManager::drawLevel() {
 
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
-    Brick *currentBrick = m_bricks.at(i);
+    std::shared_ptr<Brick> currentBrick = m_bricks.at(i);
     SDL_Rect bRect = currentBrick->getRect();
     SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
                     &bRect);
