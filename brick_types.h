@@ -117,6 +117,11 @@ class Brick14 : public Brick {
 public:
   Brick14();
   Brick14(int line, int col);
+  void animate();
+  void drawCallback();
+
+protected:
+  int m_animFrame;
 };
 
 #endif // BRICK_TYPES_H

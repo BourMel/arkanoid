@@ -51,8 +51,8 @@ private:
 
   int m_nbLines;
   int m_nbColumns;
-  std::vector<Brick> m_bricks;
-  std::vector<Brick> m_undestructibleBricks;
+  std::vector<Brick *> m_bricks;
+  std::vector<Brick *> m_undestructibleBricks;
   std::vector<Bonus *> m_bonus;
   std::vector<Laser *> m_lasers;
 

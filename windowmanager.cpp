@@ -87,65 +87,65 @@ void WindowManager::readLevelFile(int level) {
 
   while (f >> x) {
     if (x > 0) {
-      Brick b;
+      Brick *b;
       int line = nbBricks / m_nbColumns;
       int col = nbBricks % m_nbColumns;
 
       switch (x) {
       case 1:
-        b = Brick1(line, col);
+        b = new Brick1(line, col);
         m_bricks.push_back(b);
         break;
       case 2:
-        b = Brick2(line, col);
+        b = new Brick2(line, col);
         m_bricks.push_back(b);
         break;
       case 3:
-        b = Brick3(line, col);
+        b = new Brick3(line, col);
         m_bricks.push_back(b);
         break;
       case 4:
-        b = Brick4(line, col);
+        b = new Brick4(line, col);
         m_bricks.push_back(b);
         break;
       case 5:
-        b = Brick5(line, col);
+        b = new Brick5(line, col);
         m_bricks.push_back(b);
         break;
       case 6:
-        b = Brick6(line, col);
+        b = new Brick6(line, col);
         m_bricks.push_back(b);
         break;
       case 7:
-        b = Brick7(line, col);
+        b = new Brick7(line, col);
         m_bricks.push_back(b);
         break;
       case 8:
-        b = Brick8(line, col);
+        b = new Brick8(line, col);
         m_bricks.push_back(b);
         break;
       case 9:
-        b = Brick9(line, col);
+        b = new Brick9(line, col);
         m_bricks.push_back(b);
         break;
       case 10:
-        b = Brick10(line, col);
+        b = new Brick10(line, col);
         m_bricks.push_back(b);
         break;
       case 11:
-        b = Brick11(line, col);
+        b = new Brick11(line, col);
         m_bricks.push_back(b);
         break;
       case 12:
-        b = Brick12(line, col);
+        b = new Brick12(line, col);
         m_bricks.push_back(b);
         break;
       case 13:
-        b = Brick13(m_game, line, col);
+        b = new Brick13(m_game, line, col);
         m_bricks.push_back(b);
         break;
       case 14:
-        b = Brick14(line, col);
+        b = new Brick14(line, col);
         m_undestructibleBricks.push_back(b);
         break;
       default:
@@ -239,22 +239,26 @@ void WindowManager::drawLevel() {
   std::uniform_int_distribution<int> dist7{0, 7};
 
   for (int i = 0; i < m_undestructibleBricks.size(); i++) {
-    Brick currentbrick = m_undestructibleBricks.at(i);
-    SDL_Rect bRect = currentbrick.getRect();
-    SDL_BlitSurface(m_sprites, &currentbrick.getSrc(), m_windowSurface, &bRect);
+    Brick *currentBrick = m_undestructibleBricks.at(i);
+    SDL_Rect bRect = currentBrick->getRect();
+    SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
+                    &bRect);
+    currentBrick->drawCallback();
 
     // handle the brick-ball collision
-    currentbrick.checkCollision(*ball);
+    currentBrick->checkCollision(*ball);
   }
 
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
-    Brick currentbrick = m_bricks.at(i);
-    SDL_Rect bRect = currentbrick.getRect();
-    SDL_BlitSurface(m_sprites, &currentbrick.getSrc(), m_windowSurface, &bRect);
+    Brick *currentBrick = m_bricks.at(i);
+    SDL_Rect bRect = currentBrick->getRect();
+    SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
+                    &bRect);
+    currentBrick->drawCallback();
 
     // handle the brick-ball collision
-    if (currentbrick.checkCollision(*ball)) {
+    if (currentBrick->checkCollision(*ball)) {
 
       // adds a bonus to the level
       if (!dist3(e)) {
@@ -296,7 +300,7 @@ void WindowManager::drawLevel() {
         }
       }
 
-      m_game->addPointsToGame(currentbrick.getPoints());
+      m_game->addPointsToGame(currentBrick->getPoints());
       m_bricks.erase(m_bricks.begin() + i--);
     }
 
@@ -306,7 +310,7 @@ void WindowManager::drawLevel() {
 
       // check laser-brick collision
       if (SDL_HasIntersection(&currentLaser->getRect(),
-                              &currentbrick.getRect())) {
+                              &currentBrick->getRect())) {
 
         // delete both if they collide
         delete currentLaser;

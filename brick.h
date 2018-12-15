@@ -14,11 +14,13 @@ public:
   bool checkCollision(Ball &ball);
   int getId() const;
   int getPoints() const;
+  virtual void animate();
 
 protected:
   int m_lives;
   int m_id;
   int m_points;
+  bool m_animated;
 };
 
 #endif // BRICK_H

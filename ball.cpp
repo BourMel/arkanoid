@@ -6,8 +6,8 @@
 
 #define BALL_SIZE 12
 #define PLAYER_HEIGHT 50
-#define DEFAULT_X_SPEED 4
-#define DEFAULT_Y_SPEED 6
+#define DEFAULT_X_SPEED 2
+#define DEFAULT_Y_SPEED 4
 
 Ball::Ball()
     : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(DEFAULT_X_SPEED),

@@ -159,7 +159,21 @@ Brick13::Brick13(Game *game, int line, int col)
 Brick14::Brick14() : Brick() {}
 
 Brick14::Brick14(int line, int col) : Brick(-1, line, col) {
+  m_animFrame = 0;
   m_id = 14;
   m_points = 0; // not meant to be destroyed
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_GOLD);
+}
+
+void Brick14::animate() { m_animated = true; }
+
+void Brick14::drawCallback() {
+  if (m_animated && ++m_animFrame % 5 == 0) {
+    m_src.x += BRICK_WIDTH;
+    if (m_src.x >= 6 * BRICK_WIDTH) {
+      m_animated = false;
+      m_src.x = 0;
+      m_animFrame = 0;
+    }
+  }
 }
