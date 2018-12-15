@@ -3,7 +3,7 @@
 #include "game.h"
 #include "laser.h"
 
-#define NB_LEVELS 5
+#define NB_LEVELS 8
 
 Game::Game()
     : m_currentScreen(SCREEN_MENU), m_level(1), m_points(0),

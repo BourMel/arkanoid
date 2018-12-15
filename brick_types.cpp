@@ -154,6 +154,19 @@ Brick13::Brick13(Game *game, int line, int col)
   m_src = GraphicManager::getSprite(GraphicManager::BRICK_GREY);
 }
 
+void Brick13::animate() { m_animated = true; }
+
+void Brick13::drawCallback() {
+  if (m_animated && ++m_animFrame % 5 == 0) {
+    m_src.x += BRICK_WIDTH;
+    if (m_src.x >= 6 * BRICK_WIDTH) {
+      m_animated = false;
+      m_src.x = 0;
+      m_animFrame = 0;
+    }
+  }
+}
+
 /** BRICK 14 **/
 
 Brick14::Brick14() : Brick() {}

@@ -289,6 +289,9 @@ void WindowManager::drawLevel() {
       if (SDL_HasIntersection(&currentLaser->getRect(),
                               &currentBrick->getRect())) {
 
+        // add points for destructing this brick
+        m_game->addPointsToGame(currentBrick->getPoints());
+
         // delete both if they collide
         if (m_lasers.size()) {
           m_lasers.erase(m_lasers.begin() + j--);

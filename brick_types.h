@@ -106,9 +106,12 @@ public:
   Brick13();
   Brick13(Game *game, int line, int col);
   Brick13(int line, int col);
+  void animate();
+  void drawCallback();
 
 private:
   Game *m_game;
+  int m_animFrame;
 };
 
 /** BRICK 14 **/
