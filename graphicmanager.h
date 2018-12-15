@@ -116,7 +116,9 @@ public:
     BONUS_B,
     BONUS_P,
 
-    LASER
+    LASER,
+
+    LOGO,
   };
   GraphicManager();
 

@@ -146,11 +146,12 @@ void WindowManager::readLevelFile(int level) {
  * Draw screen menu
  */
 void WindowManager::drawMenu() {
+  SDL_Rect logoSrc = GraphicManager::getSprite(GraphicManager::LOGO);
+  SDL_Rect logoRect = {100, 150, logoSrc.w, logoSrc.h};
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
 
-  GraphicManager::printText(200, 200, m_sprites, m_windowSurface, "Arkanoid");
-
+  SDL_BlitSurface(m_sprites, &logoSrc, m_windowSurface, &logoRect);
   GraphicManager::printText(m_width / 2 - 190, 400, m_sprites, m_windowSurface,
                             "Press ENTER to begin");
 }
