@@ -10,6 +10,7 @@ class Ball {
 public:
   Ball();
   Ball(Game *game);
+  Ball(Game *game, Ball *b);
 
   void setMoving(bool moving);
 

@@ -7,14 +7,12 @@
 
 Game::Game()
     : m_currentScreen(SCREEN_MENU), m_level(1), m_points(0),
-      m_cylinderMode(false), m_wm(nullptr), m_em(nullptr), m_player(nullptr),
-      m_ball(nullptr) {}
+      m_cylinderMode(false), m_wm(nullptr), m_em(nullptr), m_player(nullptr) {}
 
 Game::~Game() {
   delete m_wm;
   delete m_em;
   delete m_player;
-  delete m_ball;
 }
 
 /**
@@ -24,7 +22,8 @@ void Game::run() {
   m_wm = new WindowManager(this);
   m_em = new EventManager(this);
   m_player = new Player(this);
-  m_ball = new Ball(this);
+
+  m_balls.push_back(std::shared_ptr<Ball>(new Ball(this)));
 
   while (!m_em->getQuit()) {
     m_em->listen();
@@ -85,9 +84,9 @@ EventManager *Game::getEventManager() const { return m_em; }
 Player *Game::getPlayer() const { return m_player; }
 
 /**
- * Get instance of ball
+ * Get all balls instances
  */
-Ball *Game::getBall() const { return m_ball; }
+std::vector<std::shared_ptr<Ball>> Game::getBalls() const { return m_balls; }
 
 /**
  * Change current screen
@@ -108,7 +107,9 @@ int Game::getLevel() const { return m_level; }
  * Pass to next level
  */
 void Game::nextLevel() {
-  m_ball->setMoving(false);
+  for (auto ball : m_balls) {
+    ball->setMoving(false);
+  }
   resetAllBonus();
   if (m_level == NB_LEVELS) { // if it was the last level, the player won!
     m_currentScreen = SCREEN_WIN;
@@ -126,15 +127,17 @@ void Game::reset() {
   m_points = 0;
   m_level = 1;
   m_player->reset();
+  resetAllBonus();
 }
 
 /**
  * Remove all bonus actions EXCEPT cumulative ones (E has multiple states)
  */
 void Game::resetBonus() {
-  // @TODO : reset ALL bonus = only 1 ball + remove lasers + remove magnet
   m_player->setCatchBall(false);
-  m_ball->resetSpeed();
+  for (auto ball : m_balls) {
+    ball->resetSpeed();
+  }
   Laser::setState(false);
 }
 
@@ -144,4 +147,31 @@ void Game::resetBonus() {
 void Game::resetAllBonus() {
   resetBonus();
   m_player->setSprite(GraphicManager::PLAYER_1);
+
+  // only one ball
+  m_balls.clear();
+  m_balls.push_back(std::shared_ptr<Ball>(new Ball(this)));
+}
+
+/**
+ * Spawn three balls
+ */
+void Game::threeBalls() {
+  for (int i = m_balls.size(); i < 3; i++) {
+    m_balls.push_back(
+        std::shared_ptr<Ball>(new Ball(this, m_balls.at(0).get())));
+  }
+}
+
+/**
+ * Remove a specific ball
+ */
+void Game::removeBall(Ball *b) {
+  if (m_balls.size() <= 1)
+    return;
+  for (int i = 0; i < m_balls.size(); i++) {
+    if (m_balls.at(i).get() == b) {
+      m_balls.erase(m_balls.begin() + i--);
+    }
+  }
 }

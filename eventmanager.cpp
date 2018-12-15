@@ -129,7 +129,6 @@ void EventManager::listenLose() {
  */
 void EventManager::listenLevel() {
   Player *player = m_game->getPlayer();
-  Ball *ball = m_game->getBall();
 
   switch (m_event.type) {
   case SDL_QUIT:
@@ -148,7 +147,9 @@ void EventManager::listenLevel() {
 
     // remove magnet mode
     case SDLK_SPACE:
-      ball->setMoving(true);
+      for (auto ball : m_game->getBalls()) {
+        ball->setMoving(true);
+      }
       player->setCatchBall(false);
 
       // laser
@@ -182,7 +183,9 @@ void EventManager::listenLevel() {
     player->setX(m_event.motion.x - (player->getRect().w / 2));
     break;
   case SDL_MOUSEBUTTONDOWN:
-    ball->setMoving(true);
+    for (auto ball : m_game->getBalls()) {
+      ball->setMoving(true);
+    }
     player->setCatchBall(false);
     if (Laser::getState()) {
       m_game->getWindowManager()->addLasers();

@@ -66,7 +66,11 @@ BonusS::BonusS(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
 }
-void BonusS::action() { m_game->getBall()->slow(); }
+void BonusS::action() {
+  for (auto ball : m_game->getBalls()) {
+    ball->slow();
+  }
+}
 
 /**
  * Catch the ball
@@ -96,13 +100,13 @@ BonusE::BonusE(Game *game, SDL_Rect pos) : Bonus(game) {
 void BonusE::action() { m_game->getPlayer()->grow(); }
 
 /**
- * @TODO
+ * 3 balls
  */
 BonusD::BonusD(Game *game, SDL_Rect pos) : Bonus(game) {
   m_rect = pos;
   m_src = GraphicManager::getSprite(GraphicManager::BONUS_D);
 }
-void BonusD::action() { std::cout << "action for bonus D" << std::endl; }
+void BonusD::action() { m_game->threeBalls(); }
 
 /**
  * Next round

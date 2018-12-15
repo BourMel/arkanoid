@@ -25,6 +25,14 @@ Ball::Ball(Game *game)
             BALL_SIZE};
 }
 
+Ball::Ball(Game *game, Ball *b)
+    : m_game(game), m_speedX(rand() % 8 - 5), m_speedY(-rand() % 8 - 1),
+      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(true), m_slowed(false) {
+  m_windowX = game->getWindowManager()->getWindowWidth();
+  m_windowY = game->getWindowManager()->getWindowHeight();
+  m_ball = b->getRect();
+}
+
 /**
  * Returns the ball object
  */
@@ -91,7 +99,12 @@ void Ball::move(Player *player) {
       m_ball.y = -m_ball.y + (2 * (m_windowY - BALL_SIZE));
       bounceY();
 
-      player->looseLife();
+      if (m_game->getBalls().size() == 1) {
+        player->looseLife();
+      } else {
+        m_game->removeBall(this);
+      }
+
       m_isMoving = false;
     }
 

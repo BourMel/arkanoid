@@ -1,6 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <memory>
+#include <vector>
+
 #include "ball.h"
 #include "eventmanager.h"
 #include "player.h"
@@ -23,7 +26,7 @@ public:
   WindowManager *getWindowManager() const;
   EventManager *getEventManager() const;
   Player *getPlayer() const;
-  Ball *getBall() const;
+  std::vector<std::shared_ptr<Ball>> getBalls() const;
 
   bool getCylinderMode() const;
   void toggleCylinderMode();
@@ -36,6 +39,8 @@ public:
   void reset();
   void resetBonus();
   void resetAllBonus();
+  void threeBalls();
+  void removeBall(Ball *b);
 
 private:
   screen m_currentScreen;
@@ -47,7 +52,7 @@ private:
   WindowManager *m_wm;
   EventManager *m_em;
   Player *m_player;
-  Ball *m_ball;
+  std::vector<std::shared_ptr<Ball>> m_balls;
 
   // options
   bool m_cylinderMode;

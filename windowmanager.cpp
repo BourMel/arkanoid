@@ -5,6 +5,7 @@
 #include <random>
 #include <string>
 
+#include "ball.h"
 #include "bonus.h"
 #include "brick.h"
 #include "brick_types.h"
@@ -190,9 +191,6 @@ void WindowManager::drawLose() {
 void WindowManager::drawLevel() {
   Player *player = m_game->getPlayer();
   SDL_Rect pRect = player->getRect();
-  Ball *ball = m_game->getBall();
-  SDL_Rect ballRect = ball->getRect();
-  SDL_Rect srcBall = ball->getSrc();
   std::string level = std::to_string(m_game->getLevel());
 
   SDL_Rect dest = {0, 0, 0, 0};
@@ -208,11 +206,17 @@ void WindowManager::drawLevel() {
     }
   }
 
-  // display ball
-  SDL_BlitSurface(m_sprites, &srcBall, m_windowSurface, &ballRect);
+  // display and move all balls
+  for (auto ball : m_game->getBalls()) {
+    SDL_Rect ballRect = ball->getRect();
+    SDL_Rect srcBall = ball->getSrc();
 
-  // move the ball
-  ball->move(player);
+    // display ball
+    SDL_BlitSurface(m_sprites, &srcBall, m_windowSurface, &ballRect);
+
+    // move the ball
+    ball->move(player);
+  }
 
   // player
   SDL_BlitSurface(m_sprites, &player->getSrc(), m_windowSurface, &pRect);
@@ -232,7 +236,9 @@ void WindowManager::drawLevel() {
     currentBrick->drawCallback();
 
     // handle the brick-ball collision
-    currentBrick->checkCollision(*ball);
+    for (auto ball : m_game->getBalls()) {
+      currentBrick->checkCollision(*ball);
+    }
   }
 
   // display bricks
@@ -243,42 +249,51 @@ void WindowManager::drawLevel() {
                     &bRect);
     currentBrick->drawCallback();
 
-    // handle the brick-ball collision
-    if (currentBrick->checkCollision(*ball)) {
+    // handle the brick-balls collision
+    for (auto ball : m_game->getBalls()) {
+      if (currentBrick->checkCollision(*ball)) {
 
-      // adds a bonus to the level
-      if (!dist3(e)) {
-        // spawn a random bonus type
-        switch (dist7(e)) {
-        case 0:
-          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusS(m_game, bRect)));
-          break;
-        case 1:
-          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusC(m_game, bRect)));
-          break;
-        case 2:
-          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusL(m_game, bRect)));
-          break;
-        case 3:
-          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusE(m_game, bRect)));
-          break;
-        case 4:
-          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusD(m_game, bRect)));
-          break;
-        case 5:
-          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusB(m_game, bRect)));
-          break;
-        case 6:
-          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusP(m_game, bRect)));
-          break;
-        default:
-          // do nothing
-          break;
+        // adds a bonus to the level
+        if (!dist3(e)) {
+          // spawn a random bonus type
+          switch (dist7(e)) {
+          case 0:
+            m_bonus.push_back(
+                std::shared_ptr<Bonus>(new BonusS(m_game, bRect)));
+            break;
+          case 1:
+            m_bonus.push_back(
+                std::shared_ptr<Bonus>(new BonusC(m_game, bRect)));
+            break;
+          case 2:
+            m_bonus.push_back(
+                std::shared_ptr<Bonus>(new BonusL(m_game, bRect)));
+            break;
+          case 3:
+            m_bonus.push_back(
+                std::shared_ptr<Bonus>(new BonusE(m_game, bRect)));
+            break;
+          case 4:
+            m_bonus.push_back(
+                std::shared_ptr<Bonus>(new BonusD(m_game, bRect)));
+            break;
+          case 5:
+            m_bonus.push_back(
+                std::shared_ptr<Bonus>(new BonusB(m_game, bRect)));
+            break;
+          case 6:
+            m_bonus.push_back(
+                std::shared_ptr<Bonus>(new BonusP(m_game, bRect)));
+            break;
+          default:
+            // do nothing
+            break;
+          }
         }
-      }
 
-      m_game->addPointsToGame(currentBrick->getPoints());
-      m_bricks.erase(m_bricks.begin() + i--);
+        m_game->addPointsToGame(currentBrick->getPoints());
+        m_bricks.erase(m_bricks.begin() + i--);
+      }
     }
 
     // check collision with lasers
