@@ -269,253 +269,253 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
     break;
   case CHAR_SPACE:
     rect.x = 0;
-    rect.y = 0;
+    rect.y = 416 + 0;
     break;
   case CHAR_UPPER_A:
     rect.x = ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_B:
     rect.x = 2 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_C:
     rect.x = 3 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_D:
     rect.x = 4 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_E:
     rect.x = 5 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_F:
     rect.x = 6 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_G:
     rect.x = 7 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_H:
     rect.x = 8 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_I:
     rect.x = 9 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_J:
     rect.x = 10 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_K:
     rect.x = 11 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_L:
     rect.x = 12 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_M:
     rect.x = 13 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_N:
     rect.x = 14 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_O:
     rect.x = 15 * ASCII_SIZE;
-    rect.y = 2 * ASCII_SIZE;
+    rect.y = 416 + 2 * ASCII_SIZE;
     break;
   case CHAR_UPPER_P:
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_Q:
     rect.x = ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_R:
     rect.x = 2 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_S:
     rect.x = 3 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_T:
     rect.x = 4 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_U:
     rect.x = 5 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_V:
     rect.x = 6 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_W:
     rect.x = 7 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_X:
     rect.x = 8 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_Y:
     rect.x = 9 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_UPPER_Z:
     rect.x = 10 * ASCII_SIZE;
-    rect.y = 3 * ASCII_SIZE;
+    rect.y = 416 + 3 * ASCII_SIZE;
     break;
   case CHAR_LOWER_A:
     rect.x = ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_B:
     rect.x = 2 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_C:
     rect.x = 3 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_D:
     rect.x = 4 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_E:
     rect.x = 5 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_F:
     rect.x = 6 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_G:
     rect.x = 7 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_H:
     rect.x = 8 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_I:
     rect.x = 9 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_J:
     rect.x = 10 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_K:
     rect.x = 11 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_L:
     rect.x = 12 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_M:
     rect.x = 13 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_N:
     rect.x = 14 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_O:
     rect.x = 15 * ASCII_SIZE;
-    rect.y = 4 * ASCII_SIZE;
+    rect.y = 416 + 4 * ASCII_SIZE;
     break;
   case CHAR_LOWER_P:
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_Q:
     rect.x = ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_R:
     rect.x = 2 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_S:
     rect.x = 3 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_T:
     rect.x = 4 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_U:
     rect.x = 5 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_V:
     rect.x = 6 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_W:
     rect.x = 7 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_X:
     rect.x = 8 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_Y:
     rect.x = 9 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_LOWER_Z:
     rect.x = 10 * ASCII_SIZE;
-    rect.y = 5 * ASCII_SIZE;
+    rect.y = 416 + 5 * ASCII_SIZE;
     break;
   case CHAR_0:
     rect.x = 0;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_1:
     rect.x = ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_2:
     rect.x = 2 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_3:
     rect.x = 3 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_4:
     rect.x = 4 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_5:
     rect.x = 5 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_6:
     rect.x = 6 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_7:
     rect.x = 7 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_8:
     rect.x = 8 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   case CHAR_9:
     rect.x = 9 * ASCII_SIZE;
-    rect.y = ASCII_SIZE;
+    rect.y = 416 + ASCII_SIZE;
     break;
   default:
     // do nothing

@@ -43,7 +43,6 @@ private:
   SDL_Window *m_window;
   SDL_Surface *m_windowSurface;
   SDL_Surface *m_sprites;
-  SDL_Surface *m_spritesAscii;
   SDL_Rect m_srcBg;
   SDL_Rect m_srcLive;
   int m_width;

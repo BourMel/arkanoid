@@ -46,9 +46,7 @@ void WindowManager::init() {
   m_now = SDL_GetPerformanceCounter();
 
   m_sprites = SDL_LoadBMP("./sprites.bmp");
-  m_spritesAscii = SDL_LoadBMP("./ascii.bmp");
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
-  SDL_SetColorKey(m_spritesAscii, true, 0);
 
   m_srcLive =
       GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_LIFE);
@@ -151,11 +149,10 @@ void WindowManager::drawMenu() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
 
-  GraphicManager::printText(200, 200, m_spritesAscii, m_windowSurface,
-                            "Arkanoid");
+  GraphicManager::printText(200, 200, m_sprites, m_windowSurface, "Arkanoid");
 
-  GraphicManager::printText(m_width / 2 - 190, 400, m_spritesAscii,
-                            m_windowSurface, "Press ENTER to begin");
+  GraphicManager::printText(m_width / 2 - 190, 400, m_sprites, m_windowSurface,
+                            "Press ENTER to begin");
 }
 
 /**
@@ -165,11 +162,11 @@ void WindowManager::drawWin() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
 
-  GraphicManager::printText(m_width / 2 - 150, 200, m_spritesAscii,
-                            m_windowSurface, "Congratulations");
+  GraphicManager::printText(m_width / 2 - 150, 200, m_sprites, m_windowSurface,
+                            "Congratulations");
 
-  GraphicManager::printText(m_width / 2 - 230, 400, m_spritesAscii,
-                            m_windowSurface, "Return to menu with ENTER");
+  GraphicManager::printText(m_width / 2 - 230, 400, m_sprites, m_windowSurface,
+                            "Return to menu with ENTER");
 }
 
 /**
@@ -179,11 +176,11 @@ void WindowManager::drawLose() {
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
 
-  GraphicManager::printText(m_width / 2 - 90, 200, m_spritesAscii,
-                            m_windowSurface, "Game Over");
+  GraphicManager::printText(m_width / 2 - 90, 200, m_sprites, m_windowSurface,
+                            "Game Over");
 
-  GraphicManager::printText(m_width / 2 - 230, 400, m_spritesAscii,
-                            m_windowSurface, "Return to menu with ENTER");
+  GraphicManager::printText(m_width / 2 - 230, 400, m_sprites, m_windowSurface,
+                            "Return to menu with ENTER");
 }
 
 /**
@@ -365,10 +362,10 @@ void WindowManager::drawLevel() {
   }
 
   // display informations on game (points, level)
-  GraphicManager::printText(m_width - 100, 10, m_spritesAscii, m_windowSurface,
+  GraphicManager::printText(m_width - 100, 10, m_sprites, m_windowSurface,
                             level);
 
-  GraphicManager::printText(40, 10, m_spritesAscii, m_windowSurface,
+  GraphicManager::printText(40, 10, m_sprites, m_windowSurface,
                             std::to_string(m_game->getGamePoints()) +
                                 " points");
 }
