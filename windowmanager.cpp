@@ -264,37 +264,28 @@ void WindowManager::drawLevel() {
 
       // adds a bonus to the level
       if (!dist3(e)) {
-        Bonus *bonus;
-
         // spawn a random bonus type
         switch (dist7(e)) {
         case 0:
-          bonus = new BonusS(m_game, bRect);
-          m_bonus.push_back(bonus);
+          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusS(m_game, bRect)));
           break;
         case 1:
-          bonus = new BonusC(m_game, bRect);
-          m_bonus.push_back(bonus);
+          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusC(m_game, bRect)));
           break;
         case 2:
-          bonus = new BonusL(m_game, bRect);
-          m_bonus.push_back(bonus);
+          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusL(m_game, bRect)));
           break;
         case 3:
-          bonus = new BonusE(m_game, bRect);
-          m_bonus.push_back(bonus);
+          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusE(m_game, bRect)));
           break;
         case 4:
-          bonus = new BonusD(m_game, bRect);
-          m_bonus.push_back(bonus);
+          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusD(m_game, bRect)));
           break;
         case 5:
-          bonus = new BonusB(m_game, bRect);
-          m_bonus.push_back(bonus);
+          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusB(m_game, bRect)));
           break;
         case 6:
-          bonus = new BonusP(m_game, bRect);
-          m_bonus.push_back(bonus);
+          m_bonus.push_back(std::shared_ptr<Bonus>(new BonusP(m_game, bRect)));
           break;
         default:
           // do nothing
@@ -333,7 +324,7 @@ void WindowManager::drawLevel() {
 
   // display bonus & make them fall
   for (int i = 0; i < m_bonus.size(); i++) {
-    Bonus *current = m_bonus.at(i);
+    std::shared_ptr<Bonus> current = m_bonus.at(i);
     SDL_Rect current_rect = current->getRect();
     current->drawCallback();
 
@@ -346,7 +337,6 @@ void WindowManager::drawLevel() {
       m_game->resetBonus();
       current->action();
       m_game->addPointsToGame(1000);
-      delete current;
 
       if (m_bonus.size()) {
         m_bonus.erase(m_bonus.begin() + i--);
@@ -359,7 +349,6 @@ void WindowManager::drawLevel() {
 
     // remove bonus if it goes outside the window
     if (current->getRect().y >= m_windowSurface->h) {
-      delete current;
       m_bonus.erase(m_bonus.begin() + i--);
     }
   }

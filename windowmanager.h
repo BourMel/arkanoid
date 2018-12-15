@@ -54,7 +54,7 @@ private:
   int m_nbColumns;
   std::vector<Brick *> m_bricks;
   std::vector<Brick *> m_undestructibleBricks;
-  std::vector<Bonus *> m_bonus;
+  std::vector<std::shared_ptr<Bonus>> m_bonus;
   std::vector<std::shared_ptr<Laser>> m_lasers;
 
   Uint64 m_prev;
