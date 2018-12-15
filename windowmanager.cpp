@@ -235,8 +235,10 @@ void WindowManager::drawLevel() {
   // a better random engine
   std::random_device rd;
   std::mt19937 e{rd()};
-  std::uniform_int_distribution<int> dist3{0, 3};
-  std::uniform_int_distribution<int> dist7{0, 7};
+  // std::uniform_int_distribution<int> dist3{0, 3};
+  // std::uniform_int_distribution<int> dist7{0, 7};
+  std::uniform_int_distribution<int> dist3{0, 0};
+  std::uniform_int_distribution<int> dist7{2, 2};
 
   for (int i = 0; i < m_undestructibleBricks.size(); i++) {
     Brick *currentBrick = m_undestructibleBricks.at(i);
@@ -306,15 +308,13 @@ void WindowManager::drawLevel() {
 
     // check collision with lasers
     for (int j = 0; j < m_lasers.size(); j++) {
-      Laser *currentLaser = m_lasers.at(j);
+      std::shared_ptr<Laser> currentLaser = m_lasers.at(j);
 
       // check laser-brick collision
       if (SDL_HasIntersection(&currentLaser->getRect(),
                               &currentBrick->getRect())) {
 
         // delete both if they collide
-        delete currentLaser;
-
         if (m_lasers.size()) {
           m_lasers.erase(m_lasers.begin() + j--);
         }
@@ -366,14 +366,14 @@ void WindowManager::drawLevel() {
 
   // display lasers
   for (int i = 0; i < m_lasers.size(); i++) {
-    Laser *current = m_lasers.at(i);
+    std::shared_ptr<Laser> current = m_lasers.at(i);
     SDL_Rect lRect = current->getRect();
     SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface, &lRect);
     current->drawCallback();
 
     // remove laser if it goes outside the window
-    if (current->getRect().y <= 0) {
-      delete current;
+    if (current->getRect().y <=
+        m_game->getWindowManager()->getWindowHeightStart()) {
       m_lasers.erase(m_lasers.begin() + i--);
     }
   }
@@ -432,9 +432,9 @@ void WindowManager::addLasers() {
   if (m_lasers.size() > 0)
     return;
 
-  Laser *l1 = new Laser(position);
-  Laser *l2 =
-      new Laser({position.x + position.w, position.y, position.w, position.h});
+  std::shared_ptr<Laser> l1(new Laser(position));
+  std::shared_ptr<Laser> l2(
+      new Laser({position.x + position.w, position.y, position.w, position.h}));
   m_lasers.push_back(l1);
   m_lasers.push_back(l2);
 }

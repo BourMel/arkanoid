@@ -184,6 +184,9 @@ void EventManager::listenLevel() {
   case SDL_MOUSEBUTTONDOWN:
     ball->setMoving(true);
     player->setCatchBall(false);
+    if (Laser::getState()) {
+      m_game->getWindowManager()->addLasers();
+    }
     break;
   default:
     break;

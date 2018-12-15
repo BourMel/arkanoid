@@ -2,6 +2,7 @@
 #define WINDOWMANAGER_H
 
 #include <SDL2/SDL.h>
+#include <memory>
 #include <vector>
 
 #include "bonus.h"
@@ -54,7 +55,7 @@ private:
   std::vector<Brick *> m_bricks;
   std::vector<Brick *> m_undestructibleBricks;
   std::vector<Bonus *> m_bonus;
-  std::vector<Laser *> m_lasers;
+  std::vector<std::shared_ptr<Laser>> m_lasers;
 
   Uint64 m_prev;
   Uint64 m_now;
