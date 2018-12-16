@@ -17,13 +17,13 @@
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr),
       m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416), m_height(550),
-      m_height_start(50), m_nbLines(0), m_nbColumns(0) {
+      m_height_start(70), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
-      m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416), m_height_start(50),
+      m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416), m_height_start(70),
       m_height(550), m_nbLines(0), m_nbColumns(0) {
   init();
 }
@@ -163,7 +163,7 @@ void WindowManager::readLevelFile(int level) {
  */
 void WindowManager::drawMenu() {
   Box logoSrc = Sprite::get(Sprite::LOGO);
-  Box logoRect = {100, 150, logoSrc.w, logoSrc.h};
+  Box logoRect = {70, 150, logoSrc.w, logoSrc.h};
 
   GraphicManager::setBlackBackground();
   GraphicManager::draw(Drawable(logoRect, logoSrc));
@@ -196,17 +196,35 @@ void WindowManager::drawLevel() {
   Box pRect = player->getRect();
   std::string level = std::to_string(m_game->getLevel());
 
-  Box dest = {0, 0, 0, 0};
-
   GraphicManager::setBackgroud(0x302C2C);
 
   // background
+  Box dest = {0, 0, 0, 0};
+
   for (int j = m_height_start; j < m_windowSurface->h; j += m_srcBg.h) {
     for (int i = 0; i < m_windowSurface->w; i += m_srcBg.w) {
       dest.x = i;
       dest.y = j;
       GraphicManager::draw(Drawable(dest, m_srcBg));
     }
+  }
+
+  // shadow in background
+  Box shadow = {m_srcBg.x, m_srcBg.y + m_srcBg.h, m_srcBg.w, 10};
+  dest = {0, m_height_start, 0, 0};
+
+  for (int i = 0; i < m_windowSurface->w; i += shadow.w) {
+    dest.x = i;
+    GraphicManager::draw(Drawable(dest, shadow));
+  }
+
+  // top of the screen
+  Box topSprite = Sprite::get(Sprite::Type::TOP);
+  dest = {0, m_height_start - topSprite.h, 0, 0};
+
+  for (int i = 0; i < m_windowSurface->w; i += topSprite.w) {
+    dest.x = i;
+    GraphicManager::draw(Drawable(dest, topSprite));
   }
 
   // display and move all balls

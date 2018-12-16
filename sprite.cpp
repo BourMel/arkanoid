@@ -231,6 +231,12 @@ Box Sprite::get(const Type type) {
     rect.w = 394;
     rect.h = 118;
     break;
+  case TOP:
+    rect.x = 400;
+    rect.y = 128;
+    rect.w = 30;
+    rect.h = 16;
+    break;
   case PLAYER_LIFE:
     rect.x = 448;
     rect.y = 128;
