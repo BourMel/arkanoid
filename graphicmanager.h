@@ -14,12 +14,20 @@ using Window = SDL_Window;
 
 class GraphicManager {
 public:
-  GraphicManager *getInstance();
+  static GraphicManager *getInstance();
+  static Window * createWindow(int width, int height);
+  static Surface * getWindowSurface(Window * w);
+  static Uint64 getPerformanceCounter();
+  static void setBackgroud(Uint32 color);
+  static void setBlackBackground();
   static void printText(int x, int y, Surface *src, Surface *dst,
                         std::string str);
-
+  void init();
+  void draw(Box);
 private:
   GraphicManager();
+  static Window * m_window;
+  static Surface * m_windowSurface;
   static GraphicManager *m_instance;
 };
 

@@ -2,6 +2,7 @@
 
 #include "game.h"
 #include "laser.h"
+#include "graphicmanager.h"
 
 #define NB_LEVELS 8
 
@@ -19,6 +20,7 @@ Game::~Game() {
  * draw the right screen
  */
 void Game::run() {
+  GraphicManager::getInstance();
   m_wm = new WindowManager(this);
   m_em = new EventManager(this);
   m_player = new Player(this);
