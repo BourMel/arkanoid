@@ -44,7 +44,9 @@ x x x ... x x x
 
 avec :
   - `A` : le nombre de lignes
-  - `B` : le nombre de colonnes
+  - `B` : le nombre de colonnes (inférieur ou égal à 13)
   - `B` : l'identifiant du sprite d'arrière-plan (1 à 6)
   - `x` : un entier décrivant le type de brique sur la grille,
     avec `0` comme étant un emplacement vide
+
+Quelque soit le nombre de colonnes, le niveau est automatiquement centré dans la fenêtre.

@@ -109,10 +109,17 @@ void WindowManager::readLevelFile(int level) {
   int x;
   int nbBricks(0);
 
+
+  // number of bricks required to center the level in the window
+  // since all levels can have a different width
+  // 13 = max number of bricks
+  int completeBricks = (int)((13 - m_nbColumns)/2);
+
   while (f >> x) {
     if (x > 0) {
       int line = nbBricks / m_nbColumns;
-      int col = nbBricks % m_nbColumns;
+      // completeBricks adds enough space to center the level
+      int col = completeBricks + nbBricks % m_nbColumns;
 
       switch (x) {
       case 1:
@@ -192,8 +199,8 @@ void WindowManager::drawWin() {
   GraphicManager::printText(m_width / 2 - 150, 200, m_sprites, m_windowSurface,
                             "Congratulations");
 
-  GraphicManager::printText(m_width / 2 - 230, 400, m_sprites, m_windowSurface,
-                            "Return to menu with ENTER");
+  GraphicManager::printText(m_width / 2 - 170, 400, m_sprites, m_windowSurface,
+                            "Restart with ENTER");
 }
 
 /**
@@ -206,8 +213,8 @@ void WindowManager::drawLose() {
   GraphicManager::printText(m_width / 2 - 90, 200, m_sprites, m_windowSurface,
                             "Game Over");
 
-  GraphicManager::printText(m_width / 2 - 230, 400, m_sprites, m_windowSurface,
-                            "Return to menu with ENTER");
+  GraphicManager::printText(m_width / 2 - 170, 400, m_sprites, m_windowSurface,
+                            "Restart with ENTER");
 }
 
 /**
