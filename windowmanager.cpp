@@ -345,7 +345,7 @@ void WindowManager::drawLevel() {
       }
 
       // start timer
-      Bonus::active_bonus = true;
+      Bonus::activeBonus = true;
       Bonus::initTimer();
     }
 

@@ -19,8 +19,8 @@ public:
   static void initTimer();
   static bool isTimeUp();
 
-  static int bonus_timer;
-  static bool active_bonus;
+  static int bonusTimer;
+  static bool activeBonus;
 
 protected:
   int m_countAnim;
