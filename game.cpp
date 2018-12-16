@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "game.h"
-#include "laser.h"
 #include "graphicmanager.h"
+#include "laser.h"
 
 #define NB_LEVELS 8
 

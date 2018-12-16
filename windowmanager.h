@@ -42,7 +42,6 @@ public:
 private:
   Window *m_window;
   Surface *m_windowSurface;
-  Surface *m_sprites;
   Box m_srcBg;
   Box m_srcLive;
   int m_width;

@@ -15,7 +15,7 @@
 #include "windowmanager.h"
 
 WindowManager::WindowManager()
-    : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
+    : m_window(nullptr), m_windowSurface(nullptr),
       m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416), m_height(550),
       m_height_start(50), m_nbLines(0), m_nbColumns(0) {
   init();
@@ -23,8 +23,8 @@ WindowManager::WindowManager()
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
-      m_sprites(nullptr), m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416),
-      m_height_start(50), m_height(550), m_nbLines(0), m_nbColumns(0) {
+      m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416), m_height_start(50),
+      m_height(550), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -35,12 +35,7 @@ void WindowManager::init() {
   m_window = GraphicManager::createWindow(m_width, m_height);
   m_windowSurface = GraphicManager::getWindowSurface(m_window);
   m_now = GraphicManager::getPerformanceCounter();
-
-  m_sprites = SDL_LoadBMP("./sprites.bmp");
-  SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
-
   m_srcLive = Sprite::get(Sprite::Type::PLAYER_LIFE);
-
   readLevelFile(1);
 }
 
@@ -98,11 +93,10 @@ void WindowManager::readLevelFile(int level) {
   int x;
   int nbBricks(0);
 
-
   // number of bricks required to center the level in the window
   // since all levels can have a different width
   // 13 = max number of bricks
-  int completeBricks = (int)((13 - m_nbColumns)/2);
+  int completeBricks = (int)((13 - m_nbColumns) / 2);
 
   while (f >> x) {
     if (x > 0) {
@@ -172,9 +166,8 @@ void WindowManager::drawMenu() {
   Box logoRect = {100, 150, logoSrc.w, logoSrc.h};
 
   GraphicManager::setBlackBackground();
-  SDL_BlitSurface(m_sprites, &logoSrc, m_windowSurface, &logoRect);
-  GraphicManager::printText(m_width / 2 - 190, 400, m_sprites, m_windowSurface,
-                            "Press ENTER to begin");
+  GraphicManager::draw(Drawable(logoRect, logoSrc));
+  GraphicManager::printText(m_width / 2 - 190, 400, "Press ENTER to begin");
 }
 
 /**
@@ -182,10 +175,8 @@ void WindowManager::drawMenu() {
  */
 void WindowManager::drawWin() {
   GraphicManager::setBlackBackground();
-  GraphicManager::printText(m_width / 2 - 150, 200, m_sprites, m_windowSurface,
-                            "Congratulations");
-  GraphicManager::printText(m_width / 2 - 170, 400, m_sprites, m_windowSurface,
-                            "Restart with ENTER");
+  GraphicManager::printText(m_width / 2 - 150, 200, "Congratulations");
+  GraphicManager::printText(m_width / 2 - 170, 400, "Restart with ENTER");
 }
 
 /**
@@ -193,10 +184,8 @@ void WindowManager::drawWin() {
  */
 void WindowManager::drawLose() {
   GraphicManager::setBlackBackground();
-  GraphicManager::printText(m_width / 2 - 90, 200, m_sprites, m_windowSurface,
-                            "Game Over");
-  GraphicManager::printText(m_width / 2 - 170, 400, m_sprites, m_windowSurface,
-                            "Restart with ENTER");
+  GraphicManager::printText(m_width / 2 - 90, 200, "Game Over");
+  GraphicManager::printText(m_width / 2 - 170, 400, "Restart with ENTER");
 }
 
 /**
@@ -216,24 +205,20 @@ void WindowManager::drawLevel() {
     for (int i = 0; i < m_windowSurface->w; i += m_srcBg.w) {
       dest.x = i;
       dest.y = j;
-      SDL_BlitSurface(m_sprites, &m_srcBg, m_windowSurface, &dest);
+      GraphicManager::draw(Drawable(dest, m_srcBg));
     }
   }
 
   // display and move all balls
   for (auto ball : m_game->getBalls()) {
-    Box ballRect = ball->getRect();
-    Box srcBall = ball->getSrc();
-
-    // display ball
-    SDL_BlitSurface(m_sprites, &srcBall, m_windowSurface, &ballRect);
+    GraphicManager::draw(ball);
 
     // move the ball
     ball->move(player);
   }
 
   // player
-  SDL_BlitSurface(m_sprites, &player->getSrc(), m_windowSurface, &pRect);
+  GraphicManager::draw(player);
 
   // a better random engine
   std::random_device rd;
@@ -244,10 +229,7 @@ void WindowManager::drawLevel() {
   // display undestructable bricks
   for (int i = 0; i < m_undestructibleBricks.size(); i++) {
     std::shared_ptr<Brick> currentBrick = m_undestructibleBricks.at(i);
-    Box bRect = currentBrick->getRect();
-    SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
-                    &bRect);
-    currentBrick->drawCallback();
+    GraphicManager::draw(currentBrick);
 
     // handle the brick-ball collision
     for (auto ball : m_game->getBalls()) {
@@ -259,9 +241,7 @@ void WindowManager::drawLevel() {
   for (int i = 0; i < m_bricks.size(); i++) {
     std::shared_ptr<Brick> currentBrick = m_bricks.at(i);
     Box bRect = currentBrick->getRect();
-    SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
-                    &bRect);
-    currentBrick->drawCallback();
+    GraphicManager::draw(currentBrick);
 
     // handle the brick-balls collision
     for (auto ball : m_game->getBalls()) {
@@ -341,11 +321,7 @@ void WindowManager::drawLevel() {
   // display bonus & make them fall
   for (int i = 0; i < m_bonus.size(); i++) {
     std::shared_ptr<Bonus> current = m_bonus.at(i);
-    Box current_rect = current->getRect();
-    current->drawCallback();
-
-    SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface,
-                    &current_rect);
+    GraphicManager::draw(current);
 
     // check bonus-player collision
     if (SDL_HasIntersection(&current->getRect(),
@@ -372,9 +348,7 @@ void WindowManager::drawLevel() {
   // display lasers
   for (int i = 0; i < m_lasers.size(); i++) {
     std::shared_ptr<Laser> current = m_lasers.at(i);
-    Box lRect = current->getRect();
-    SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface, &lRect);
-    current->drawCallback();
+    GraphicManager::draw(current);
 
     // remove laser if it goes outside the window
     if (current->getRect().y <=
@@ -391,16 +365,14 @@ void WindowManager::drawLevel() {
   for (int i = 1; i < player->getLives(); i++) {
     dest.x = 30 + (i - 1) * 30;
     dest.y = m_windowSurface->h - 20;
-    SDL_BlitSurface(m_sprites, &m_srcLive, m_windowSurface, &dest);
+    GraphicManager::draw(Drawable(dest, m_srcLive));
   }
 
   // display informations on game (points, level)
-  GraphicManager::printText(m_width - 100, 10, m_sprites, m_windowSurface,
-                            level);
+  GraphicManager::printText(m_width - 100, 10, level);
 
-  GraphicManager::printText(40, 10, m_sprites, m_windowSurface,
-                            std::to_string(m_game->getGamePoints()) +
-                                " points");
+  GraphicManager::printText(
+      40, 10, std::to_string(m_game->getGamePoints()) + " points");
 }
 
 // update window surface
