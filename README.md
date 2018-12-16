@@ -15,6 +15,7 @@ Il est possible de jouer à la souris comme au clavier.
 - Déplacement : flèches directionnelles ou déplacement de la souris
 - Lancement de la balle / des lasers : espace ou clic
 - Passage au niveau suivant (à des fins de test) : touche N
+- Activer/désactiver le mode cylindrique : touche C
 
 ## Prérequis
 
