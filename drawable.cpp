@@ -17,3 +17,11 @@ const SDL_Rect &Drawable::getRect() const { return m_rect; }
  * Returns the sprite position
  */
 const SDL_Rect &Drawable::getSrc() const { return m_src; }
+
+/**
+ * X and Y setters and getters
+ */
+const int &Drawable::getX() const { return m_rect.x; }
+const int &Drawable::getY() const { return m_rect.y; }
+void Drawable::setX(int value) { m_rect.x = value; }
+void Drawable::setY(int value) { m_rect.y = value; }

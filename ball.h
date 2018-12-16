@@ -21,8 +21,6 @@ public:
   int getSpeedY() const;
   void slow();
   void resetSpeed();
-  void setX(int x);
-  void setY(int y);
 
 private:
   bool m_isMoving;

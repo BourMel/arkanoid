@@ -12,7 +12,6 @@ public:
   Player(Game *game);
 
   void setX(int value);
-  int getX() const;
   void looseLife();
   void winLife();
   void grow();

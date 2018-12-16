@@ -28,11 +28,6 @@ void Player::setX(int value) {
 }
 
 /**
- * Get the player position on the x-axis
- */
-int Player::getX() const { return m_rect.x; }
-
-/**
  * The player looses a life
  */
 void Player::looseLife() {

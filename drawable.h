@@ -17,6 +17,12 @@ public:
   // callback when object is draw
   virtual void drawCallback();
 
+  // x and y position setters and getters
+  const int &getX() const;
+  const int &getY() const;
+  void setX(int value);
+  void setY(int value);
+
 protected:
   SDL_Rect m_rect; // object position
   SDL_Rect m_src;  // sprite position
