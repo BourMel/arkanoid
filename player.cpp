@@ -1,7 +1,5 @@
-#include <SDL2/SDL.h>
-
-#include "game.h"
 #include "player.h"
+#include "game.h"
 
 Player::Player() : m_game(nullptr), m_size(1), m_catchBall(false) { init(); }
 Player::Player(Game *game) : m_game(game), m_size(1), m_catchBall(false) {
@@ -55,25 +53,25 @@ void Player::grow() {
     return;
   switch (m_size) {
   case 1:
-    setSprite(GraphicManager::PLAYER_2);
+    setSprite(Sprite::PLAYER_2);
     break;
   case 2:
-    setSprite(GraphicManager::PLAYER_3);
+    setSprite(Sprite::PLAYER_3);
     break;
   case 3:
-    setSprite(GraphicManager::PLAYER_4);
+    setSprite(Sprite::PLAYER_4);
     break;
   case 4:
-    setSprite(GraphicManager::PLAYER_5);
+    setSprite(Sprite::PLAYER_5);
     break;
   case 5:
-    setSprite(GraphicManager::PLAYER_6);
+    setSprite(Sprite::PLAYER_6);
     break;
   case 6:
-    setSprite(GraphicManager::PLAYER_7);
+    setSprite(Sprite::PLAYER_7);
     break;
   case 7:
-    setSprite(GraphicManager::PLAYER_8);
+    setSprite(Sprite::PLAYER_8);
     break;
   default:
     // do nothing
@@ -90,8 +88,8 @@ int Player::getLives() const { return m_lives; }
 /**
  * Change the sprite used to represent the player
  */
-void Player::setSprite(GraphicManager::SpriteType type) {
-  m_src = GraphicManager::getSprite(type);
+void Player::setSprite(Sprite::Type type) {
+  m_src = Sprite::get(type);
   if (m_rect.x + m_rect.w > m_windowWidth) {
     m_rect.x = m_windowWidth - m_src.w;
   }
@@ -114,7 +112,7 @@ bool Player::getCatchBall() const { return m_catchBall; }
  */
 void Player::reset() {
   m_lives = 3;
-  m_src = GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_1);
+  m_src = Sprite::get(Sprite::Type::PLAYER_1);
   m_rect.x = (m_windowWidth - m_src.w) / 2;
   m_rect.y = m_game->getWindowManager()->getWindowHeight() - 50;
   m_rect.w = m_src.w;

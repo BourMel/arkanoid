@@ -12,22 +12,20 @@
 #include "game.h"
 #include "graphicmanager.h"
 #include "player.h"
+#include "sprite.h"
 #include "windowmanager.h"
 
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
-      m_srcBg(GraphicManager::getSprite(GraphicManager::SpriteType::BG1)),
-      m_width(416), m_height(550), m_height_start(50), m_nbLines(0),
-      m_nbColumns(0) {
+      m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416), m_height(550),
+      m_height_start(50), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
-      m_sprites(nullptr),
-      m_srcBg(GraphicManager::getSprite(GraphicManager::SpriteType::BG1)),
-      m_width(416), m_height_start(50), m_height(550), m_nbLines(0),
-      m_nbColumns(0) {
+      m_sprites(nullptr), m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416),
+      m_height_start(50), m_height(550), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -52,8 +50,7 @@ void WindowManager::init() {
   m_sprites = SDL_LoadBMP("./sprites.bmp");
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
 
-  m_srcLive =
-      GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_LIFE);
+  m_srcLive = Sprite::get(Sprite::Type::PLAYER_LIFE);
 
   readLevelFile(1);
 }
@@ -87,26 +84,26 @@ void WindowManager::readLevelFile(int level) {
   f >> background;
 
   // choose right sprite for background
-  switch(background) {
-    case 2:
-      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG2);
-      break;
-    case 3:
-      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG3);
-      break;
-    case 4:
-      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG4);
-      break;
-    case 5:
-      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG5);
-      break;
-    case 6:
-      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG6);
-      break;
-    case 1:
-    default:
-      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG1);
-      break;
+  switch (background) {
+  case 2:
+    m_srcBg = Sprite::get(Sprite::Type::BG2);
+    break;
+  case 3:
+    m_srcBg = Sprite::get(Sprite::Type::BG3);
+    break;
+  case 4:
+    m_srcBg = Sprite::get(Sprite::Type::BG4);
+    break;
+  case 5:
+    m_srcBg = Sprite::get(Sprite::Type::BG5);
+    break;
+  case 6:
+    m_srcBg = Sprite::get(Sprite::Type::BG6);
+    break;
+  case 1:
+  default:
+    m_srcBg = Sprite::get(Sprite::Type::BG1);
+    break;
   }
 
   int x;
@@ -175,7 +172,7 @@ void WindowManager::readLevelFile(int level) {
  * Draw screen menu
  */
 void WindowManager::drawMenu() {
-  SDL_Rect logoSrc = GraphicManager::getSprite(GraphicManager::LOGO);
+  SDL_Rect logoSrc = Sprite::get(Sprite::LOGO);
   SDL_Rect logoRect = {100, 150, logoSrc.w, logoSrc.h};
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);

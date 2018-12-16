@@ -146,7 +146,7 @@ void Game::resetBonus() {
  */
 void Game::resetAllBonus() {
   resetBonus();
-  m_player->setSprite(GraphicManager::PLAYER_1);
+  m_player->setSprite(Sprite::PLAYER_1);
 
   // only one ball
   m_balls.clear();
