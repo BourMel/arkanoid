@@ -26,7 +26,7 @@ Un niveau est décrit par un fichier déposé dans le répertoire `levels`.
 Il possède une structure de la forme :
 
 ```
-A B
+A B C
 x x x ... x x x
 x x x ... x x x
       ...
@@ -37,5 +37,6 @@ x x x ... x x x
 avec :
   - `A` : le nombre de lignes
   - `B` : le nombre de colonnes
+  - `B` : l'identifiant du sprite d'arrière-plan (1 à 6)
   - `x` : un entier décrivant le type de brique sur la grille,
     avec `0` comme étant un emplacement vide

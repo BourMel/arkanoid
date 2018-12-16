@@ -16,15 +16,18 @@
 
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
-      m_srcBg({0, 128, 48, 64}), m_width(600), m_height(600),
-      m_height_start(50), m_nbLines(0), m_nbColumns(0) {
+      m_srcBg(GraphicManager::getSprite(GraphicManager::SpriteType::BG1)),
+      m_width(600), m_height(600), m_height_start(50), m_nbLines(0),
+      m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
-      m_sprites(nullptr), m_srcBg({0, 128, 48, 64}), m_width(600),
-      m_height_start(50), m_height(600), m_nbLines(0), m_nbColumns(0) {
+      m_sprites(nullptr),
+      m_srcBg(GraphicManager::getSprite(GraphicManager::SpriteType::BG1)),
+      m_width(600), m_height_start(50), m_height(600), m_nbLines(0),
+      m_nbColumns(0) {
   init();
 }
 
@@ -59,6 +62,7 @@ void WindowManager::init() {
  * Read file representing a level and use it to build it
  */
 void WindowManager::readLevelFile(int level) {
+  int background;
 
   // clear all content
   m_bricks.clear();
@@ -80,6 +84,30 @@ void WindowManager::readLevelFile(int level) {
 
   f >> m_nbLines;
   f >> m_nbColumns;
+  f >> background;
+
+  // choose right sprite for background
+  switch(background) {
+    case 2:
+      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG2);
+      break;
+    case 3:
+      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG3);
+      break;
+    case 4:
+      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG4);
+      break;
+    case 5:
+      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG5);
+      break;
+    case 6:
+      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG6);
+      break;
+    case 1:
+    default:
+      m_srcBg = GraphicManager::getSprite(GraphicManager::SpriteType::BG1);
+      break;
+  }
 
   int x;
   int nbBricks(0);

@@ -124,6 +124,25 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
     break;
   }
 
+  // operation for backgrounds
+  switch (type) {
+  case BG1:
+    rect.w = 48;
+    rect.h = 64;
+    break;
+  case BG2:
+  case BG3:
+  case BG4:
+  case BG5:
+  case BG6:
+    rect.w = 2*BRICK_WIDTH;
+    rect.h = 64;
+    break;
+  default:
+    // do nothing
+    break;
+  }
+
   /**********************/
   /** SET COORDONNATES **/
   /**********************/
@@ -526,6 +545,38 @@ SDL_Rect GraphicManager::getSprite(const SpriteType type) {
     // do nothing
     break;
   }
+
+  // operation for backgrounds
+  switch (type) {
+  case BG1:
+    rect.x = 0;
+    rect.y = 128;
+    break;
+  case BG2:
+    rect.x = 2*BRICK_WIDTH;
+    rect.y = 128;
+    break;
+  case BG3:
+    rect.x = 4*BRICK_WIDTH;
+    rect.y = 128;
+    break;
+  case BG4:
+    rect.x = 6*BRICK_WIDTH;
+    rect.y = 128;
+    break;
+  case BG5:
+    rect.x = 8*BRICK_WIDTH;
+    rect.y = 128;
+    break;
+  case BG6:
+    rect.x = 10*BRICK_WIDTH;
+    rect.y = 128;
+    break;
+  default:
+    // do nothing
+    break;
+  }
+
   return rect;
 }
 

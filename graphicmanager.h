@@ -119,6 +119,14 @@ public:
     LASER,
 
     LOGO,
+
+    // BACKGROUNDS
+    BG1,
+    BG2,
+    BG3,
+    BG4,
+    BG5,
+    BG6
   };
   GraphicManager();
 
