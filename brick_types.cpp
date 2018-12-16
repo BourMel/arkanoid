@@ -136,19 +136,8 @@ Brick13::Brick13() : Brick() {}
 
 Brick13::Brick13(Game *game, int line, int col)
     : Brick(1, line, col), m_game(game) {
-
   int level = m_game->getLevel();
-
-  if ((level > 0) && (level <= 8)) {
-    m_lives = 2;
-  } else if ((level > 8) && (level <= 16)) {
-    m_lives = 3;
-  } else if ((level > 16) && (level <= 24)) {
-    m_lives = 4;
-  } else if ((level > 24) && (level <= 32)) {
-    m_lives = 5;
-  }
-
+  m_lives = 2 + (int)(level / 2);
   m_id = 13;
   m_points = 100 * level;
   m_src = Sprite::get(Sprite::BRICK_GREY);
