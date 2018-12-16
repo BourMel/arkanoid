@@ -2,13 +2,14 @@
 #define LASER_H
 
 #include "drawable.h"
+#include "graphicmanager.h"
 
 class Game;
 
 class Laser : public Drawable {
 public:
-  Laser(SDL_Rect position);
-  Laser(SDL_Rect position, Game *game);
+  Laser(Box position);
+  Laser(Box position, Game *game);
 
   void drawCallback();
   static void setState(bool value);

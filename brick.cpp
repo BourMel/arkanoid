@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 #include <cmath>
 #include <iostream>
 
@@ -27,10 +26,10 @@ Brick::Brick(int lives, int line, int col)
  * and will return true if the brick need to be destructed or false otherwise
  */
 bool Brick::checkCollision(Ball &ball) {
-  SDL_Rect ballRect = ball.getRect();
+  Box ballRect = ball.getRect();
 
   // if there is a collision between the ball and the brick
-  if (SDL_HasIntersection(&ballRect, &m_rect)) {
+  if (GraphicManager::hasIntersection(&ballRect, &m_rect)) {
 
     // get last position of the ball
     int oldPosX = ballRect.x - ball.getSpeedX();

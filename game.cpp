@@ -47,7 +47,7 @@ void Game::run() {
     m_wm->update();
   }
 
-  SDL_Quit();
+  GraphicManager::quit();
 }
 
 /**

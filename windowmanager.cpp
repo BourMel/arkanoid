@@ -313,8 +313,8 @@ void WindowManager::drawLevel() {
       std::shared_ptr<Laser> currentLaser = m_lasers.at(j);
 
       // check laser-brick collision
-      if (SDL_HasIntersection(&currentLaser->getRect(),
-                              &currentBrick->getRect())) {
+      if (GraphicManager::hasIntersection(&currentLaser->getRect(),
+                                          &currentBrick->getRect())) {
 
         // add points for destructing this brick
         m_game->addPointsToGame(currentBrick->getPoints());
@@ -342,8 +342,8 @@ void WindowManager::drawLevel() {
     GraphicManager::draw(current);
 
     // check bonus-player collision
-    if (SDL_HasIntersection(&current->getRect(),
-                            &m_game->getPlayer()->getRect())) {
+    if (GraphicManager::hasIntersection(&current->getRect(),
+                                        &m_game->getPlayer()->getRect())) {
       m_game->resetBonus();
       current->action();
       m_game->addPointsToGame(1000);
@@ -395,18 +395,18 @@ void WindowManager::drawLevel() {
 
 // update window surface
 void WindowManager::update() {
-  SDL_UpdateWindowSurface(m_window);
+  GraphicManager::updateWindowSurface(m_window);
 
   m_prev = m_now;
   m_now = GraphicManager::getPerformanceCounter();
-  m_deltaTime =
-      (double)((m_now - m_prev) * 1000 / (double)SDL_GetPerformanceFrequency());
+  m_deltaTime = (double)((m_now - m_prev) * 1000 /
+                         GraphicManager::getPerformanceFrequency());
 
   if (m_deltaTime < 20) {
-    SDL_Delay(20 - m_deltaTime);
+    GraphicManager::delay(20 - m_deltaTime);
     m_now = GraphicManager::getPerformanceCounter();
     m_deltaTime = (double)((m_now - m_prev) * 1000 /
-                           (double)SDL_GetPerformanceFrequency());
+                           GraphicManager::getPerformanceFrequency());
   }
 }
 

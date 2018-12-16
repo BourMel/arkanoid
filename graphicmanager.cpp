@@ -1,4 +1,5 @@
 #include "graphicmanager.h"
+#include "drawable.h"
 #include "sprite.h"
 #include <iostream>
 
@@ -7,13 +8,14 @@
 Window *GraphicManager::m_window = nullptr;
 Surface *GraphicManager::m_windowSurface = nullptr;
 Surface *GraphicManager::m_sprites = nullptr;
+GraphicManager *GraphicManager::m_instance = nullptr;
 
 /**
  * Default constructor
  */
-GraphicManager *GraphicManager::m_instance = nullptr;
-
 GraphicManager::GraphicManager() {}
+
+GraphicManager::~GraphicManager() { delete m_instance; }
 
 GraphicManager *GraphicManager::getInstance() {
   if (m_instance != nullptr)
@@ -36,7 +38,7 @@ void GraphicManager::init() {
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
 }
 
-Window *GraphicManager::createWindow(int width, int height) {
+Window *GraphicManager::createWindow(const int width, const int height) {
   m_window =
       SDL_CreateWindow(GAME_TITLE, SDL_WINDOWPOS_CENTERED,
                        SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
@@ -52,7 +54,11 @@ Uint64 GraphicManager::getPerformanceCounter() {
   return SDL_GetPerformanceCounter();
 }
 
-void GraphicManager::setBackgroud(Uint32 color) {
+double GraphicManager::getPerformanceFrequency() {
+  return SDL_GetPerformanceFrequency();
+}
+
+void GraphicManager::setBackgroud(const Uint32 color) {
   SDL_FillRect(m_windowSurface, NULL, color);
 }
 
@@ -76,12 +82,25 @@ void GraphicManager::draw(Drawable *d) {
 
 void GraphicManager::draw(std::shared_ptr<Drawable> d) { draw(d.get()); }
 
+bool GraphicManager::hasIntersection(const Box *a, const Box *b) {
+  return SDL_HasIntersection(a, b);
+}
+
+void GraphicManager::updateWindowSurface(Window *w) {
+  SDL_UpdateWindowSurface(w);
+}
+
+void GraphicManager::quit() { SDL_Quit(); }
+
+void GraphicManager::delay(Uint32 ms) { SDL_Delay(ms); }
+
 /**
  * Create a text zone on the screen at (`x`, `y`) and print the text `str`
  */
-void GraphicManager::printText(int x, int y, std::string str) {
+void GraphicManager::printText(const int x, const int y,
+                               const std::string str) {
   Box rect = {x, y, ASCII_SIZE, ASCII_SIZE};
-  for (char &c : str) {
+  for (const char &c : str) {
     Box box = Sprite::get(Sprite::getTypeFromChar(c));
     draw(Drawable(rect, box));
     rect.x += ASCII_SIZE * 0.6;

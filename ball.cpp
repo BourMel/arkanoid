@@ -103,7 +103,7 @@ void Ball::move(Player *player) {
     }
 
     // player collision
-    if (SDL_HasIntersection(&m_rect, &player->getRect())) {
+    if (GraphicManager::hasIntersection(&m_rect, &player->getRect())) {
       if (player->getCatchBall()) {
         m_rect.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
         m_rect.y = player->getRect().y - player->getRect().h;

@@ -31,43 +31,43 @@ protected:
 
 class BonusS : public Bonus {
 public:
-  BonusS(Game *game, SDL_Rect pos);
+  BonusS(Game *game, Box pos);
   void action();
 };
 
 class BonusC : public Bonus {
 public:
-  BonusC(Game *game, SDL_Rect pos);
+  BonusC(Game *game, Box pos);
   void action();
 };
 
 class BonusL : public Bonus {
 public:
-  BonusL(Game *game, SDL_Rect pos);
+  BonusL(Game *game, Box pos);
   void action();
 };
 
 class BonusE : public Bonus {
 public:
-  BonusE(Game *game, SDL_Rect pos);
+  BonusE(Game *game, Box pos);
   void action();
 };
 
 class BonusD : public Bonus {
 public:
-  BonusD(Game *game, SDL_Rect pos);
+  BonusD(Game *game, Box pos);
   void action();
 };
 
 class BonusB : public Bonus {
 public:
-  BonusB(Game *game, SDL_Rect pos);
+  BonusB(Game *game, Box pos);
   void action();
 };
 
 class BonusP : public Bonus {
 public:
-  BonusP(Game *game, SDL_Rect pos);
+  BonusP(Game *game, Box pos);
   void action();
 };
 
