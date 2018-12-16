@@ -18,14 +18,14 @@
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
       m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416), m_height(550),
-      m_height_start(50), m_nbLines(0), m_nbColumns(0) {
+      m_height_start(70), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
 WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
       m_sprites(nullptr), m_srcBg(Sprite::get(Sprite::Type::BG1)), m_width(416),
-      m_height_start(50), m_height(550), m_nbLines(0), m_nbColumns(0) {
+      m_height_start(70), m_height(550), m_nbLines(0), m_nbColumns(0) {
   init();
 }
 
@@ -109,11 +109,10 @@ void WindowManager::readLevelFile(int level) {
   int x;
   int nbBricks(0);
 
-
   // number of bricks required to center the level in the window
   // since all levels can have a different width
   // 13 = max number of bricks
-  int completeBricks = (int)((13 - m_nbColumns)/2);
+  int completeBricks = (int)((13 - m_nbColumns) / 2);
 
   while (f >> x) {
     if (x > 0) {
@@ -180,7 +179,7 @@ void WindowManager::readLevelFile(int level) {
  */
 void WindowManager::drawMenu() {
   SDL_Rect logoSrc = Sprite::get(Sprite::LOGO);
-  SDL_Rect logoRect = {100, 150, logoSrc.w, logoSrc.h};
+  SDL_Rect logoRect = {70, 150, logoSrc.w, logoSrc.h};
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
 
@@ -225,17 +224,35 @@ void WindowManager::drawLevel() {
   SDL_Rect pRect = player->getRect();
   std::string level = std::to_string(m_game->getLevel());
 
-  SDL_Rect dest = {0, 0, 0, 0};
-
   SDL_FillRect(m_windowSurface, NULL, 0x302C2C);
 
   // background
+  SDL_Rect dest = {0, 0, 0, 0};
+
   for (int j = m_height_start; j < m_windowSurface->h; j += m_srcBg.h) {
     for (int i = 0; i < m_windowSurface->w; i += m_srcBg.w) {
       dest.x = i;
       dest.y = j;
       SDL_BlitSurface(m_sprites, &m_srcBg, m_windowSurface, &dest);
     }
+  }
+
+  // shadow in background
+  SDL_Rect shadow = {m_srcBg.x, m_srcBg.y + m_srcBg.h, m_srcBg.w, 10};
+  dest = {0, m_height_start, 0, 0};
+
+  for (int i = 0; i < m_windowSurface->w; i += shadow.w) {
+    dest.x = i;
+    SDL_BlitSurface(m_sprites, &shadow, m_windowSurface, &dest);
+  }
+
+  // top of the screen
+  SDL_Rect topSprite = Sprite::get(Sprite::Type::TOP);
+  dest = {0, m_height_start - topSprite.h, 0, 0};
+
+  for (int i = 0; i < m_windowSurface->w; i += topSprite.w) {
+    dest.x = i;
+    SDL_BlitSurface(m_sprites, &topSprite, m_windowSurface, &dest);
   }
 
   // display and move all balls

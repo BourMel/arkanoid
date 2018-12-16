@@ -121,7 +121,9 @@ public:
     BG3,
     BG4,
     BG5,
-    BG6
+    BG6,
+
+    TOP
   };
 
   static Box get(const Type type);
