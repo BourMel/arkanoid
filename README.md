@@ -1,6 +1,10 @@
 Arkanoid
 ========
 
+Ce programme est une implémentation en C++ du jeu de casse-briques Arkanoid.
+
+Cette version comprend plusieurs niveaux, lus à partir de fichiers texte, ainsi que l'ensemble des bonus de la version originale.
+
 ## Prérequis
 
 Il faut avoir une version de `cmake` relativement récente.

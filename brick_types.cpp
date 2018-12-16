@@ -156,6 +156,9 @@ Brick13::Brick13(Game *game, int line, int col)
 
 void Brick13::animate() { m_animated = true; }
 
+/**
+ * Callback each time the object is drawn
+ */
 void Brick13::drawCallback() {
   if (m_animated && ++m_animFrame % 5 == 0) {
     m_src.x += BRICK_WIDTH;
@@ -180,6 +183,9 @@ Brick14::Brick14(int line, int col) : Brick(-1, line, col) {
 
 void Brick14::animate() { m_animated = true; }
 
+/**
+ * Callback each time the object is drawn
+ */
 void Brick14::drawCallback() {
   if (m_animated && ++m_animFrame % 5 == 0) {
     m_src.x += BRICK_WIDTH;
