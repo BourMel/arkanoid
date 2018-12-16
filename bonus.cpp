@@ -42,8 +42,8 @@ void Bonus::initTimer() { bonusTimer = 0; }
  */
 bool Bonus::isTimeUp() {
   if (activeBonus) {
-    // bonus last 200 frames
-    if (bonusTimer < 200) {
+    // bonus last 1000 frames
+    if (bonusTimer < 1000) {
       bonusTimer++;
     } else {
       activeBonus = false;

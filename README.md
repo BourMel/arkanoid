@@ -5,6 +5,14 @@ Ce programme est une implémentation en C++ du jeu de casse-briques Arkanoid.
 
 Cette version comprend plusieurs niveaux, lus à partir de fichiers texte, ainsi que l'ensemble des bonus de la version originale.
 
+## Commandes en jeu
+
+Il est possible de jouer à la souris comme au clavier.
+- Menus : touche Entrée ou clic
+- Déplacement : flèches directionnelles ou déplacement de la souris
+- Lancement de la balle / des lasers : espace ou clic
+- Passage au niveau suivant (à des fins de test) : touche N
+
 ## Prérequis
 
 Il faut avoir une version de `cmake` relativement récente.

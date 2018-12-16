@@ -17,7 +17,7 @@
 WindowManager::WindowManager()
     : m_window(nullptr), m_windowSurface(nullptr), m_sprites(nullptr),
       m_srcBg(GraphicManager::getSprite(GraphicManager::SpriteType::BG1)),
-      m_width(600), m_height(600), m_height_start(50), m_nbLines(0),
+      m_width(416), m_height(550), m_height_start(50), m_nbLines(0),
       m_nbColumns(0) {
   init();
 }
@@ -26,7 +26,7 @@ WindowManager::WindowManager(Game *game)
     : m_game(game), m_window(nullptr), m_windowSurface(nullptr),
       m_sprites(nullptr),
       m_srcBg(GraphicManager::getSprite(GraphicManager::SpriteType::BG1)),
-      m_width(600), m_height_start(50), m_height(600), m_nbLines(0),
+      m_width(416), m_height_start(50), m_height(550), m_nbLines(0),
       m_nbColumns(0) {
   init();
 }
