@@ -10,38 +10,32 @@
 #define DEFAULT_Y_SPEED 4
 
 Ball::Ball()
-    : m_ball({0, 0, BALL_SIZE, BALL_SIZE}), m_speedX(DEFAULT_X_SPEED),
-      m_speedY(DEFAULT_Y_SPEED), m_windowX(0), m_windowY(0),
-      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false),
-      m_slowed(false) {}
+    : Drawable({0, 0, BALL_SIZE, BALL_SIZE}, {50, 68, BALL_SIZE, BALL_SIZE}),
+      m_speedX(DEFAULT_X_SPEED), m_speedY(DEFAULT_Y_SPEED), m_windowX(0),
+      m_windowY(0), m_isMoving(false), m_slowed(false) {}
 
 Ball::Ball(Game *game)
-    : m_game(game), m_speedX(DEFAULT_X_SPEED), m_speedY(DEFAULT_Y_SPEED),
-      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(false),
-      m_slowed(false) {
+    : Drawable(), m_game(game), m_speedX(DEFAULT_X_SPEED),
+      m_speedY(DEFAULT_Y_SPEED), m_isMoving(false), m_slowed(false) {
+
   m_windowX = game->getWindowManager()->getWindowWidth();
   m_windowY = game->getWindowManager()->getWindowHeight();
-  m_ball = {m_windowX / 2, m_windowY - PLAYER_HEIGHT - BALL_SIZE, BALL_SIZE,
+
+  m_rect = {m_windowX / 2, m_windowY - PLAYER_HEIGHT - BALL_SIZE, BALL_SIZE,
             BALL_SIZE};
+  m_src = {50, 68, BALL_SIZE, BALL_SIZE};
 }
 
 Ball::Ball(Game *game, Ball *b)
-    : m_game(game), m_speedX(rand() % 8 - 5), m_speedY(-rand() % 8 - 1),
-      m_src({50, 68, BALL_SIZE, BALL_SIZE}), m_isMoving(true), m_slowed(false) {
+    : Drawable(), m_game(game), m_speedX(rand() % 8 - 5),
+      m_speedY(-rand() % 8 - 1), m_isMoving(true), m_slowed(false) {
+
   m_windowX = game->getWindowManager()->getWindowWidth();
   m_windowY = game->getWindowManager()->getWindowHeight();
-  m_ball = b->getRect();
+
+  m_rect = b->getRect();
+  m_src = {50, 68, BALL_SIZE, BALL_SIZE};
 }
-
-/**
- * Returns the ball object
- */
-SDL_Rect Ball::getRect() const { return m_ball; }
-
-/**
- * Returns the sprite position
- */
-SDL_Rect Ball::getSrc() const { return m_src; }
 
 /**
  * If moving = true, the ball will be moving on the screen
@@ -55,8 +49,8 @@ void Ball::move(Player *player) {
   int playerPosition = player->getX();
   int playerWidth = player->getRect().w;
   int topY = m_game->getWindowManager()->getWindowHeightStart();
-  int oldPosX = m_ball.x;
-  int oldPosY = m_ball.y;
+  int oldPosX = m_rect.x;
+  int oldPosY = m_rect.y;
 
   bool cylinderModeEnabled = m_game->getCylinderMode();
 
@@ -65,38 +59,38 @@ void Ball::move(Player *player) {
 
     // bonus "slow" is active
     if (m_slowed) {
-      m_ball.x += m_speedX * 0.5;
-      m_ball.y += m_speedY * 0.5;
+      m_rect.x += m_speedX * 0.5;
+      m_rect.y += m_speedY * 0.5;
 
     } else {
-      m_ball.x += m_speedX;
-      m_ball.y += m_speedY;
+      m_rect.x += m_speedX;
+      m_rect.y += m_speedY;
     }
 
-    if (m_ball.x < 1) { // left collision
+    if (m_rect.x < 1) { // left collision
       if (cylinderModeEnabled) {
-        m_ball.x = m_windowX - BALL_SIZE;
+        m_rect.x = m_windowX - BALL_SIZE;
       } else {
         bounceX();
-        if (m_ball.x < 0)
-          m_ball.x = 0;
+        if (m_rect.x < 0)
+          m_rect.x = 0;
       }
 
-    } else if (m_ball.y < topY + 1) { // top collision
+    } else if (m_rect.y < topY + 1) { // top collision
       bounceY();
-      if (m_ball.y < topY)
-        m_ball.y = topY;
+      if (m_rect.y < topY)
+        m_rect.y = topY;
 
-    } else if (m_ball.x > m_windowX - BALL_SIZE) { // right collision
+    } else if (m_rect.x > m_windowX - BALL_SIZE) { // right collision
       if (cylinderModeEnabled) {
-        m_ball.x = 0;
+        m_rect.x = 0;
       } else {
-        m_ball.x = -m_ball.x + (2 * (m_windowX - BALL_SIZE));
+        m_rect.x = -m_rect.x + (2 * (m_windowX - BALL_SIZE));
         bounceX();
       }
 
-    } else if (m_ball.y > m_windowY - BALL_SIZE) { // bottom collision
-      m_ball.y = -m_ball.y + (2 * (m_windowY - BALL_SIZE));
+    } else if (m_rect.y > m_windowY - BALL_SIZE) { // bottom collision
+      m_rect.y = -m_rect.y + (2 * (m_windowY - BALL_SIZE));
       bounceY();
 
       if (m_game->getBalls().size() == 1) {
@@ -109,15 +103,15 @@ void Ball::move(Player *player) {
     }
 
     // player collision
-    if (SDL_HasIntersection(&m_ball, &player->getRect())) {
+    if (SDL_HasIntersection(&m_rect, &player->getRect())) {
       if (player->getCatchBall()) {
-        m_ball.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
-        m_ball.y = player->getRect().y - player->getRect().h;
+        m_rect.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
+        m_rect.y = player->getRect().y - player->getRect().h;
       } else {
         // the next direction of the ball depends on where it hits the player :
         // allows the player to choose the direction of the ball
         double positionOnPlayer =
-            (double)((double)(m_ball.x - playerPosition) / (double)playerWidth);
+            (double)((double)(m_rect.x - playerPosition) / (double)playerWidth);
         // speed between -10 et 10 (range of 20), using the ball position
         m_speedX = positionOnPlayer * 20 - 10;
 
@@ -126,8 +120,8 @@ void Ball::move(Player *player) {
     }
 
   } else { // ball not moving : it sticks on the player
-    m_ball.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
-    m_ball.y = m_windowY - PLAYER_HEIGHT - BALL_SIZE;
+    m_rect.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
+    m_rect.y = m_windowY - PLAYER_HEIGHT - BALL_SIZE;
   }
 }
 
@@ -164,9 +158,9 @@ void Ball::resetSpeed() { m_slowed = false; }
 /**
  * Set x coord for the ball
  */
-void Ball::setX(int x) { m_ball.x = x; }
+void Ball::setX(int x) { m_rect.x = x; }
 
 /**
  * Set y coord for the ball
  */
-void Ball::setY(int y) { m_ball.y = y; }
+void Ball::setY(int y) { m_rect.y = y; }

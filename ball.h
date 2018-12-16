@@ -6,7 +6,7 @@
 
 class Game;
 
-class Ball {
+class Ball : public Drawable {
 public:
   Ball();
   Ball(Game *game);
@@ -14,8 +14,6 @@ public:
 
   void setMoving(bool moving);
 
-  SDL_Rect getRect() const;
-  SDL_Rect getSrc() const;
   void move(Player *player);
   void bounceX();
   void bounceY();
@@ -27,9 +25,6 @@ public:
   void setY(int y);
 
 private:
-  SDL_Rect m_ball;
-  SDL_Rect m_src;
-
   bool m_isMoving;
 
   int m_speedX;
