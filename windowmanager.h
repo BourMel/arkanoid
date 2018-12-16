@@ -1,12 +1,12 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
-#include <SDL2/SDL.h>
 #include <memory>
 #include <vector>
 
 #include "bonus.h"
 #include "brick.h"
+#include "graphicmanager.h"
 #include "laser.h"
 
 class Game;
@@ -40,11 +40,11 @@ public:
   void addLasers();
 
 private:
-  SDL_Window *m_window;
-  SDL_Surface *m_windowSurface;
-  SDL_Surface *m_sprites;
-  SDL_Rect m_srcBg;
-  SDL_Rect m_srcLive;
+  Window *m_window;
+  Surface *m_windowSurface;
+  Surface *m_sprites;
+  Box m_srcBg;
+  Box m_srcLive;
   int m_width;
   int m_height;
   int m_height_start;

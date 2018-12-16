@@ -10,7 +10,7 @@ Brick::Brick()
     : Drawable({0, 0, BRICK_WIDTH, BRICK_HEIGHT},
                {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
       m_lives(1), m_points(50), m_id(0), m_animated(false) {
-  m_src = GraphicManager::getSprite(GraphicManager::BRICK_WHITE);
+  m_src = Sprite::get(Sprite::BRICK_WHITE);
 }
 
 Brick::Brick(int lives, int line, int col)
@@ -18,7 +18,7 @@ Brick::Brick(int lives, int line, int col)
                 BRICK_HEIGHT},
                {0, 0, BRICK_WIDTH, BRICK_HEIGHT}),
       m_lives(lives), m_points(50), m_id(0), m_animated(false) {
-  m_src = GraphicManager::getSprite(GraphicManager::BRICK_WHITE);
+  m_src = Sprite::get(Sprite::BRICK_WHITE);
 }
 
 /**

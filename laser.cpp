@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 #include <cmath>
 #include <iostream>
 
@@ -8,14 +7,14 @@
 
 bool Laser::m_state = false;
 
-Laser::Laser(SDL_Rect position)
+Laser::Laser(Box position)
     : Drawable({position.x, position.y, 10, 36}, {0, 0, 0, 0}),
       m_game(nullptr) {
-  m_src = GraphicManager::getSprite(GraphicManager::LASER);
+  m_src = Sprite::get(Sprite::LASER);
 }
-Laser::Laser(SDL_Rect position, Game *game)
+Laser::Laser(Box position, Game *game)
     : Drawable({position.x, position.y, 10, 36}, {0, 0, 0, 0}), m_game(game) {
-  m_src = GraphicManager::getSprite(GraphicManager::LASER);
+  m_src = Sprite::get(Sprite::LASER);
 }
 
 /**

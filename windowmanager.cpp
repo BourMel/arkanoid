@@ -12,6 +12,7 @@
 #include "game.h"
 #include "graphicmanager.h"
 #include "player.h"
+#include "sprite.h"
 #include "windowmanager.h"
 
 WindowManager::WindowManager()
@@ -49,8 +50,7 @@ void WindowManager::init() {
   m_sprites = SDL_LoadBMP("./sprites.bmp");
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
 
-  m_srcLive =
-      GraphicManager::getSprite(GraphicManager::SpriteType::PLAYER_LIFE);
+  m_srcLive = Sprite::get(Sprite::Type::PLAYER_LIFE);
 
   readLevelFile(1);
 }
@@ -147,7 +147,7 @@ void WindowManager::readLevelFile(int level) {
  * Draw screen menu
  */
 void WindowManager::drawMenu() {
-  SDL_Rect logoSrc = GraphicManager::getSprite(GraphicManager::LOGO);
+  SDL_Rect logoSrc = Sprite::get(Sprite::LOGO);
   SDL_Rect logoRect = {100, 150, logoSrc.w, logoSrc.h};
   // fill the screen with black
   SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);

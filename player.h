@@ -3,6 +3,7 @@
 
 #include "drawable.h"
 #include "graphicmanager.h"
+#include "sprite.h"
 
 class Game;
 
@@ -17,7 +18,7 @@ public:
   void winLife();
   void grow();
   int getLives() const;
-  void setSprite(GraphicManager::SpriteType type);
+  void setSprite(Sprite::Type type);
   void setCatchBall(bool b);
   bool getCatchBall() const;
   void reset();

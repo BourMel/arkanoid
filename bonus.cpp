@@ -62,9 +62,9 @@ bool Bonus::isTimeUp() {
 /**
  * Slow the ball
  */
-BonusS::BonusS(Game *game, SDL_Rect pos) : Bonus(game) {
+BonusS::BonusS(Game *game, Box pos) : Bonus(game) {
   m_rect = pos;
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_S);
+  m_src = Sprite::get(Sprite::BONUS_S);
 }
 void BonusS::action() {
   for (auto ball : m_game->getBalls()) {
@@ -75,45 +75,45 @@ void BonusS::action() {
 /**
  * Catch the ball
  */
-BonusC::BonusC(Game *game, SDL_Rect pos) : Bonus(game) {
+BonusC::BonusC(Game *game, Box pos) : Bonus(game) {
   m_rect = pos;
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_C);
+  m_src = Sprite::get(Sprite::BONUS_C);
 }
 void BonusC::action() { m_game->getPlayer()->setCatchBall(true); }
 
 /**
  * Creates 2 lasers that the player can use
  */
-BonusL::BonusL(Game *game, SDL_Rect pos) : Bonus(game) {
+BonusL::BonusL(Game *game, Box pos) : Bonus(game) {
   m_rect = pos;
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_L);
+  m_src = Sprite::get(Sprite::BONUS_L);
 }
 void BonusL::action() { Laser::setState(true); }
 
 /**
  * Expends the player
  */
-BonusE::BonusE(Game *game, SDL_Rect pos) : Bonus(game) {
+BonusE::BonusE(Game *game, Box pos) : Bonus(game) {
   m_rect = pos;
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_E);
+  m_src = Sprite::get(Sprite::BONUS_E);
 }
 void BonusE::action() { m_game->getPlayer()->grow(); }
 
 /**
  * 3 balls
  */
-BonusD::BonusD(Game *game, SDL_Rect pos) : Bonus(game) {
+BonusD::BonusD(Game *game, Box pos) : Bonus(game) {
   m_rect = pos;
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_D);
+  m_src = Sprite::get(Sprite::BONUS_D);
 }
 void BonusD::action() { m_game->threeBalls(); }
 
 /**
  * Next round
  */
-BonusB::BonusB(Game *game, SDL_Rect pos) : Bonus(game) {
+BonusB::BonusB(Game *game, Box pos) : Bonus(game) {
   m_rect = pos;
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_B);
+  m_src = Sprite::get(Sprite::BONUS_B);
 }
 void BonusB::action() {
   m_game->addPointsToGame(10000);
@@ -123,8 +123,8 @@ void BonusB::action() {
 /**
  * Add a life to player
  */
-BonusP::BonusP(Game *game, SDL_Rect pos) : Bonus(game) {
+BonusP::BonusP(Game *game, Box pos) : Bonus(game) {
   m_rect = pos;
-  m_src = GraphicManager::getSprite(GraphicManager::BONUS_P);
+  m_src = Sprite::get(Sprite::BONUS_P);
 }
 void BonusP::action() { m_game->getPlayer()->winLife(); }
