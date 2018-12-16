@@ -1,4 +1,3 @@
-#include <SDL2/SDL.h>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -33,19 +32,9 @@ WindowManager::WindowManager(Game *game)
  * Init SDL window
  */
 void WindowManager::init() {
-  // check if SDL is successfuly loaded
-  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-    std::cerr << "Error during SDL initialization: " << SDL_GetError()
-              << std::endl;
-    exit(1);
-  }
-
-  m_window = SDL_CreateWindow("Arkanoid", SDL_WINDOWPOS_CENTERED,
-                              SDL_WINDOWPOS_CENTERED, m_width, m_height,
-                              SDL_WINDOW_SHOWN);
-  m_windowSurface = SDL_GetWindowSurface(m_window);
-
-  m_now = SDL_GetPerformanceCounter();
+  m_window = GraphicManager::createWindow(m_width, m_height);
+  m_windowSurface = GraphicManager::getWindowSurface(m_window);
+  m_now = GraphicManager::getPerformanceCounter();
 
   m_sprites = SDL_LoadBMP("./sprites.bmp");
   SDL_SetColorKey(m_sprites, true, 0); // 0: 00/00/00 black -> transparent
@@ -178,11 +167,10 @@ void WindowManager::readLevelFile(int level) {
  * Draw screen menu
  */
 void WindowManager::drawMenu() {
-  SDL_Rect logoSrc = Sprite::get(Sprite::LOGO);
-  SDL_Rect logoRect = {70, 150, logoSrc.w, logoSrc.h};
-  // fill the screen with black
-  SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
+  Box logoSrc = Sprite::get(Sprite::LOGO);
+  Box logoRect = {70, 150, logoSrc.w, logoSrc.h};
 
+  GraphicManager::setBlackBackground();
   SDL_BlitSurface(m_sprites, &logoSrc, m_windowSurface, &logoRect);
   GraphicManager::printText(m_width / 2 - 190, 400, m_sprites, m_windowSurface,
                             "Press ENTER to begin");
@@ -192,12 +180,9 @@ void WindowManager::drawMenu() {
  * Draw "congratulations" screen
  */
 void WindowManager::drawWin() {
-  // fill the screen with black
-  SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
-
+  GraphicManager::setBlackBackground();
   GraphicManager::printText(m_width / 2 - 150, 200, m_sprites, m_windowSurface,
                             "Congratulations");
-
   GraphicManager::printText(m_width / 2 - 170, 400, m_sprites, m_windowSurface,
                             "Restart with ENTER");
 }
@@ -206,12 +191,9 @@ void WindowManager::drawWin() {
  * Draw "game over" screen
  */
 void WindowManager::drawLose() {
-  // fill the screen with black
-  SDL_FillRect(SDL_GetWindowSurface(m_window), NULL, 0);
-
+  GraphicManager::setBlackBackground();
   GraphicManager::printText(m_width / 2 - 90, 200, m_sprites, m_windowSurface,
                             "Game Over");
-
   GraphicManager::printText(m_width / 2 - 170, 400, m_sprites, m_windowSurface,
                             "Restart with ENTER");
 }
@@ -221,13 +203,13 @@ void WindowManager::drawLose() {
  */
 void WindowManager::drawLevel() {
   Player *player = m_game->getPlayer();
-  SDL_Rect pRect = player->getRect();
+  Box pRect = player->getRect();
   std::string level = std::to_string(m_game->getLevel());
 
-  SDL_FillRect(m_windowSurface, NULL, 0x302C2C);
+  GraphicManager::setBackgroud(0x302C2C);
 
   // background
-  SDL_Rect dest = {0, 0, 0, 0};
+  Box dest = {0, 0, 0, 0};
 
   for (int j = m_height_start; j < m_windowSurface->h; j += m_srcBg.h) {
     for (int i = 0; i < m_windowSurface->w; i += m_srcBg.w) {
@@ -238,7 +220,7 @@ void WindowManager::drawLevel() {
   }
 
   // shadow in background
-  SDL_Rect shadow = {m_srcBg.x, m_srcBg.y + m_srcBg.h, m_srcBg.w, 10};
+  Box shadow = {m_srcBg.x, m_srcBg.y + m_srcBg.h, m_srcBg.w, 10};
   dest = {0, m_height_start, 0, 0};
 
   for (int i = 0; i < m_windowSurface->w; i += shadow.w) {
@@ -247,7 +229,7 @@ void WindowManager::drawLevel() {
   }
 
   // top of the screen
-  SDL_Rect topSprite = Sprite::get(Sprite::Type::TOP);
+  Box topSprite = Sprite::get(Sprite::Type::TOP);
   dest = {0, m_height_start - topSprite.h, 0, 0};
 
   for (int i = 0; i < m_windowSurface->w; i += topSprite.w) {
@@ -257,8 +239,8 @@ void WindowManager::drawLevel() {
 
   // display and move all balls
   for (auto ball : m_game->getBalls()) {
-    SDL_Rect ballRect = ball->getRect();
-    SDL_Rect srcBall = ball->getSrc();
+    Box ballRect = ball->getRect();
+    Box srcBall = ball->getSrc();
 
     // display ball
     SDL_BlitSurface(m_sprites, &srcBall, m_windowSurface, &ballRect);
@@ -279,7 +261,7 @@ void WindowManager::drawLevel() {
   // display undestructable bricks
   for (int i = 0; i < m_undestructibleBricks.size(); i++) {
     std::shared_ptr<Brick> currentBrick = m_undestructibleBricks.at(i);
-    SDL_Rect bRect = currentBrick->getRect();
+    Box bRect = currentBrick->getRect();
     SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
                     &bRect);
     currentBrick->drawCallback();
@@ -293,7 +275,7 @@ void WindowManager::drawLevel() {
   // display bricks
   for (int i = 0; i < m_bricks.size(); i++) {
     std::shared_ptr<Brick> currentBrick = m_bricks.at(i);
-    SDL_Rect bRect = currentBrick->getRect();
+    Box bRect = currentBrick->getRect();
     SDL_BlitSurface(m_sprites, &currentBrick->getSrc(), m_windowSurface,
                     &bRect);
     currentBrick->drawCallback();
@@ -376,7 +358,7 @@ void WindowManager::drawLevel() {
   // display bonus & make them fall
   for (int i = 0; i < m_bonus.size(); i++) {
     std::shared_ptr<Bonus> current = m_bonus.at(i);
-    SDL_Rect current_rect = current->getRect();
+    Box current_rect = current->getRect();
     current->drawCallback();
 
     SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface,
@@ -407,7 +389,7 @@ void WindowManager::drawLevel() {
   // display lasers
   for (int i = 0; i < m_lasers.size(); i++) {
     std::shared_ptr<Laser> current = m_lasers.at(i);
-    SDL_Rect lRect = current->getRect();
+    Box lRect = current->getRect();
     SDL_BlitSurface(m_sprites, &current->getSrc(), m_windowSurface, &lRect);
     current->drawCallback();
 
@@ -443,13 +425,13 @@ void WindowManager::update() {
   SDL_UpdateWindowSurface(m_window);
 
   m_prev = m_now;
-  m_now = SDL_GetPerformanceCounter();
+  m_now = GraphicManager::getPerformanceCounter();
   m_deltaTime =
       (double)((m_now - m_prev) * 1000 / (double)SDL_GetPerformanceFrequency());
 
   if (m_deltaTime < 20) {
     SDL_Delay(20 - m_deltaTime);
-    m_now = SDL_GetPerformanceCounter();
+    m_now = GraphicManager::getPerformanceCounter();
     m_deltaTime = (double)((m_now - m_prev) * 1000 /
                            (double)SDL_GetPerformanceFrequency());
   }
@@ -466,7 +448,7 @@ int WindowManager::getWindowHeightStart() const { return m_height_start; }
 
 void WindowManager::addLasers() {
   Player *player = m_game->getPlayer();
-  SDL_Rect position = player->getRect();
+  Box position = player->getRect();
 
   // check there is no lasers left in the game
   if (m_lasers.size() > 0)

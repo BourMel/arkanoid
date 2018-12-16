@@ -9,6 +9,8 @@
 #include "player.h"
 #include "windowmanager.h"
 
+#define GAME_TITLE "Arkanoid"
+
 class Game {
 public:
   Game();
