@@ -2,7 +2,6 @@
 #define BALL_H
 
 #include "player.h"
-#include <SDL2/SDL.h>
 
 class Game;
 
