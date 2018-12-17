@@ -428,8 +428,8 @@ void WindowManager::addLasers() {
     return;
 
   std::shared_ptr<Laser> l1(new Laser(position));
-  std::shared_ptr<Laser> l2(
-      new Laser({position.x + position.w, position.y, position.w, position.h}));
+  std::shared_ptr<Laser> l2(new Laser(
+      {position.x + position.w - 10, position.y, position.w, position.h}));
   m_lasers.push_back(l1);
   m_lasers.push_back(l2);
 }

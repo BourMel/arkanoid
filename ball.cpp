@@ -57,14 +57,17 @@ void Ball::move(Player *player) {
   if (m_isMoving) {
     // move the ball
 
-    // bonus "slow" is active
-    if (m_slowed) {
-      m_rect.x += m_speedX * 0.5;
-      m_rect.y += m_speedY * 0.5;
+    if (!GraphicManager::hasIntersection(&m_rect, &player->getRect()) ||
+        !player->getCatchBall()) {
+      // bonus "slow" is active
+      if (m_slowed) {
+        m_rect.x += m_speedX * 0.5;
+        m_rect.y += m_speedY * 0.5;
 
-    } else {
-      m_rect.x += m_speedX;
-      m_rect.y += m_speedY;
+      } else {
+        m_rect.x += m_speedX;
+        m_rect.y += m_speedY;
+      }
     }
 
     if (m_rect.x < 1) { // left collision
@@ -106,7 +109,7 @@ void Ball::move(Player *player) {
     if (GraphicManager::hasIntersection(&m_rect, &player->getRect())) {
       if (player->getCatchBall()) {
         m_rect.x = playerPosition + (playerWidth / 2) - (BALL_SIZE / 2);
-        m_rect.y = player->getRect().y - player->getRect().h;
+        m_rect.y = m_windowY - PLAYER_HEIGHT - BALL_SIZE - 1;
       } else {
         // the next direction of the ball depends on where it hits the player :
         // allows the player to choose the direction of the ball
