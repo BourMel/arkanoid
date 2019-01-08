@@ -8,6 +8,8 @@ programmation avancée du premier semestre de master.
 Cette version comprend plusieurs niveaux, lus à partir de fichiers texte, ainsi
 que l'ensemble des bonus de la version originale.
 
+![Captures du jeu](./readme.png)
+
 ## Commandes en jeu
 
 Il est possible de jouer à la souris comme au clavier.
